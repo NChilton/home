@@ -182,7 +182,7 @@ body {
 body {
   background: var(--body-bg-color);
   color: var(--text-color);
-  font-family: Lato, 'PingFang SC', 'Segoe UI', 'Microsoft YaHei UI', , sans-serif;
+  font-family: Noto Sans SC, 'PingFang SC', 'Segoe UI', 'Microsoft YaHei UI', sans-serif;
   font-size: 1em;
   line-height: 1.6;
   min-height: 100%;
@@ -195,7 +195,7 @@ h3,
 h4,
 h5,
 h6 {
-  font-family: Lato, 'PingFang SC', 'Segoe UI', 'Microsoft YaHei UI', , sans-serif;
+  font-family: Noto Sans SC, 'PingFang SC', 'Segoe UI', 'Microsoft YaHei UI', sans-serif;
   font-weight: bold;
   line-height: 1.5;
   margin: 10px 0 10px;
@@ -424,7 +424,7 @@ pre figcaption a:hover {
 }
 pre,
 code {
-  font-family: Consolas, 'PingFang SC', 'Segoe UI', 'Microsoft YaHei UI', , monospace;
+  font-family: Consolas, 'PingFang SC', 'Segoe UI', 'Microsoft YaHei UI', monospace;
 }
 code {
   border-radius: 3px;
@@ -1132,7 +1132,7 @@ pre code {
   color: var(--brand-hover-color);
 }
 .site-title {
-  font-family: Lato, 'PingFang SC', 'Segoe UI', 'Microsoft YaHei UI', , sans-serif;
+  font-family: Noto Sans SC, 'PingFang SC', 'Segoe UI', 'Microsoft YaHei UI', sans-serif;
   font-size: 1.375em;
   font-weight: bold;
   color: var(--text-color);
@@ -1806,7 +1806,7 @@ pre code {
   width: 4px;
 }
 .post-body {
-  font-family: Lato, 'PingFang SC', 'Segoe UI', 'Microsoft YaHei UI', , sans-serif;
+  font-family: Noto Sans SC, 'PingFang SC', 'Segoe UI', 'Microsoft YaHei UI', sans-serif;
   overflow-wrap: break-word;
 }
 @media (min-width: 1200px) {
@@ -1993,7 +1993,7 @@ pre code {
 }
 .posts-expand .post-meta-container {
   color: #999;
-  font-family: Lato, 'PingFang SC', 'Segoe UI', 'Microsoft YaHei UI', , sans-serif;
+  font-family: Noto Sans SC, 'PingFang SC', 'Segoe UI', 'Microsoft YaHei UI', sans-serif;
   font-size: 0.75em;
   margin-top: 3px;
 }
