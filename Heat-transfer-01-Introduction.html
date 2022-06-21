@@ -19,20 +19,20 @@
 
 <script class="next-config" data-name="main" type="application/json">{"hostname":"example.com","root":"/","images":"/images","scheme":"Gemini","darkmode":false,"version":"8.12.1","exturl":false,"sidebar":{"position":"left","display":"post","padding":18,"offset":12},"copycode":{"enable":true,"style":null},"bookmark":{"enable":false,"color":"#222","save":"auto"},"mediumzoom":false,"lazyload":false,"pangu":false,"comments":{"style":"tabs","active":null,"storage":true,"lazyload":false,"nav":null},"stickytabs":false,"motion":{"enable":false,"async":false,"transition":{"post_block":"fadeIn","post_header":"fadeInDown","post_body":"fadeInDown","coll_header":"fadeInLeft","sidebar":"fadeInUp"}},"prism":false,"i18n":{"placeholder":"搜索...","empty":"没有找到任何搜索结果：${query}","hits_time":"找到 ${hits} 个搜索结果（用时 ${time} 毫秒）","hits":"找到 ${hits} 个搜索结果"}}</script><script src="/js/config.js"></script>
 
-    <meta name="description" content="本文参考杨世铭、陶文铨所著《传热学》第四版第一章  传热学的研究内容 传热学研究内容 传热学（Heat transfer）是研究由温差（temperature difference）引起的热能传递规律的科学。热力学第二定律指出：凡是有温差存在的地方，就有热能自发地从高温物体向低温物体传递（传递过程中的热能常称为热量）。这里所谓的热能传递规律，主要是指单位时间内所传递的热量（热能的多少">
+    <meta name="description" content="本文参考杨世铭、陶文铨所著《传热学》第四版第一章。传热学（Heat transfer）是研究由温差（temperature difference）引起的热能传递规律的科学。热力学第二定律指出：凡是有温差存在的地方，就有热能自发地从高温物体向低温物体传递（传递过程中的热能常称为热量）。这里所谓的热能传递规律，主要是指单位时间内所传递的热量（热能的多少）与物体中相应的温度差之间的关系，反应这种">
 <meta property="og:type" content="article">
 <meta property="og:title" content="传热学绪论">
 <meta property="og:url" content="http://example.com/Heat-transfer-01-Introduction.html">
 <meta property="og:site_name" content="Day day up!">
-<meta property="og:description" content="本文参考杨世铭、陶文铨所著《传热学》第四版第一章  传热学的研究内容 传热学研究内容 传热学（Heat transfer）是研究由温差（temperature difference）引起的热能传递规律的科学。热力学第二定律指出：凡是有温差存在的地方，就有热能自发地从高温物体向低温物体传递（传递过程中的热能常称为热量）。这里所谓的热能传递规律，主要是指单位时间内所传递的热量（热能的多少">
+<meta property="og:description" content="本文参考杨世铭、陶文铨所著《传热学》第四版第一章。传热学（Heat transfer）是研究由温差（temperature difference）引起的热能传递规律的科学。热力学第二定律指出：凡是有温差存在的地方，就有热能自发地从高温物体向低温物体传递（传递过程中的热能常称为热量）。这里所谓的热能传递规律，主要是指单位时间内所传递的热量（热能的多少）与物体中相应的温度差之间的关系，反应这种">
 <meta property="og:locale" content="zh_CN">
 <meta property="article:published_time" content="2021-04-22T16:00:00.000Z">
 <meta property="article:modified_time" content="2022-05-22T16:00:00.000Z">
 <meta property="article:author" content="Chilton Nieh">
+<meta property="article:tag" content="传热">
 <meta property="article:tag" content="导热">
 <meta property="article:tag" content="对流">
 <meta property="article:tag" content="辐射">
-<meta property="article:tag" content="传热">
 <meta property="article:tag" content="热阻">
 <meta name="twitter:card" content="summary">
 
@@ -120,7 +120,7 @@
       <div class="sidebar-panel-container">
         <!--noindex-->
         <div class="post-toc-wrap sidebar-panel">
-            <div class="post-toc animated"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#%E4%BC%A0%E7%83%AD%E5%AD%A6%E7%9A%84%E7%A0%94%E7%A9%B6%E5%86%85%E5%AE%B9"><span class="nav-number">1.</span> <span class="nav-text">传热学的研究内容</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#%E4%BC%A0%E7%83%AD%E5%AD%A6%E7%A0%94%E7%A9%B6%E5%86%85%E5%AE%B9"><span class="nav-number">1.1.</span> <span class="nav-text">传热学研究内容</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E4%BC%A0%E7%83%AD%E5%AD%A6%E7%A0%94%E7%A9%B6%E4%B8%AD%E7%9A%84%E8%BF%9E%E7%BB%AD%E4%BB%8B%E8%B4%A8%E5%81%87%E8%AE%BE"><span class="nav-number">1.2.</span> <span class="nav-text">传热学研究中的连续介质假设</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E4%BC%A0%E7%83%AD%E5%AD%A6%E4%B8%8E%E5%B7%A5%E7%A8%8B%E7%83%AD%E5%8A%9B%E5%AD%A6%E7%9A%84%E5%85%B3%E7%B3%BB"><span class="nav-number">1.3.</span> <span class="nav-text">传热学与工程热力学的关系</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E4%BC%A0%E7%83%AD%E5%AD%A6%E5%9C%A8%E5%90%84%E9%A2%86%E5%9F%9F%E4%B8%AD%E7%9A%84%E5%BA%94%E7%94%A8"><span class="nav-number">1.4.</span> <span class="nav-text">传热学在各领域中的应用</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E7%83%AD%E8%83%BD%E4%BC%A0%E9%80%92%E7%9A%84%E4%B8%89%E7%A7%8D%E5%9F%BA%E6%9C%AC%E6%96%B9%E5%BC%8F"><span class="nav-number">2.</span> <span class="nav-text">热能传递的三种基本方式</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#%E7%83%AD%E4%BC%A0%E5%AF%BC"><span class="nav-number">2.1.</span> <span class="nav-text">热传导</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E7%83%AD%E5%AF%B9%E6%B5%81"><span class="nav-number">2.2.</span> <span class="nav-text">热对流</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E7%83%AD%E8%BE%90%E5%B0%84"><span class="nav-number">2.3.</span> <span class="nav-text">热辐射</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E4%BC%A0%E7%83%AD%E8%BF%87%E7%A8%8B%E5%92%8C%E4%BC%A0%E7%83%AD%E7%B3%BB%E6%95%B0"><span class="nav-number">3.</span> <span class="nav-text">传热过程和传热系数</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#%E4%BC%A0%E7%83%AD%E6%96%B9%E7%A8%8B%E5%BC%8F"><span class="nav-number">3.1.</span> <span class="nav-text">传热方程式</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E4%BC%A0%E7%83%AD%E7%83%AD%E9%98%BB"><span class="nav-number">3.2.</span> <span class="nav-text">传热热阻</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%B0%8F%E7%BB%93"><span class="nav-number">4.</span> <span class="nav-text">小结</span></a></li></ol></div>
+            <div class="post-toc animated"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#%E4%BC%A0%E7%83%AD%E5%AD%A6%E7%9A%84%E7%A0%94%E7%A9%B6%E5%86%85%E5%AE%B9"><span class="nav-number">1.</span> <span class="nav-text">传热学的研究内容</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#%E4%BC%A0%E7%83%AD%E5%AD%A6%E7%A0%94%E7%A9%B6%E4%B8%AD%E7%9A%84%E8%BF%9E%E7%BB%AD%E4%BB%8B%E8%B4%A8%E5%81%87%E8%AE%BE"><span class="nav-number">1.1.</span> <span class="nav-text">传热学研究中的连续介质假设</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E4%BC%A0%E7%83%AD%E5%AD%A6%E4%B8%8E%E5%B7%A5%E7%A8%8B%E7%83%AD%E5%8A%9B%E5%AD%A6%E7%9A%84%E5%85%B3%E7%B3%BB"><span class="nav-number">1.2.</span> <span class="nav-text">传热学与工程热力学的关系</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E4%BC%A0%E7%83%AD%E5%AD%A6%E5%9C%A8%E5%90%84%E9%A2%86%E5%9F%9F%E4%B8%AD%E7%9A%84%E5%BA%94%E7%94%A8"><span class="nav-number">1.3.</span> <span class="nav-text">传热学在各领域中的应用</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E7%83%AD%E8%83%BD%E4%BC%A0%E9%80%92%E7%9A%84%E4%B8%89%E7%A7%8D%E5%9F%BA%E6%9C%AC%E6%96%B9%E5%BC%8F"><span class="nav-number">2.</span> <span class="nav-text">热能传递的三种基本方式</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#%E7%83%AD%E4%BC%A0%E5%AF%BC"><span class="nav-number">2.1.</span> <span class="nav-text">热传导</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E7%83%AD%E5%AF%B9%E6%B5%81"><span class="nav-number">2.2.</span> <span class="nav-text">热对流</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E7%83%AD%E8%BE%90%E5%B0%84"><span class="nav-number">2.3.</span> <span class="nav-text">热辐射</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E4%BC%A0%E7%83%AD%E8%BF%87%E7%A8%8B%E5%92%8C%E4%BC%A0%E7%83%AD%E7%B3%BB%E6%95%B0"><span class="nav-number">3.</span> <span class="nav-text">传热过程和传热系数</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#%E4%BC%A0%E7%83%AD%E6%96%B9%E7%A8%8B%E5%BC%8F"><span class="nav-number">3.1.</span> <span class="nav-text">传热方程式</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E4%BC%A0%E7%83%AD%E7%83%AD%E9%98%BB"><span class="nav-number">3.2.</span> <span class="nav-text">传热热阻</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%B0%8F%E7%BB%93"><span class="nav-number">4.</span> <span class="nav-text">小结</span></a></li></ol></div>
         </div>
         <!--/noindex-->
 
@@ -249,14 +249,14 @@
     
     <div class="post-body" itemprop="articleBody">
         <blockquote>
-<p>本文参考杨世铭、陶文铨所著《传热学》第四版第一章</p>
-</blockquote>
-<h2 id="传热学的研究内容">传热学的研究内容</h2>
-<h3 id="传热学研究内容">传热学研究内容</h3>
-<p>传热学（Heat transfer）是研究由温差（temperature
+<p>本文参考杨世铭、陶文铨所著《传热学》第四版第一章。传热学（Heat
+transfer）是研究由温差（temperature
 difference）引起的热能传递规律的科学。热力学第二定律指出：凡是有温差存在的地方，就有热能自发地从高温物体向低温物体传递（传递过程中的热能常称为热量）。这里所谓的热能传递规律，主要是指单位时间内所传递的热量（热能的多少）与物体中相应的温度差之间的关系，反应这种规律的第一层的关系式称为热量传递的速率方程（rate
-equation）。</p>
+equation）。热量传递的三种基本方式——热传导、热对流和热辐射的速率方程可分别用傅里叶（Fourier）定律、牛顿冷却公式（Newton's
+law of cooling）和斯忒藩-玻尔兹曼（Stefan-Boltzmann）定律描述。</p>
+</blockquote>
 <span id="more"></span>
+<h2 id="传热学的研究内容">传热学的研究内容</h2>
 <h3 id="传热学研究中的连续介质假设">传热学研究中的连续介质假设</h3>
 <p>假定所研究物体中的温度、密度、速度、压力等物理参数都是空间的连续函数，对于气体，只要被研究的物体几何尺寸远大于分子间的平均自由程，这种连续体的假设总是成立的。一个大气压、室温下空气分子的平均自由程约为
 70
@@ -517,10 +517,10 @@ resistance），单位为 (m<sup>2</sup>·K)/W。</p>
 
     <footer class="post-footer">
           <div class="post-tags">
+              <a href="/tags/%E4%BC%A0%E7%83%AD/" rel="tag"># 传热</a>
               <a href="/tags/%E5%AF%BC%E7%83%AD/" rel="tag"># 导热</a>
               <a href="/tags/%E5%AF%B9%E6%B5%81/" rel="tag"># 对流</a>
               <a href="/tags/%E8%BE%90%E5%B0%84/" rel="tag"># 辐射</a>
-              <a href="/tags/%E4%BC%A0%E7%83%AD/" rel="tag"># 传热</a>
               <a href="/tags/%E7%83%AD%E9%98%BB/" rel="tag"># 热阻</a>
           </div>
 
@@ -587,7 +587,7 @@ resistance），单位为 (m<sup>2</sup>·K)/W。</p>
 
   
 
-  <script class="next-config" data-name="enableMath" type="application/json">true</script><script class="next-config" data-name="mathjax" type="application/json">{"enable":true,"tags":"none","js":{"url":"https://cdnjs.cloudflare.com/ajax/libs/mathjax/3.2.1/es5/tex-mml-chtml.js","integrity":"sha256-hlC2uSQYTmPsrzGZTEQEg9PZ1a/+SV6VBCTclohf2og="}}</script>
+  <script class="next-config" data-name="enableMath" type="application/json">true</script><script class="next-config" data-name="mathjax" type="application/json">{"enable":true,"tags":"all","js":{"url":"https://cdnjs.cloudflare.com/ajax/libs/mathjax/3.2.1/es5/tex-mml-chtml.js","integrity":"sha256-hlC2uSQYTmPsrzGZTEQEg9PZ1a/+SV6VBCTclohf2og="}}</script>
 <script src="/js/third-party/math/mathjax.js"></script>
 
 
