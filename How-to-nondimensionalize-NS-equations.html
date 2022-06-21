@@ -1,0 +1,545 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+<meta name="viewport" content="width=device-width">
+<meta name="theme-color" content="#ddd"><meta name="generator" content="Hexo 6.2.0">
+
+
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png">
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png">
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png">
+  <link rel="mask-icon" href="/images/logo.svg" color="#ddd">
+
+<link rel="stylesheet" href="/css/main.css">
+
+<link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Lato:300,300italic,400,400italic,700,700italic&display=swap&subset=latin,latin-ext">
+
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.1.1/css/all.min.css" integrity="sha256-DfWjNxDkM94fVBWx1H5BMMp0Zq7luBlV8QRcSES7s+0=" crossorigin="anonymous">
+
+<script class="next-config" data-name="main" type="application/json">{"hostname":"example.com","root":"/","images":"/images","scheme":"Gemini","darkmode":false,"version":"8.12.1","exturl":false,"sidebar":{"position":"left","display":"post","padding":18,"offset":12},"copycode":{"enable":true,"style":null},"bookmark":{"enable":false,"color":"#222","save":"auto"},"mediumzoom":false,"lazyload":false,"pangu":false,"comments":{"style":"tabs","active":null,"storage":true,"lazyload":false,"nav":null},"stickytabs":false,"motion":{"enable":false,"async":false,"transition":{"post_block":"fadeIn","post_header":"fadeInDown","post_body":"fadeInDown","coll_header":"fadeInLeft","sidebar":"fadeInUp"}},"prism":false,"i18n":{"placeholder":"搜索...","empty":"没有找到任何搜索结果：${query}","hits_time":"找到 ${hits} 个搜索结果（用时 ${time} 毫秒）","hits":"找到 ${hits} 个搜索结果"}}</script><script src="/js/config.js"></script>
+
+    <meta name="description" content="许多物理问题，比如风刮过山脉、船在海上行驶等，本文主要无量纲化动量方程  单相 NS 方程 标准方程 单相粘性不可压 NS 方程可表示为 \[ \begin{equation}\label{eq1} \rho \left( \frac{\partial \boldsymbol{u}}{\partial t} + (\boldsymbol{u}\cdot\nabla) \bolds">
+<meta property="og:type" content="article">
+<meta property="og:title" content="NS 方程的无量纲化">
+<meta property="og:url" content="http://example.com/How-to-nondimensionalize-NS-equations.html">
+<meta property="og:site_name" content="Day day up!">
+<meta property="og:description" content="许多物理问题，比如风刮过山脉、船在海上行驶等，本文主要无量纲化动量方程  单相 NS 方程 标准方程 单相粘性不可压 NS 方程可表示为 \[ \begin{equation}\label{eq1} \rho \left( \frac{\partial \boldsymbol{u}}{\partial t} + (\boldsymbol{u}\cdot\nabla) \bolds">
+<meta property="og:locale" content="zh_CN">
+<meta property="article:published_time" content="2019-11-27T16:00:00.000Z">
+<meta property="article:modified_time" content="2022-02-21T16:00:00.000Z">
+<meta property="article:author" content="Chilton Nieh">
+<meta property="article:tag" content="NS 方程">
+<meta property="article:tag" content="多相流">
+<meta property="article:tag" content="表面张力">
+<meta name="twitter:card" content="summary">
+
+
+<link rel="canonical" href="http://example.com/How-to-nondimensionalize-NS-equations.html">
+
+
+
+<script class="next-config" data-name="page" type="application/json">{"sidebar":"","isHome":false,"isPost":true,"lang":"zh-CN","comments":true,"permalink":"http://example.com/How-to-nondimensionalize-NS-equations.html","path":"/How-to-nondimensionalize-NS-equations.html","title":"NS 方程的无量纲化"}</script>
+
+<script class="next-config" data-name="calendar" type="application/json">""</script>
+<title>NS 方程的无量纲化 | Day day up!</title>
+  
+
+
+
+
+
+  <noscript>
+    <link rel="stylesheet" href="/css/noscript.css">
+  </noscript>
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage">
+  <div class="headband"></div>
+
+  <main class="main">
+    <header class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-container">
+  <div class="site-nav-toggle">
+    <div class="toggle" aria-label="切换导航栏" role="button">
+        <span class="toggle-line"></span>
+        <span class="toggle-line"></span>
+        <span class="toggle-line"></span>
+    </div>
+  </div>
+
+  <div class="site-meta">
+
+    <a href="/" class="brand" rel="start">
+      <i class="logo-line"></i>
+      <p class="site-title">Day day up!</p>
+      <i class="logo-line"></i>
+    </a>
+      <p class="site-subtitle" itemprop="description">做人最重要的的是😀</p>
+  </div>
+
+  <div class="site-nav-right">
+    <div class="toggle popup-trigger">
+    </div>
+  </div>
+</div>
+
+
+
+<nav class="site-nav">
+  <ul class="main-menu menu"><li class="menu-item menu-item-home"><a href="/" rel="section"><i class="fa fa-home fa-fw"></i>首页</a></li><li class="menu-item menu-item-archives"><a href="/archives/" rel="section"><i class="fa fa-archive fa-fw"></i>归档<span class="badge">38</span></a></li><li class="menu-item menu-item-tags"><a href="/tags/" rel="section"><i class="fa fa-tags fa-fw"></i>标签<span class="badge">40</span></a></li><li class="menu-item menu-item-categories"><a href="/categories/" rel="section"><i class="fa fa-th fa-fw"></i>分类<span class="badge">6</span></a></li><li class="menu-item menu-item-about"><a href="/about/" rel="section"><i class="fa fa-user fa-fw"></i>关于</a></li>
+  </ul>
+</nav>
+
+
+
+
+</div>
+        
+  
+  <div class="toggle sidebar-toggle" role="button">
+    <span class="toggle-line"></span>
+    <span class="toggle-line"></span>
+    <span class="toggle-line"></span>
+  </div>
+
+  <aside class="sidebar">
+
+    <div class="sidebar-inner sidebar-nav-active sidebar-toc-active">
+      <ul class="sidebar-nav">
+        <li class="sidebar-nav-toc">
+          文章目录
+        </li>
+        <li class="sidebar-nav-overview">
+          站点概览
+        </li>
+      </ul>
+
+      <div class="sidebar-panel-container">
+        <!--noindex-->
+        <div class="post-toc-wrap sidebar-panel">
+            <div class="post-toc animated"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%8D%95%E7%9B%B8-ns-%E6%96%B9%E7%A8%8B"><span class="nav-number">1.</span> <span class="nav-text">单相 NS 方程</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#%E6%A0%87%E5%87%86%E6%96%B9%E7%A8%8B"><span class="nav-number">1.1.</span> <span class="nav-text">标准方程</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E6%97%A0%E9%87%8F%E7%BA%B2%E5%8C%96"><span class="nav-number">1.2.</span> <span class="nav-text">无量纲化</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E4%B8%A4%E7%9B%B8-ns-%E6%96%B9%E7%A8%8B%E4%BD%93%E7%A7%AF%E5%88%86%E6%95%B0%E6%8F%8F%E8%BF%B0"><span class="nav-number">2.</span> <span class="nav-text">两相 NS 方程（体积分数描述）</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#%E6%A0%87%E5%87%86%E6%96%B9%E7%A8%8B-1"><span class="nav-number">2.1.</span> <span class="nav-text">标准方程</span></a></li></ol></li></ol></div>
+        </div>
+        <!--/noindex-->
+
+        <div class="site-overview-wrap sidebar-panel">
+          <div class="site-author site-overview-item animated" itemprop="author" itemscope itemtype="http://schema.org/Person">
+    <img class="site-author-image" itemprop="image" alt="Chilton Nieh"
+      src="/images/logo_fa.jpg">
+  <p class="site-author-name" itemprop="name">Chilton Nieh</p>
+  <div class="site-description" itemprop="description">路漫漫其修远兮，吾将上下而求索</div>
+</div>
+<div class="site-state-wrap site-overview-item animated">
+  <nav class="site-state">
+      <div class="site-state-item site-state-posts">
+        <a href="/archives/">
+          <span class="site-state-item-count">38</span>
+          <span class="site-state-item-name">日志</span>
+        </a>
+      </div>
+      <div class="site-state-item site-state-categories">
+          <a href="/categories/">
+        <span class="site-state-item-count">6</span>
+        <span class="site-state-item-name">分类</span></a>
+      </div>
+      <div class="site-state-item site-state-tags">
+          <a href="/tags/">
+        <span class="site-state-item-count">40</span>
+        <span class="site-state-item-name">标签</span></a>
+      </div>
+  </nav>
+</div>
+  <div class="links-of-author site-overview-item animated">
+      <span class="links-of-author-item">
+        <a href="https://github.com/yourname" title="GitHub → https:&#x2F;&#x2F;github.com&#x2F;yourname" rel="noopener" target="_blank"><i class="fab fa-github fa-fw"></i>GitHub</a>
+      </span>
+  </div>
+
+
+
+        </div>
+      </div>
+    </div>
+  </aside>
+  <div class="sidebar-dimmer"></div>
+
+
+    </header>
+
+    
+  <div class="back-to-top" role="button" aria-label="返回顶部">
+    <i class="fa fa-arrow-up"></i>
+    <span>0%</span>
+  </div>
+
+<noscript>
+  <div class="noscript-warning">Theme NexT works best with JavaScript enabled</div>
+</noscript>
+
+
+    <div class="main-inner post posts-expand">
+
+
+  
+
+
+<div class="post-block">
+  
+  
+
+  <article itemscope itemtype="http://schema.org/Article" class="post-content" lang="zh-CN">
+    <link itemprop="mainEntityOfPage" href="http://example.com/How-to-nondimensionalize-NS-equations.html">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/logo_fa.jpg">
+      <meta itemprop="name" content="Chilton Nieh">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Day day up!">
+      <meta itemprop="description" content="路漫漫其修远兮，吾将上下而求索">
+    </span>
+
+    <span hidden itemprop="post" itemscope itemtype="http://schema.org/CreativeWork">
+      <meta itemprop="name" content="NS 方程的无量纲化 | Day day up!">
+      <meta itemprop="description" content="">
+    </span>
+      <header class="post-header">
+        <h1 class="post-title" itemprop="name headline">
+          NS 方程的无量纲化
+        </h1>
+
+        <div class="post-meta-container">
+          <div class="post-meta">
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-calendar"></i>
+      </span>
+      <span class="post-meta-item-text">发表于</span>
+
+      <time title="创建时间：2019-11-28 00:00:00" itemprop="dateCreated datePublished" datetime="2019-11-28T00:00:00+08:00">2019-11-28</time>
+    </span>
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-calendar-check"></i>
+      </span>
+      <span class="post-meta-item-text">更新于</span>
+      <time title="修改时间：2022-02-22 00:00:00" itemprop="dateModified" datetime="2022-02-22T00:00:00+08:00">2022-02-22</time>
+    </span>
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-folder"></i>
+      </span>
+      <span class="post-meta-item-text">分类于</span>
+        <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+          <a href="/categories/%E7%A0%94%E7%A9%B6%E7%9B%B8%E5%85%B3/" itemprop="url" rel="index"><span itemprop="name">研究相关</span></a>
+        </span>
+    </span>
+
+  
+</div>
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+        <blockquote>
+<p>许多物理问题，比如风刮过山脉、船在海上行驶等，本文主要无量纲化动量方程</p>
+</blockquote>
+<h2 id="单相-ns-方程">单相 NS 方程</h2>
+<h3 id="标准方程">标准方程</h3>
+<p>单相粘性不可压 NS 方程可表示为 <span class="math display">\[
+\begin{equation}\label{eq1}
+\rho \left( \frac{\partial \boldsymbol{u}}{\partial t} +
+(\boldsymbol{u}\cdot\nabla) \boldsymbol{u} \right) = -\nabla p + \mu
+\nabla^2\boldsymbol{u} + \boldsymbol{F},
+\end{equation}
+\]</span> <span id="more"></span></p>
+<p>其中 <span class="math inline">\(\boldsymbol{F}\)</span>
+为体积力，单位 N/m<sup>3</sup> 如果使用体积加速度 <span
+class="math inline">\(\boldsymbol{f}\)</span> 来表示体积力，则上式写作
+<span class="math display">\[
+\begin{equation}\label{eq2}
+\rho \left( \frac{\partial \boldsymbol{u}}{\partial t} +
+(\boldsymbol{u}\cdot\nabla) \boldsymbol{u} \right) = -\nabla p + \mu
+\nabla^2\boldsymbol{u} + \rho\boldsymbol{f}.
+\end{equation}
+\]</span></p>
+<h3 id="无量纲化">无量纲化</h3>
+<p>考虑以下特征量</p>
+<table>
+<colgroup>
+<col style="width: 8%" />
+<col style="width: 10%" />
+<col style="width: 9%" />
+<col style="width: 24%" />
+<col style="width: 48%" />
+</colgroup>
+<thead>
+<tr class="header">
+<th style="text-align: center;">特征值</th>
+<th style="text-align: center;">符号</th>
+<th style="text-align: center;">单位</th>
+<th style="text-align: center;">无量纲值</th>
+<th style="text-align: center;">实际值</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td style="text-align: center;">密度</td>
+<td style="text-align: center;"><span
+class="math inline">\(\rho_0\)</span></td>
+<td style="text-align: center;">kg/m<sup>3</sup></td>
+<td style="text-align: center;"><span
+class="math inline">\(\rho^*\)</span></td>
+<td style="text-align: center;"><span
+class="math inline">\(\rho=\rho_0\rho^*\)</span></td>
+</tr>
+<tr class="even">
+<td style="text-align: center;">粘度</td>
+<td style="text-align: center;"><span
+class="math inline">\(\mu_0\)</span></td>
+<td style="text-align: center;">Pa·s</td>
+<td style="text-align: center;"><span
+class="math inline">\(\mu^*\)</span></td>
+<td style="text-align: center;"><span
+class="math inline">\(\mu=\mu_0\mu^*\)</span></td>
+</tr>
+<tr class="odd">
+<td style="text-align: center;">长度</td>
+<td style="text-align: center;"><span
+class="math inline">\(L\)</span></td>
+<td style="text-align: center;">m</td>
+<td style="text-align: center;"><span
+class="math inline">\(x^*\)</span></td>
+<td style="text-align: center;"><span
+class="math inline">\(x=Lx^*\)</span></td>
+</tr>
+<tr class="even">
+<td style="text-align: center;">时间</td>
+<td style="text-align: center;"><span
+class="math inline">\(T\)</span></td>
+<td style="text-align: center;">s</td>
+<td style="text-align: center;"><span
+class="math inline">\(t^*\)</span></td>
+<td style="text-align: center;"><span
+class="math inline">\(t=Tt^*\)</span></td>
+</tr>
+<tr class="odd">
+<td style="text-align: center;">速度</td>
+<td style="text-align: center;"><span
+class="math inline">\(U\)</span></td>
+<td style="text-align: center;">m/s</td>
+<td style="text-align: center;"><span
+class="math inline">\(\boldsymbol{u}^*\)</span></td>
+<td style="text-align: center;"><span
+class="math inline">\(\boldsymbol{u}=U\boldsymbol{u}^*\)</span></td>
+</tr>
+<tr class="even">
+<td style="text-align: center;">压强</td>
+<td style="text-align: center;"><span
+class="math inline">\(P\)</span></td>
+<td style="text-align: center;">Pa</td>
+<td style="text-align: center;"><span
+class="math inline">\(p^*\)</span></td>
+<td style="text-align: center;"><span
+class="math inline">\(p=Pp^*\)</span></td>
+</tr>
+<tr class="odd">
+<td style="text-align: center;">体积力</td>
+<td style="text-align: center;"><span
+class="math inline">\(F_0\)</span></td>
+<td style="text-align: center;">N/m<sup>3</sup></td>
+<td style="text-align: center;"><span
+class="math inline">\(\boldsymbol{F}^*\)</span></td>
+<td style="text-align: center;"><span
+class="math inline">\(\boldsymbol{F}=F_0\boldsymbol{F}^*\)</span></td>
+</tr>
+<tr class="even">
+<td style="text-align: center;">加速度</td>
+<td style="text-align: center;"><span
+class="math inline">\(g\)</span></td>
+<td style="text-align: center;">m/s<sup>2</sup></td>
+<td style="text-align: center;"><span
+class="math inline">\(\boldsymbol{f}^*\)</span></td>
+<td style="text-align: center;"><span
+class="math inline">\(\boldsymbol{f}=g\boldsymbol{f}^*\)</span></td>
+</tr>
+</tbody>
+</table>
+<p>则方程 <span class="math inline">\(\eqref{eq2}\)</span> 可转换为
+<span class="math display">\[
+\rho_0\rho^* \left( \frac{\partial (U\boldsymbol{u}^*)}{\partial (Tt^*)}
++ \left( ( U\boldsymbol{u}^*)\cdot\left( \frac{\nabla^*}{L} \right)
+\right) (U\boldsymbol{u}^*) \right)
+= -\left( \frac{\nabla^*}{L} \right)(Pp^*) + (\mu_0\mu^*) \left(
+\frac{\nabla^{*2}}{L^2} \right)(U^2\boldsymbol{u}^{*2}) + (\rho_0\rho^*
+g\boldsymbol{f}^*),
+\]</span> 稍作变换，有 <span class="math display">\[
+\left(\frac{L}{TU}\right)\frac{\partial\boldsymbol{u}^*}{\partial t^*} +
+(\nabla^*\cdot\boldsymbol{u})\boldsymbol{u}=\frac{1}{\rho^*}
+\left(
+-\left(\frac{P}{\rho_0 U^2} \right)\nabla^*p^* +
+\mu^*\left(\frac{\mu_0}{\rho_0 UL} \right)\nabla^{*2}\boldsymbol{u}^*
+\right) +
+\left( \frac{Lg}{U^2}\right)\boldsymbol{f}^*.
+\]</span> 引入无量纲数</p>
+<table>
+<thead>
+<tr class="header">
+<th style="text-align: center;">无量纲数</th>
+<th style="text-align: center;">符号</th>
+<th style="text-align: center;">表达式</th>
+<th style="text-align: center;">含义</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td style="text-align: center;">斯特劳哈尔数</td>
+<td style="text-align: center;"><span
+class="math inline">\(St\)</span></td>
+<td style="text-align: center;"><span
+class="math inline">\(L/(TU)\)</span></td>
+<td style="text-align: center;"></td>
+</tr>
+<tr class="even">
+<td style="text-align: center;">欧拉数</td>
+<td style="text-align: center;"><span
+class="math inline">\(Eu\)</span></td>
+<td style="text-align: center;"><span class="math inline">\(P/(\rho_0
+U^2)\)</span></td>
+<td style="text-align: center;"></td>
+</tr>
+<tr class="odd">
+<td style="text-align: center;">雷诺数</td>
+<td style="text-align: center;"><span
+class="math inline">\(Re\)</span></td>
+<td style="text-align: center;"><span class="math inline">\(\rho_0
+UL/\mu_0\)</span></td>
+<td style="text-align: center;">惯性力/粘性力</td>
+</tr>
+<tr class="even">
+<td style="text-align: center;">弗劳德数</td>
+<td style="text-align: center;"><span
+class="math inline">\(Fr\)</span></td>
+<td style="text-align: center;"><span
+class="math inline">\(U^2/(gL)\)</span></td>
+<td style="text-align: center;">惯性力/重力</td>
+</tr>
+</tbody>
+</table>
+<p>则上式简化为 <span class="math display">\[
+St\frac{\partial\boldsymbol{u}^*}{\partial t^*} +
+(\nabla^*\cdot\boldsymbol{u})\boldsymbol{u}=\frac{1}{\rho^*}
+\left(
+-Eu \nabla^*p^* +
+\mu^*\frac{1}{Re}\nabla^{*2}\boldsymbol{u}^* \right) +
+\frac{1}{Fr} \boldsymbol{f}^*.
+\]</span> 一般取特征值时，会令 <span
+class="math inline">\(St=1\)</span>，<span
+class="math inline">\(Eu=1\)</span>，<span
+class="math inline">\(\rho^*=1\)</span>，<span
+class="math inline">\(\mu^*=1\)</span>，上式进一步简化为 <span
+class="math display">\[
+\boxed{
+\frac{\partial\boldsymbol{u}^*}{\partial t^*} +
+(\nabla^*\cdot\boldsymbol{u})\boldsymbol{u} =
+\nabla^*p^* +
+\mu^*\frac{1}{Re}\nabla^{*2}\boldsymbol{u}^* +
+\frac{1}{Fr} \boldsymbol{f}^*.}
+\]</span></p>
+<h2 id="两相-ns-方程体积分数描述">两相 NS 方程（体积分数描述）</h2>
+<h3 id="标准方程-1">标准方程</h3>
+<p>设 <span class="math inline">\(c\)</span>
+为某一相体积分数，则有动量方程 <span class="math display">\[
+\rho(c) \left( \frac{\partial \boldsymbol{u}}{\partial t} +
+(\boldsymbol{u}\cdot\nabla) \boldsymbol{u} \right) = -\nabla p +
+\mu(c)\nabla^2\boldsymbol{u} + \gamma \kappa \nabla c.
+\]</span></p>
+
+    </div>
+
+    
+    
+    
+
+    <footer class="post-footer">
+          <div class="post-tags">
+              <a href="/tags/NS-%E6%96%B9%E7%A8%8B/" rel="tag"># NS 方程</a>
+              <a href="/tags/%E5%A4%9A%E7%9B%B8%E6%B5%81/" rel="tag"># 多相流</a>
+              <a href="/tags/%E8%A1%A8%E9%9D%A2%E5%BC%A0%E5%8A%9B/" rel="tag"># 表面张力</a>
+          </div>
+
+        
+
+          <div class="post-nav">
+            <div class="post-nav-item">
+                <a href="/OOE-English-writing-02.html" rel="prev" title="How to write an email in English">
+                  <i class="fa fa-chevron-left"></i> How to write an email in English
+                </a>
+            </div>
+            <div class="post-nav-item">
+                <a href="/Scaling-parameters-in-EHD-equations.html" rel="next" title="两相电流体方程组的无量纲化">
+                  两相电流体方程组的无量纲化 <i class="fa fa-chevron-right"></i>
+                </a>
+            </div>
+          </div>
+    </footer>
+  </article>
+</div>
+
+
+
+
+
+
+</div>
+  </main>
+
+  <footer class="footer">
+    <div class="footer-inner">
+
+
+<div class="copyright">
+  &copy; 
+  <span itemprop="copyrightYear">2022</span>
+  <span class="with-love">
+    <i class="fa fa-heart"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">Chilton Nieh</span>
+</div>
+  <div class="powered-by">由 <a href="https://hexo.io/" rel="noopener" target="_blank">Hexo</a> & <a href="https://theme-next.js.org/" rel="noopener" target="_blank">NexT.Gemini</a> 强力驱动
+  </div>
+
+    </div>
+  </footer>
+
+  
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/animejs/3.2.1/anime.min.js" integrity="sha256-XL2inqUJaslATFnHdJOi9GfQ60on8Wx1C2H8DYiN1xY=" crossorigin="anonymous"></script>
+<script src="/js/comments.js"></script><script src="/js/utils.js"></script><script src="/js/next-boot.js"></script>
+
+  
+
+
+  <script class="next-config" data-name="mermaid" type="application/json">{"enable":true,"theme":{"light":"default","dark":"dark"},"js":{"url":"https://cdnjs.cloudflare.com/ajax/libs/mermaid/9.1.1/mermaid.min.js","integrity":"sha256-8L3O8tirFUa8Va4NSTAyIbHJeLd6OnlcxgupV9F77e0="}}</script>
+  <script src="/js/third-party/tags/mermaid.js"></script>
+
+
+
+  
+
+
+
+
+  
+
+  <script class="next-config" data-name="enableMath" type="application/json">true</script><script class="next-config" data-name="mathjax" type="application/json">{"enable":true,"tags":"all","js":{"url":"https://cdnjs.cloudflare.com/ajax/libs/mathjax/3.2.1/es5/tex-mml-chtml.js","integrity":"sha256-hlC2uSQYTmPsrzGZTEQEg9PZ1a/+SV6VBCTclohf2og="}}</script>
+<script src="/js/third-party/math/mathjax.js"></script>
+
+
+
+</body>
+</html>

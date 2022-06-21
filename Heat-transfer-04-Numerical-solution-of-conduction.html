@@ -1,0 +1,473 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+<meta name="viewport" content="width=device-width">
+<meta name="theme-color" content="#ddd"><meta name="generator" content="Hexo 6.2.0">
+
+
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png">
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png">
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png">
+  <link rel="mask-icon" href="/images/logo.svg" color="#ddd">
+
+<link rel="stylesheet" href="/css/main.css">
+
+<link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Lato:300,300italic,400,400italic,700,700italic&display=swap&subset=latin,latin-ext">
+
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.1.1/css/all.min.css" integrity="sha256-DfWjNxDkM94fVBWx1H5BMMp0Zq7luBlV8QRcSES7s+0=" crossorigin="anonymous">
+
+<script class="next-config" data-name="main" type="application/json">{"hostname":"example.com","root":"/","images":"/images","scheme":"Gemini","darkmode":false,"version":"8.12.1","exturl":false,"sidebar":{"position":"left","display":"post","padding":18,"offset":12},"copycode":{"enable":true,"style":null},"bookmark":{"enable":false,"color":"#222","save":"auto"},"mediumzoom":false,"lazyload":false,"pangu":false,"comments":{"style":"tabs","active":null,"storage":true,"lazyload":false,"nav":null},"stickytabs":false,"motion":{"enable":false,"async":false,"transition":{"post_block":"fadeIn","post_header":"fadeInDown","post_body":"fadeInDown","coll_header":"fadeInLeft","sidebar":"fadeInUp"}},"prism":false,"i18n":{"placeholder":"搜索...","empty":"没有找到任何搜索结果：${query}","hits_time":"找到 ${hits} 个搜索结果（用时 ${time} 毫秒）","hits":"找到 ${hits} 个搜索结果"}}</script><script src="/js/config.js"></script>
+
+    <meta name="description" content="本文参考杨世铭、陶文铨所著《传热学》第四版第四章  导热问题数值求解的基本思想 基本思想 将原来在时间、空间坐标系中连续的物理量场，用有限个离散点上的值的集合来代替，通过求解按一定方法建立起来的关于这些值的代数方程，来获得离散点上被求物理量的值。这些离散点上被求物理量值集合称为该物理量的数值解。如下左图所示">
+<meta property="og:type" content="article">
+<meta property="og:title" content="热传导问题的数值解法">
+<meta property="og:url" content="http://example.com/Heat-transfer-04-Numerical-solution-of-conduction.html">
+<meta property="og:site_name" content="Day day up!">
+<meta property="og:description" content="本文参考杨世铭、陶文铨所著《传热学》第四版第四章  导热问题数值求解的基本思想 基本思想 将原来在时间、空间坐标系中连续的物理量场，用有限个离散点上的值的集合来代替，通过求解按一定方法建立起来的关于这些值的代数方程，来获得离散点上被求物理量的值。这些离散点上被求物理量值集合称为该物理量的数值解。如下左图所示">
+<meta property="og:locale" content="zh_CN">
+<meta property="og:image" content="https://raw.githubusercontent.com/NChilton/Picture/main/img/202205292330812.png">
+<meta property="og:image" content="https://raw.githubusercontent.com/NChilton/Picture/main/img/202205300018850.png">
+<meta property="og:image" content="https://raw.githubusercontent.com/NChilton/Picture/main/img/202205300109788.png">
+<meta property="article:published_time" content="2021-05-14T16:00:00.000Z">
+<meta property="article:modified_time" content="2022-05-28T16:00:00.000Z">
+<meta property="article:author" content="Chilton Nieh">
+<meta property="article:tag" content="传热学">
+<meta property="article:tag" content="数值计算">
+<meta property="article:tag" content="有限差分">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="https://raw.githubusercontent.com/NChilton/Picture/main/img/202205292330812.png">
+
+
+<link rel="canonical" href="http://example.com/Heat-transfer-04-Numerical-solution-of-conduction.html">
+
+
+
+<script class="next-config" data-name="page" type="application/json">{"sidebar":"","isHome":false,"isPost":true,"lang":"zh-CN","comments":true,"permalink":"http://example.com/Heat-transfer-04-Numerical-solution-of-conduction.html","path":"/Heat-transfer-04-Numerical-solution-of-conduction.html","title":"热传导问题的数值解法"}</script>
+
+<script class="next-config" data-name="calendar" type="application/json">""</script>
+<title>热传导问题的数值解法 | Day day up!</title>
+  
+
+
+
+
+
+  <noscript>
+    <link rel="stylesheet" href="/css/noscript.css">
+  </noscript>
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage">
+  <div class="headband"></div>
+
+  <main class="main">
+    <header class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-container">
+  <div class="site-nav-toggle">
+    <div class="toggle" aria-label="切换导航栏" role="button">
+        <span class="toggle-line"></span>
+        <span class="toggle-line"></span>
+        <span class="toggle-line"></span>
+    </div>
+  </div>
+
+  <div class="site-meta">
+
+    <a href="/" class="brand" rel="start">
+      <i class="logo-line"></i>
+      <p class="site-title">Day day up!</p>
+      <i class="logo-line"></i>
+    </a>
+      <p class="site-subtitle" itemprop="description">做人最重要的的是😀</p>
+  </div>
+
+  <div class="site-nav-right">
+    <div class="toggle popup-trigger">
+    </div>
+  </div>
+</div>
+
+
+
+<nav class="site-nav">
+  <ul class="main-menu menu"><li class="menu-item menu-item-home"><a href="/" rel="section"><i class="fa fa-home fa-fw"></i>首页</a></li><li class="menu-item menu-item-archives"><a href="/archives/" rel="section"><i class="fa fa-archive fa-fw"></i>归档<span class="badge">38</span></a></li><li class="menu-item menu-item-tags"><a href="/tags/" rel="section"><i class="fa fa-tags fa-fw"></i>标签<span class="badge">40</span></a></li><li class="menu-item menu-item-categories"><a href="/categories/" rel="section"><i class="fa fa-th fa-fw"></i>分类<span class="badge">6</span></a></li><li class="menu-item menu-item-about"><a href="/about/" rel="section"><i class="fa fa-user fa-fw"></i>关于</a></li>
+  </ul>
+</nav>
+
+
+
+
+</div>
+        
+  
+  <div class="toggle sidebar-toggle" role="button">
+    <span class="toggle-line"></span>
+    <span class="toggle-line"></span>
+    <span class="toggle-line"></span>
+  </div>
+
+  <aside class="sidebar">
+
+    <div class="sidebar-inner sidebar-nav-active sidebar-toc-active">
+      <ul class="sidebar-nav">
+        <li class="sidebar-nav-toc">
+          文章目录
+        </li>
+        <li class="sidebar-nav-overview">
+          站点概览
+        </li>
+      </ul>
+
+      <div class="sidebar-panel-container">
+        <!--noindex-->
+        <div class="post-toc-wrap sidebar-panel">
+            <div class="post-toc animated"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%AF%BC%E7%83%AD%E9%97%AE%E9%A2%98%E6%95%B0%E5%80%BC%E6%B1%82%E8%A7%A3%E7%9A%84%E5%9F%BA%E6%9C%AC%E6%80%9D%E6%83%B3"><span class="nav-number">1.</span> <span class="nav-text">导热问题数值求解的基本思想</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#%E5%9F%BA%E6%9C%AC%E6%80%9D%E6%83%B3"><span class="nav-number">1.1.</span> <span class="nav-text">基本思想</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E5%AF%BC%E7%83%AD%E9%97%AE%E9%A2%98%E6%95%B0%E5%80%BC%E6%B1%82%E8%A7%A3%E5%9F%BA%E6%9C%AC%E6%AD%A5%E9%AA%A4"><span class="nav-number">1.2.</span> <span class="nav-text">导热问题数值求解基本步骤</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%86%85%E8%8A%82%E7%82%B9%E7%A6%BB%E6%95%A3%E6%96%B9%E7%A8%8B%E7%9A%84%E5%BB%BA%E7%AB%8B%E6%96%B9%E6%B3%95"><span class="nav-number">2.</span> <span class="nav-text">内节点离散方程的建立方法</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#%E6%B3%B0%E5%8B%92%E7%BA%A7%E6%95%B0%E5%B1%95%E5%BC%80%E6%B3%95"><span class="nav-number">2.1.</span> <span class="nav-text">泰勒级数展开法</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E7%83%AD%E5%B9%B3%E8%A1%A1%E6%B3%95"><span class="nav-number">2.2.</span> <span class="nav-text">热平衡法</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E8%BE%B9%E7%95%8C%E8%8A%82%E7%82%B9%E7%A6%BB%E6%95%A3%E6%96%B9%E7%A8%8B%E7%9A%84%E5%BB%BA%E7%AB%8B%E5%8F%8A%E4%BB%A3%E6%95%B0%E6%96%B9%E7%A8%8B%E7%9A%84%E6%B1%82%E8%A7%A3"><span class="nav-number">3.</span> <span class="nav-text">边界节点离散方程的建立及代数方程的求解</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#%E8%BE%B9%E7%95%8C%E8%8A%82%E7%82%B9%E7%A6%BB%E6%95%A3%E6%96%B9%E7%A8%8B%E7%9A%84%E5%BB%BA%E7%AB%8B"><span class="nav-number">3.1.</span> <span class="nav-text">边界节点离散方程的建立</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E9%9D%9E%E7%A8%B3%E6%80%81%E5%AF%BC%E7%83%AD%E9%97%AE%E9%A2%98%E7%9A%84%E6%95%B0%E5%80%BC%E6%B1%82%E8%A7%A3"><span class="nav-number">4.</span> <span class="nav-text">非稳态导热问题的数值求解</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%B0%8F%E7%BB%93"><span class="nav-number">5.</span> <span class="nav-text">小结</span></a></li></ol></div>
+        </div>
+        <!--/noindex-->
+
+        <div class="site-overview-wrap sidebar-panel">
+          <div class="site-author site-overview-item animated" itemprop="author" itemscope itemtype="http://schema.org/Person">
+    <img class="site-author-image" itemprop="image" alt="Chilton Nieh"
+      src="/images/logo_fa.jpg">
+  <p class="site-author-name" itemprop="name">Chilton Nieh</p>
+  <div class="site-description" itemprop="description">路漫漫其修远兮，吾将上下而求索</div>
+</div>
+<div class="site-state-wrap site-overview-item animated">
+  <nav class="site-state">
+      <div class="site-state-item site-state-posts">
+        <a href="/archives/">
+          <span class="site-state-item-count">38</span>
+          <span class="site-state-item-name">日志</span>
+        </a>
+      </div>
+      <div class="site-state-item site-state-categories">
+          <a href="/categories/">
+        <span class="site-state-item-count">6</span>
+        <span class="site-state-item-name">分类</span></a>
+      </div>
+      <div class="site-state-item site-state-tags">
+          <a href="/tags/">
+        <span class="site-state-item-count">40</span>
+        <span class="site-state-item-name">标签</span></a>
+      </div>
+  </nav>
+</div>
+  <div class="links-of-author site-overview-item animated">
+      <span class="links-of-author-item">
+        <a href="https://github.com/yourname" title="GitHub → https:&#x2F;&#x2F;github.com&#x2F;yourname" rel="noopener" target="_blank"><i class="fab fa-github fa-fw"></i>GitHub</a>
+      </span>
+  </div>
+
+
+
+        </div>
+      </div>
+    </div>
+  </aside>
+  <div class="sidebar-dimmer"></div>
+
+
+    </header>
+
+    
+  <div class="back-to-top" role="button" aria-label="返回顶部">
+    <i class="fa fa-arrow-up"></i>
+    <span>0%</span>
+  </div>
+
+<noscript>
+  <div class="noscript-warning">Theme NexT works best with JavaScript enabled</div>
+</noscript>
+
+
+    <div class="main-inner post posts-expand">
+
+
+  
+
+
+<div class="post-block">
+  
+  
+
+  <article itemscope itemtype="http://schema.org/Article" class="post-content" lang="zh-CN">
+    <link itemprop="mainEntityOfPage" href="http://example.com/Heat-transfer-04-Numerical-solution-of-conduction.html">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/logo_fa.jpg">
+      <meta itemprop="name" content="Chilton Nieh">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Day day up!">
+      <meta itemprop="description" content="路漫漫其修远兮，吾将上下而求索">
+    </span>
+
+    <span hidden itemprop="post" itemscope itemtype="http://schema.org/CreativeWork">
+      <meta itemprop="name" content="热传导问题的数值解法 | Day day up!">
+      <meta itemprop="description" content="">
+    </span>
+      <header class="post-header">
+        <h1 class="post-title" itemprop="name headline">
+          热传导问题的数值解法
+        </h1>
+
+        <div class="post-meta-container">
+          <div class="post-meta">
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-calendar"></i>
+      </span>
+      <span class="post-meta-item-text">发表于</span>
+
+      <time title="创建时间：2021-05-15 00:00:00" itemprop="dateCreated datePublished" datetime="2021-05-15T00:00:00+08:00">2021-05-15</time>
+    </span>
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-calendar-check"></i>
+      </span>
+      <span class="post-meta-item-text">更新于</span>
+      <time title="修改时间：2022-05-29 00:00:00" itemprop="dateModified" datetime="2022-05-29T00:00:00+08:00">2022-05-29</time>
+    </span>
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-folder"></i>
+      </span>
+      <span class="post-meta-item-text">分类于</span>
+        <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+          <a href="/categories/%E8%AF%BE%E7%A8%8B%E7%AC%94%E8%AE%B0/" itemprop="url" rel="index"><span itemprop="name">课程笔记</span></a>
+        </span>
+    </span>
+
+  
+</div>
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+        <blockquote>
+<p>本文参考杨世铭、陶文铨所著《传热学》第四版第四章</p>
+</blockquote>
+<h2 id="导热问题数值求解的基本思想">导热问题数值求解的基本思想</h2>
+<h3 id="基本思想">基本思想</h3>
+<p>将原来在时间、空间坐标系中连续的物理量场，用有限个离散点上的值的集合来代替，通过求解按一定方法建立起来的关于这些值的代数方程，来获得离散点上被求物理量的值。这些离散点上被求物理量值集合称为该物理量的数值解。如下左图所示</p>
+<span id="more"></span>
+<p><img src="https://raw.githubusercontent.com/NChilton/Picture/main/img/202205292330812.png" alt="数值求解" style="zoom:50%;" /></p>
+<h3 id="导热问题数值求解基本步骤">导热问题数值求解基本步骤</h3>
+<p>右上图所示的二维矩形域内稳态、无内热源、常物性的导热问题为例</p>
+<ol type="1">
+<li>建立控制方程及定解条件</li>
+</ol>
+<p>导热微分方程 <span class="math display">\[
+\frac{\partial^2 T}{\partial x^2} + \frac{\partial^2 T}{\partial y^2} =
+0.
+\]</span></p>
+<p>四个边界条件分别为第一类和第三类边界条件。</p>
+<ol start="2" type="1">
+<li>区域离散化</li>
+</ol>
+<p>将求解区域划分成许多子区域，以网格线的交点作为需要确定温度值的空间位置，称为节/结点（node）。相邻两节点的距离称为步长，记为<span
+class="math inline">\(~\Delta x\)</span>、<span
+class="math inline">\(\Delta
+y\)</span>。节点所代表的区域称为元体（element），又叫控制容积（control
+volume）。</p>
+<ol start="3" type="1">
+<li>建立节点物理量的代数方程</li>
+</ol>
+<p>节点上物理的求解代数方程称为离散方程（discretization
+equation），考虑节点<span
+class="math inline">\(~(m,n)~\)</span>的代数方程，当<span
+class="math inline">\(~\Delta x = \Delta
+y~\)</span>时，内部节点代数方程满足 <span class="math display">\[
+T_{m,n} = \frac{1}{4}(T_{m+1,n} + T_{m-1,n} + T_{m,n+1} +
+T_{m,n-1}).\label{dis-eq}
+\]</span></p>
+<ol start="4" type="1">
+<li>设立迭代初始场</li>
+</ol>
+<p>代数方程组的求解方法有直接法与迭代法两大类，传热问题的有限差分法中主要采用迭代法。采用此法求解时需要假定初始解，称为初场（initial
+field），在求解过程这一温度场不断得到改进。</p>
+<ol start="5" type="1">
+<li>求解代数方程</li>
+</ol>
+<p>除<span
+class="math inline">\(~m=1~\)</span>的左边界上各节点的温度为已知外，其余<span
+class="math inline">\(~(M-1)\times
+N~\)</span>个节点都需要建立起类似于式<span
+class="math inline">\(~\eqref{dis-eq}~\)</span>的离散方程，一共<span
+class="math inline">\(~(M-1)\times
+N~\)</span>个代数方程，构成封闭的代数方程组。实际工程问题中，代数方程的个数一般在<span
+class="math inline">\(~10^3\sim
+10^6~\)</span>的数量级。针对上述问题，代数方程一旦建立，各项系数在整个求解过程不再变化，称为线性问题。如果物性为温度的函数，则式<span
+class="math inline">\(~\eqref{dis-eq}~\)</span>右端 4
+个邻点温度的系数不再是常数，而是温度的函数，这些系数在迭代过程中不断更新，这种问题称为非线性问题。</p>
+<ol start="6" type="1">
+<li>解的分析</li>
+</ol>
+<p>获得物体中温度分布不是最终目的，所得的温度场可能进一步应用于计算热流量或计算设备、零部件的热应力及热变形。</p>
+<h2 id="内节点离散方程的建立方法">内节点离散方程的建立方法</h2>
+<p>建立节点离散方程的方法有泰勒级数展开法及热平衡法两种，现以下图进行详细介绍</p>
+<p><img src="https://raw.githubusercontent.com/NChilton/Picture/main/img/202205300018850.png" alt="内节点离散方程建立" style="zoom:50%;" /></p>
+<h3 id="泰勒级数展开法">泰勒级数展开法</h3>
+<p>现以节点<span
+class="math inline">\(~(m,n)~\)</span>处的二阶偏导数为例，导出其差分表达式，对节点<span
+class="math inline">\(~(m+1,n)~\)</span>及<span
+class="math inline">\(~(m-1,n)~\)</span>分别写出温度的泰勒级数展开式
+<span class="math display">\[
+T_{m+1,n} = T_{m,n} + \Delta x \left. \frac{\partial T}{\partial x}
+\right |_{m.n} +
+\frac{\Delta x^2}{2} \left. \frac{\partial^2 T}{\partial x^2} \right
+|_{m.n} +
+\frac{\Delta x^3}{6} \left. \frac{\partial^3 T}{\partial x^3} \right
+|_{m.n} + \cdots,\\
+T_{m-1,n} = T_{m,n} - \Delta x \left. \frac{\partial T}{\partial x}
+\right |_{m.n} +
+\frac{\Delta x^2}{2} \left. \frac{\partial^2 T}{\partial x^2} \right
+|_{m.n} -
+\frac{\Delta x^3}{6} \left. \frac{\partial^3 T}{\partial x^3} \right
+|_{m.n} + \cdots.
+\]</span> 以上两式相加得 <span class="math display">\[
+T_{m+1,n} + T_{m-1,n} = 2T_{m,n} + \Delta x^2 \left. \frac{\partial^2
+T}{\partial x^2} \right |_{m.n} + \frac{\Delta x^4}{12} \left.
+\frac{\partial^4 T}{\partial x^4} \right |_{m.n}.
+\]</span> 上式中重写为 <span class="math display">\[
+\left. \frac{\partial^2 T}{\partial x^2} \right|_{m,n} = \frac{T_{m+1,n}
+- 2 T_{m,n} + T_{m-1,n}}{\Delta x^2} + \mathcal{O}(\Delta x^2),
+\label{eq5}
+\]</span> 其中<span class="math inline">\(~\mathcal{O}(\Delta
+x^2)~\)</span>称为截断误差（truncation
+error），表示未明确写出得级数余项中<span class="math inline">\(~\Delta
+x~\)</span>得最低阶数为
+2。进行数值计算时，一般省略掉截断误差，此时差分表达式也被称为中心差分（central
+difference）。同理可得 <span class="math display">\[
+\left. \frac{\partial^2 T}{\partial y^2} \right|_{m,n} = \frac{T_{m,n+1}
+- 2 T_{m,n} + T_{m,n-1}}{\Delta y^2} + \mathcal{O}(\Delta y^2).
+\label{eq6}
+\]</span> 将式<span class="math inline">\(~\eqref{eq5}~\)</span>和<span
+class="math inline">\(~\eqref{eq6}~\)</span>代入节点<span
+class="math inline">\(~(m,n)~\)</span>得离散方程，忽略截断误差，则有
+<span class="math display">\[
+\frac{T_{m+1,n} - 2 T_{m,n} + T_{m-1,n}}{\Delta x^2} + \frac{T_{m,n+1} -
+2 T_{m,n} + T_{m,n-1}}{\Delta y^2} = 0. \label{eq7}
+\]</span> 如果<span class="math inline">\(~\Delta x = \Delta
+y\)</span>，则上式退回式<span
+class="math inline">\(~\eqref{dis-eq}\)</span>。</p>
+<p>下表列举了常见离散表达式</p>
+<p><img src="https://raw.githubusercontent.com/NChilton/Picture/main/img/202205300109788.png" alt="一阶、二阶导数的常用差分表达式" style="zoom:50%;" /></p>
+<h3 id="热平衡法">热平衡法</h3>
+<p>对每个节点代表的元体采用傅里叶定律，例如从节点<span
+class="math inline">\(~(m-1,n)~\)</span>通过界面<span
+class="math inline">\(~w~\)</span>传导到节点<span
+class="math inline">\(~(m,n)~\)</span>的热流量可表示为 <span
+class="math display">\[
+\Phi_w = \lambda\Delta y\frac{T_{m-1,n}-T_{m,n}}{\Delta x}.
+\]</span> 类似地，也可以写出通过其他三个界面<span
+class="math inline">\(~e\)</span>、<span
+class="math inline">\(n~\)</span>及<span
+class="math inline">\(~s~\)</span>传导给节点<span
+class="math inline">\(~(m,n)~\)</span>的热量，得到关于元体<span
+class="math inline">\(~(m,n)~\)</span>的能量守恒方程 <span
+class="math display">\[
+\Phi_e + \Phi_w + \Phi_n + \Phi_s = 0,
+\]</span> 即 <span class="math display">\[
+\lambda\Delta y\frac{T_{m-1,n}-T_{m,n}}{\Delta x} +
+\lambda\Delta y\frac{T_{m+1,n}-T_{m,n}}{\Delta x} +
+\lambda\Delta x\frac{T_{m,n+1}-T_{m,n}}{\Delta y} +
+\lambda\Delta x\frac{T_{m,n-1}-T_{m,n}}{\Delta y} = 0.
+\]</span> 上式进一步简化可得到式<span
+class="math inline">\(~\eqref{eq7}\)</span>。</p>
+<h2
+id="边界节点离散方程的建立及代数方程的求解">边界节点离散方程的建立及代数方程的求解</h2>
+<h3 id="边界节点离散方程的建立">边界节点离散方程的建立</h3>
+<p>对于第一类边界条件的导热问题，所有内节点的离散方程组成了一个封闭的代数方程组，可以立即进行求解。对于含有第二类或第三类边界条件的导热问题，由内节点的离散方程组成的方程组不封闭，因为包含了未知的边界温度，因此需要补充这类边界节点上的代数方程。这也是数值计算中边界处理问题。</p>
+<h2 id="非稳态导热问题的数值求解">非稳态导热问题的数值求解</h2>
+<h2 id="小结">小结</h2>
+
+    </div>
+
+    
+    
+    
+
+    <footer class="post-footer">
+          <div class="post-tags">
+              <a href="/tags/%E4%BC%A0%E7%83%AD%E5%AD%A6/" rel="tag"># 传热学</a>
+              <a href="/tags/%E6%95%B0%E5%80%BC%E8%AE%A1%E7%AE%97/" rel="tag"># 数值计算</a>
+              <a href="/tags/%E6%9C%89%E9%99%90%E5%B7%AE%E5%88%86/" rel="tag"># 有限差分</a>
+          </div>
+
+        
+
+          <div class="post-nav">
+            <div class="post-nav-item">
+                <a href="/Heat-transfer-03-Unsteady-conduction.html" rel="prev" title="非稳态热传导">
+                  <i class="fa fa-chevron-left"></i> 非稳态热传导
+                </a>
+            </div>
+            <div class="post-nav-item">
+                <a href="/Heat-transfer-05-Convection.html" rel="next" title="对流传热的理论基础">
+                  对流传热的理论基础 <i class="fa fa-chevron-right"></i>
+                </a>
+            </div>
+          </div>
+    </footer>
+  </article>
+</div>
+
+
+
+
+
+
+</div>
+  </main>
+
+  <footer class="footer">
+    <div class="footer-inner">
+
+
+<div class="copyright">
+  &copy; 
+  <span itemprop="copyrightYear">2022</span>
+  <span class="with-love">
+    <i class="fa fa-heart"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">Chilton Nieh</span>
+</div>
+  <div class="powered-by">由 <a href="https://hexo.io/" rel="noopener" target="_blank">Hexo</a> & <a href="https://theme-next.js.org/" rel="noopener" target="_blank">NexT.Gemini</a> 强力驱动
+  </div>
+
+    </div>
+  </footer>
+
+  
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/animejs/3.2.1/anime.min.js" integrity="sha256-XL2inqUJaslATFnHdJOi9GfQ60on8Wx1C2H8DYiN1xY=" crossorigin="anonymous"></script>
+<script src="/js/comments.js"></script><script src="/js/utils.js"></script><script src="/js/next-boot.js"></script>
+
+  
+
+
+  <script class="next-config" data-name="mermaid" type="application/json">{"enable":true,"theme":{"light":"default","dark":"dark"},"js":{"url":"https://cdnjs.cloudflare.com/ajax/libs/mermaid/9.1.1/mermaid.min.js","integrity":"sha256-8L3O8tirFUa8Va4NSTAyIbHJeLd6OnlcxgupV9F77e0="}}</script>
+  <script src="/js/third-party/tags/mermaid.js"></script>
+
+
+
+  
+
+
+
+
+  
+
+  <script class="next-config" data-name="enableMath" type="application/json">true</script><script class="next-config" data-name="mathjax" type="application/json">{"enable":true,"tags":"all","js":{"url":"https://cdnjs.cloudflare.com/ajax/libs/mathjax/3.2.1/es5/tex-mml-chtml.js","integrity":"sha256-hlC2uSQYTmPsrzGZTEQEg9PZ1a/+SV6VBCTclohf2og="}}</script>
+<script src="/js/third-party/math/mathjax.js"></script>
+
+
+
+</body>
+</html>

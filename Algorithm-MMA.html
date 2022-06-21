@@ -1,0 +1,344 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+<meta name="viewport" content="width=device-width">
+<meta name="theme-color" content="#ddd"><meta name="generator" content="Hexo 6.2.0">
+
+
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png">
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png">
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png">
+  <link rel="mask-icon" href="/images/logo.svg" color="#ddd">
+
+<link rel="stylesheet" href="/css/main.css">
+
+<link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Lato:300,300italic,400,400italic,700,700italic&display=swap&subset=latin,latin-ext">
+
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.1.1/css/all.min.css" integrity="sha256-DfWjNxDkM94fVBWx1H5BMMp0Zq7luBlV8QRcSES7s+0=" crossorigin="anonymous">
+
+<script class="next-config" data-name="main" type="application/json">{"hostname":"example.com","root":"/","images":"/images","scheme":"Gemini","darkmode":false,"version":"8.12.1","exturl":false,"sidebar":{"position":"left","display":"post","padding":18,"offset":12},"copycode":{"enable":true,"style":null},"bookmark":{"enable":false,"color":"#222","save":"auto"},"mediumzoom":false,"lazyload":false,"pangu":false,"comments":{"style":"tabs","active":null,"storage":true,"lazyload":false,"nav":null},"stickytabs":false,"motion":{"enable":false,"async":false,"transition":{"post_block":"fadeIn","post_header":"fadeInDown","post_body":"fadeInDown","coll_header":"fadeInLeft","sidebar":"fadeInUp"}},"prism":false,"i18n":{"placeholder":"搜索...","empty":"没有找到任何搜索结果：${query}","hits_time":"找到 ${hits} 个搜索结果（用时 ${time} 毫秒）","hits":"找到 ${hits} 个搜索结果"}}</script><script src="/js/config.js"></script>
+
+    <meta name="description" content="介绍 移动渐近线法（Method of Moving Asymptotes，MMA）是一种结构优化的优化策略。在每次迭代中，生成并求解严格凸逼近子问题，这些子问题生成由所谓的移动渐近线所控制。 描述 这是一个三级算法： • 外部迭代k使用当前控制变量估计xk来评估目标函数、约束及其梯度，并与当前渐近线估计lk和uk一起用于构造近似子问题。该子问题保证是凸可行的，并传递给内部迭代。 •">
+<meta property="og:type" content="article">
+<meta property="og:title" content="MMA 优化算法">
+<meta property="og:url" content="http://example.com/Algorithm-MMA.html">
+<meta property="og:site_name" content="Day day up!">
+<meta property="og:description" content="介绍 移动渐近线法（Method of Moving Asymptotes，MMA）是一种结构优化的优化策略。在每次迭代中，生成并求解严格凸逼近子问题，这些子问题生成由所谓的移动渐近线所控制。 描述 这是一个三级算法： • 外部迭代k使用当前控制变量估计xk来评估目标函数、约束及其梯度，并与当前渐近线估计lk和uk一起用于构造近似子问题。该子问题保证是凸可行的，并传递给内部迭代。 •">
+<meta property="og:locale" content="zh_CN">
+<meta property="article:published_time" content="2022-01-11T16:00:00.000Z">
+<meta property="article:modified_time" content="2022-06-06T16:00:00.000Z">
+<meta property="article:author" content="Chilton Nieh">
+<meta property="article:tag" content="COMSOL">
+<meta property="article:tag" content="Python">
+<meta name="twitter:card" content="summary">
+
+
+<link rel="canonical" href="http://example.com/Algorithm-MMA.html">
+
+
+
+<script class="next-config" data-name="page" type="application/json">{"sidebar":"","isHome":false,"isPost":true,"lang":"zh-CN","comments":true,"permalink":"http://example.com/Algorithm-MMA.html","path":"/Algorithm-MMA.html","title":"MMA 优化算法"}</script>
+
+<script class="next-config" data-name="calendar" type="application/json">""</script>
+<title>MMA 优化算法 | Day day up!</title>
+  
+
+
+
+
+
+  <noscript>
+    <link rel="stylesheet" href="/css/noscript.css">
+  </noscript>
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage">
+  <div class="headband"></div>
+
+  <main class="main">
+    <header class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-container">
+  <div class="site-nav-toggle">
+    <div class="toggle" aria-label="切换导航栏" role="button">
+        <span class="toggle-line"></span>
+        <span class="toggle-line"></span>
+        <span class="toggle-line"></span>
+    </div>
+  </div>
+
+  <div class="site-meta">
+
+    <a href="/" class="brand" rel="start">
+      <i class="logo-line"></i>
+      <p class="site-title">Day day up!</p>
+      <i class="logo-line"></i>
+    </a>
+      <p class="site-subtitle" itemprop="description">做人最重要的的是😀</p>
+  </div>
+
+  <div class="site-nav-right">
+    <div class="toggle popup-trigger">
+    </div>
+  </div>
+</div>
+
+
+
+<nav class="site-nav">
+  <ul class="main-menu menu"><li class="menu-item menu-item-home"><a href="/" rel="section"><i class="fa fa-home fa-fw"></i>首页</a></li><li class="menu-item menu-item-archives"><a href="/archives/" rel="section"><i class="fa fa-archive fa-fw"></i>归档<span class="badge">38</span></a></li><li class="menu-item menu-item-tags"><a href="/tags/" rel="section"><i class="fa fa-tags fa-fw"></i>标签<span class="badge">40</span></a></li><li class="menu-item menu-item-categories"><a href="/categories/" rel="section"><i class="fa fa-th fa-fw"></i>分类<span class="badge">6</span></a></li><li class="menu-item menu-item-about"><a href="/about/" rel="section"><i class="fa fa-user fa-fw"></i>关于</a></li>
+  </ul>
+</nav>
+
+
+
+
+</div>
+        
+  
+  <div class="toggle sidebar-toggle" role="button">
+    <span class="toggle-line"></span>
+    <span class="toggle-line"></span>
+    <span class="toggle-line"></span>
+  </div>
+
+  <aside class="sidebar">
+
+    <div class="sidebar-inner sidebar-nav-active sidebar-toc-active">
+      <ul class="sidebar-nav">
+        <li class="sidebar-nav-toc">
+          文章目录
+        </li>
+        <li class="sidebar-nav-overview">
+          站点概览
+        </li>
+      </ul>
+
+      <div class="sidebar-panel-container">
+        <!--noindex-->
+        <div class="post-toc-wrap sidebar-panel">
+            <div class="post-toc animated"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#%E4%BB%8B%E7%BB%8D"><span class="nav-number">1.</span> <span class="nav-text">介绍</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E6%8F%8F%E8%BF%B0"><span class="nav-number">2.</span> <span class="nav-text">描述</span></a></li></ol></div>
+        </div>
+        <!--/noindex-->
+
+        <div class="site-overview-wrap sidebar-panel">
+          <div class="site-author site-overview-item animated" itemprop="author" itemscope itemtype="http://schema.org/Person">
+    <img class="site-author-image" itemprop="image" alt="Chilton Nieh"
+      src="/images/logo_fa.jpg">
+  <p class="site-author-name" itemprop="name">Chilton Nieh</p>
+  <div class="site-description" itemprop="description">路漫漫其修远兮，吾将上下而求索</div>
+</div>
+<div class="site-state-wrap site-overview-item animated">
+  <nav class="site-state">
+      <div class="site-state-item site-state-posts">
+        <a href="/archives/">
+          <span class="site-state-item-count">38</span>
+          <span class="site-state-item-name">日志</span>
+        </a>
+      </div>
+      <div class="site-state-item site-state-categories">
+          <a href="/categories/">
+        <span class="site-state-item-count">6</span>
+        <span class="site-state-item-name">分类</span></a>
+      </div>
+      <div class="site-state-item site-state-tags">
+          <a href="/tags/">
+        <span class="site-state-item-count">40</span>
+        <span class="site-state-item-name">标签</span></a>
+      </div>
+  </nav>
+</div>
+  <div class="links-of-author site-overview-item animated">
+      <span class="links-of-author-item">
+        <a href="https://github.com/yourname" title="GitHub → https:&#x2F;&#x2F;github.com&#x2F;yourname" rel="noopener" target="_blank"><i class="fab fa-github fa-fw"></i>GitHub</a>
+      </span>
+  </div>
+
+
+
+        </div>
+      </div>
+    </div>
+  </aside>
+  <div class="sidebar-dimmer"></div>
+
+
+    </header>
+
+    
+  <div class="back-to-top" role="button" aria-label="返回顶部">
+    <i class="fa fa-arrow-up"></i>
+    <span>0%</span>
+  </div>
+
+<noscript>
+  <div class="noscript-warning">Theme NexT works best with JavaScript enabled</div>
+</noscript>
+
+
+    <div class="main-inner post posts-expand">
+
+
+  
+
+
+<div class="post-block">
+  
+  
+
+  <article itemscope itemtype="http://schema.org/Article" class="post-content" lang="zh-CN">
+    <link itemprop="mainEntityOfPage" href="http://example.com/Algorithm-MMA.html">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/logo_fa.jpg">
+      <meta itemprop="name" content="Chilton Nieh">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Day day up!">
+      <meta itemprop="description" content="路漫漫其修远兮，吾将上下而求索">
+    </span>
+
+    <span hidden itemprop="post" itemscope itemtype="http://schema.org/CreativeWork">
+      <meta itemprop="name" content="MMA 优化算法 | Day day up!">
+      <meta itemprop="description" content="">
+    </span>
+      <header class="post-header">
+        <h1 class="post-title" itemprop="name headline">
+          MMA 优化算法
+        </h1>
+
+        <div class="post-meta-container">
+          <div class="post-meta">
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-calendar"></i>
+      </span>
+      <span class="post-meta-item-text">发表于</span>
+
+      <time title="创建时间：2022-01-12 00:00:00" itemprop="dateCreated datePublished" datetime="2022-01-12T00:00:00+08:00">2022-01-12</time>
+    </span>
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-calendar-check"></i>
+      </span>
+      <span class="post-meta-item-text">更新于</span>
+      <time title="修改时间：2022-06-07 00:00:00" itemprop="dateModified" datetime="2022-06-07T00:00:00+08:00">2022-06-07</time>
+    </span>
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-folder"></i>
+      </span>
+      <span class="post-meta-item-text">分类于</span>
+        <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+          <a href="/categories/%E4%BC%98%E5%8C%96%E7%AE%97%E6%B3%95/" itemprop="url" rel="index"><span itemprop="name">优化算法</span></a>
+        </span>
+    </span>
+
+  
+</div>
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+        <h2 id="介绍">介绍</h2>
+<p>移动渐近线法（Method of Moving
+Asymptotes，MMA）是一种结构优化的优化策略。在每次迭代中，生成并求解严格凸逼近子问题，这些子问题生成由所谓的移动渐近线所控制。</p>
+<h2 id="描述">描述</h2>
+<p>这是一个三级算法： •
+外部迭代k使用当前控制变量估计xk来评估目标函数、约束及其梯度，并与当前渐近线估计lk和uk一起用于构造近似子问题。该子问题保证是凸可行的，并传递给内部迭代。
+•
+每个内部迭代m为其唯一的最优xkm求解一个近似子问题，然后在此点评估真正的目标函数和约束。如果发现近似子问题与真函数值相比是保守的，则终止内部迭代，并接受该点作为下一个外部估计xk+1。否则，将修改近似子问题，使其更加保守，然后传递给下一个内部迭代。
+•
+每个内部迭代中的子问题都使用对偶活动集策略进行求解。逼近子问题是非线性和不等式约束的，但其特殊的结构使得求解固定对偶变量的原问题非常快。从原始问题的解出发，可以计算对偶问题的梯度和全Hessian，该对偶问题使用改进的Newton主动集算法求解。
+请注意，函数（目标和约束）梯度在每个外部迭代中严格计算一次，而函数值必须在每个额外的内部迭代中计算一次。最内层只看到子问题的解析近似形式，其中当前函数和梯度估计出现在各种系数中。
+生成的逼近子问题的特殊结构影响算法的全局行为。与SNOPT和Levenberg–Marquardt解算器相比，MMA本质上是一种线性方法，它们依赖于关于目标函数的二阶近似信息。它的子问题是原始问题的线性近似，但具有由移动渐近线控制的屏障式有理函数贡献。除了渐近线的当前位置外，在外部迭代之间没有保留有关问题的信息。
+在实践中，这意味着MMA不会显示出与类牛顿方法相关的接近最优值的二次收敛性。事实上，目标函数中有一个由二次项支配的非常简单的问题，MMA收敛速度非常慢或根本不收敛。特别是，为了使MMA有效工作，必须在优化界面中使用最小二乘目标特征来描述最小二乘问题。这些特性触发了问题的重新表述，使之成为更适合MMA的形式。此外，如果缺陷是复数的，MMA内部只使用实部。
+由于目标函数的线性近似，每个外部MMA迭代中的第一个内部迭代有效地进入可行集的一个角，在那里它完全受约束和简单边界的约束。如果发现该点是非保守的，就像目标函数在可行集内部具有最优值的凸函数一样，内部迭代会生成一系列逐渐远离约束的迭代，直到找到保守点。这种行为倾向于接近约束的点，而SNOPT中使用的线搜索和Levenberg–Marquardt中的信赖域则倾向于接近上一次迭代的点。如果目标函数具有多个局部极小值，则可以期望不同的方法找到不同的局部解。</p>
+
+    </div>
+
+    
+    
+    
+
+    <footer class="post-footer">
+          <div class="post-tags">
+              <a href="/tags/COMSOL/" rel="tag"># COMSOL</a>
+              <a href="/tags/Python/" rel="tag"># Python</a>
+          </div>
+
+        
+
+          <div class="post-nav">
+            <div class="post-nav-item">
+                <a href="/Using-Chinese-font-in-matplotlib.html" rel="prev" title="在 Python matplotlib 中使用中文字体">
+                  <i class="fa fa-chevron-left"></i> 在 Python matplotlib 中使用中文字体
+                </a>
+            </div>
+            <div class="post-nav-item">
+                <a href="/Heat-exchanger-topology-optimization.html" rel="next" title="层流换热器的拓扑优化">
+                  层流换热器的拓扑优化 <i class="fa fa-chevron-right"></i>
+                </a>
+            </div>
+          </div>
+    </footer>
+  </article>
+</div>
+
+
+
+
+
+
+</div>
+  </main>
+
+  <footer class="footer">
+    <div class="footer-inner">
+
+
+<div class="copyright">
+  &copy; 
+  <span itemprop="copyrightYear">2022</span>
+  <span class="with-love">
+    <i class="fa fa-heart"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">Chilton Nieh</span>
+</div>
+  <div class="powered-by">由 <a href="https://hexo.io/" rel="noopener" target="_blank">Hexo</a> & <a href="https://theme-next.js.org/" rel="noopener" target="_blank">NexT.Gemini</a> 强力驱动
+  </div>
+
+    </div>
+  </footer>
+
+  
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/animejs/3.2.1/anime.min.js" integrity="sha256-XL2inqUJaslATFnHdJOi9GfQ60on8Wx1C2H8DYiN1xY=" crossorigin="anonymous"></script>
+<script src="/js/comments.js"></script><script src="/js/utils.js"></script><script src="/js/next-boot.js"></script>
+
+  
+
+
+  <script class="next-config" data-name="mermaid" type="application/json">{"enable":true,"theme":{"light":"default","dark":"dark"},"js":{"url":"https://cdnjs.cloudflare.com/ajax/libs/mermaid/9.1.1/mermaid.min.js","integrity":"sha256-8L3O8tirFUa8Va4NSTAyIbHJeLd6OnlcxgupV9F77e0="}}</script>
+  <script src="/js/third-party/tags/mermaid.js"></script>
+
+
+
+  
+
+
+
+
+  
+
+  <script class="next-config" data-name="enableMath" type="application/json">true</script><script class="next-config" data-name="mathjax" type="application/json">{"enable":true,"tags":"all","js":{"url":"https://cdnjs.cloudflare.com/ajax/libs/mathjax/3.2.1/es5/tex-mml-chtml.js","integrity":"sha256-hlC2uSQYTmPsrzGZTEQEg9PZ1a/+SV6VBCTclohf2og="}}</script>
+<script src="/js/third-party/math/mathjax.js"></script>
+
+
+
+</body>
+</html>

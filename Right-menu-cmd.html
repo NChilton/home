@@ -1,0 +1,382 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+<meta name="viewport" content="width=device-width">
+<meta name="theme-color" content="#ddd"><meta name="generator" content="Hexo 6.2.0">
+
+
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png">
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png">
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png">
+  <link rel="mask-icon" href="/images/logo.svg" color="#ddd">
+
+<link rel="stylesheet" href="/css/main.css">
+
+<link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Lato:300,300italic,400,400italic,700,700italic&display=swap&subset=latin,latin-ext">
+
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.1.1/css/all.min.css" integrity="sha256-DfWjNxDkM94fVBWx1H5BMMp0Zq7luBlV8QRcSES7s+0=" crossorigin="anonymous">
+
+<script class="next-config" data-name="main" type="application/json">{"hostname":"example.com","root":"/","images":"/images","scheme":"Gemini","darkmode":false,"version":"8.12.1","exturl":false,"sidebar":{"position":"left","display":"post","padding":18,"offset":12},"copycode":{"enable":true,"style":null},"bookmark":{"enable":false,"color":"#222","save":"auto"},"mediumzoom":false,"lazyload":false,"pangu":false,"comments":{"style":"tabs","active":null,"storage":true,"lazyload":false,"nav":null},"stickytabs":false,"motion":{"enable":false,"async":false,"transition":{"post_block":"fadeIn","post_header":"fadeInDown","post_body":"fadeInDown","coll_header":"fadeInLeft","sidebar":"fadeInUp"}},"prism":false,"i18n":{"placeholder":"搜索...","empty":"没有找到任何搜索结果：${query}","hits_time":"找到 ${hits} 个搜索结果（用时 ${time} 毫秒）","hits":"找到 ${hits} 个搜索结果"}}</script><script src="/js/config.js"></script>
+
+    <meta name="description" content="很多时候我们需要在某个文件夹下打开cmd或者powershell，可以在Windows 运行（Winkey + R）里输入cmd或者powershell，打开窗口默认目录为C:\Users\&lt;xxx&gt;，但切换到目的目录比较麻烦。此处给出快速在当前目录打开cmd或者powershell的方法。  shift + 右键 在 Windows 下同时shift + 右键，则在右键菜">
+<meta property="og:type" content="article">
+<meta property="og:title" content="命令提示符（cmd）右键菜单">
+<meta property="og:url" content="http://example.com/Right-menu-cmd.html">
+<meta property="og:site_name" content="Day day up!">
+<meta property="og:description" content="很多时候我们需要在某个文件夹下打开cmd或者powershell，可以在Windows 运行（Winkey + R）里输入cmd或者powershell，打开窗口默认目录为C:\Users\&lt;xxx&gt;，但切换到目的目录比较麻烦。此处给出快速在当前目录打开cmd或者powershell的方法。  shift + 右键 在 Windows 下同时shift + 右键，则在右键菜">
+<meta property="og:locale" content="zh_CN">
+<meta property="article:published_time" content="2018-10-31T16:00:00.000Z">
+<meta property="article:modified_time" content="2021-12-07T16:00:00.000Z">
+<meta property="article:author" content="Chilton Nieh">
+<meta property="article:tag" content="cmd">
+<meta property="article:tag" content="powershell">
+<meta name="twitter:card" content="summary">
+
+
+<link rel="canonical" href="http://example.com/Right-menu-cmd.html">
+
+
+
+<script class="next-config" data-name="page" type="application/json">{"sidebar":"","isHome":false,"isPost":true,"lang":"zh-CN","comments":true,"permalink":"http://example.com/Right-menu-cmd.html","path":"/Right-menu-cmd.html","title":"命令提示符（cmd）右键菜单"}</script>
+
+<script class="next-config" data-name="calendar" type="application/json">""</script>
+<title>命令提示符（cmd）右键菜单 | Day day up!</title>
+  
+
+
+
+
+
+  <noscript>
+    <link rel="stylesheet" href="/css/noscript.css">
+  </noscript>
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage">
+  <div class="headband"></div>
+
+  <main class="main">
+    <header class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-container">
+  <div class="site-nav-toggle">
+    <div class="toggle" aria-label="切换导航栏" role="button">
+        <span class="toggle-line"></span>
+        <span class="toggle-line"></span>
+        <span class="toggle-line"></span>
+    </div>
+  </div>
+
+  <div class="site-meta">
+
+    <a href="/" class="brand" rel="start">
+      <i class="logo-line"></i>
+      <p class="site-title">Day day up!</p>
+      <i class="logo-line"></i>
+    </a>
+      <p class="site-subtitle" itemprop="description">做人最重要的的是😀</p>
+  </div>
+
+  <div class="site-nav-right">
+    <div class="toggle popup-trigger">
+    </div>
+  </div>
+</div>
+
+
+
+<nav class="site-nav">
+  <ul class="main-menu menu"><li class="menu-item menu-item-home"><a href="/" rel="section"><i class="fa fa-home fa-fw"></i>首页</a></li><li class="menu-item menu-item-archives"><a href="/archives/" rel="section"><i class="fa fa-archive fa-fw"></i>归档<span class="badge">38</span></a></li><li class="menu-item menu-item-tags"><a href="/tags/" rel="section"><i class="fa fa-tags fa-fw"></i>标签<span class="badge">40</span></a></li><li class="menu-item menu-item-categories"><a href="/categories/" rel="section"><i class="fa fa-th fa-fw"></i>分类<span class="badge">6</span></a></li><li class="menu-item menu-item-about"><a href="/about/" rel="section"><i class="fa fa-user fa-fw"></i>关于</a></li>
+  </ul>
+</nav>
+
+
+
+
+</div>
+        
+  
+  <div class="toggle sidebar-toggle" role="button">
+    <span class="toggle-line"></span>
+    <span class="toggle-line"></span>
+    <span class="toggle-line"></span>
+  </div>
+
+  <aside class="sidebar">
+
+    <div class="sidebar-inner sidebar-nav-active sidebar-toc-active">
+      <ul class="sidebar-nav">
+        <li class="sidebar-nav-toc">
+          文章目录
+        </li>
+        <li class="sidebar-nav-overview">
+          站点概览
+        </li>
+      </ul>
+
+      <div class="sidebar-panel-container">
+        <!--noindex-->
+        <div class="post-toc-wrap sidebar-panel">
+            <div class="post-toc animated"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#shift-%E5%8F%B3%E9%94%AE"><span class="nav-number">1.</span> <span class="nav-text">shift + 右键</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E4%BF%AE%E6%94%B9%E6%B3%A8%E5%86%8C%E8%A1%A8"><span class="nav-number">2.</span> <span class="nav-text">修改注册表</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%AE%89%E8%A3%85-bandzip-%E8%BD%AF%E4%BB%B6"><span class="nav-number">3.</span> <span class="nav-text">安装 Bandzip 软件</span></a></li></ol></div>
+        </div>
+        <!--/noindex-->
+
+        <div class="site-overview-wrap sidebar-panel">
+          <div class="site-author site-overview-item animated" itemprop="author" itemscope itemtype="http://schema.org/Person">
+    <img class="site-author-image" itemprop="image" alt="Chilton Nieh"
+      src="/images/logo_fa.jpg">
+  <p class="site-author-name" itemprop="name">Chilton Nieh</p>
+  <div class="site-description" itemprop="description">路漫漫其修远兮，吾将上下而求索</div>
+</div>
+<div class="site-state-wrap site-overview-item animated">
+  <nav class="site-state">
+      <div class="site-state-item site-state-posts">
+        <a href="/archives/">
+          <span class="site-state-item-count">38</span>
+          <span class="site-state-item-name">日志</span>
+        </a>
+      </div>
+      <div class="site-state-item site-state-categories">
+          <a href="/categories/">
+        <span class="site-state-item-count">6</span>
+        <span class="site-state-item-name">分类</span></a>
+      </div>
+      <div class="site-state-item site-state-tags">
+          <a href="/tags/">
+        <span class="site-state-item-count">40</span>
+        <span class="site-state-item-name">标签</span></a>
+      </div>
+  </nav>
+</div>
+  <div class="links-of-author site-overview-item animated">
+      <span class="links-of-author-item">
+        <a href="https://github.com/yourname" title="GitHub → https:&#x2F;&#x2F;github.com&#x2F;yourname" rel="noopener" target="_blank"><i class="fab fa-github fa-fw"></i>GitHub</a>
+      </span>
+  </div>
+
+
+
+        </div>
+      </div>
+    </div>
+  </aside>
+  <div class="sidebar-dimmer"></div>
+
+
+    </header>
+
+    
+  <div class="back-to-top" role="button" aria-label="返回顶部">
+    <i class="fa fa-arrow-up"></i>
+    <span>0%</span>
+  </div>
+
+<noscript>
+  <div class="noscript-warning">Theme NexT works best with JavaScript enabled</div>
+</noscript>
+
+
+    <div class="main-inner post posts-expand">
+
+
+  
+
+
+<div class="post-block">
+  
+  
+
+  <article itemscope itemtype="http://schema.org/Article" class="post-content" lang="zh-CN">
+    <link itemprop="mainEntityOfPage" href="http://example.com/Right-menu-cmd.html">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/logo_fa.jpg">
+      <meta itemprop="name" content="Chilton Nieh">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Day day up!">
+      <meta itemprop="description" content="路漫漫其修远兮，吾将上下而求索">
+    </span>
+
+    <span hidden itemprop="post" itemscope itemtype="http://schema.org/CreativeWork">
+      <meta itemprop="name" content="命令提示符（cmd）右键菜单 | Day day up!">
+      <meta itemprop="description" content="">
+    </span>
+      <header class="post-header">
+        <h1 class="post-title" itemprop="name headline">
+          命令提示符（cmd）右键菜单
+        </h1>
+
+        <div class="post-meta-container">
+          <div class="post-meta">
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-calendar"></i>
+      </span>
+      <span class="post-meta-item-text">发表于</span>
+
+      <time title="创建时间：2018-11-01 00:00:00" itemprop="dateCreated datePublished" datetime="2018-11-01T00:00:00+08:00">2018-11-01</time>
+    </span>
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-calendar-check"></i>
+      </span>
+      <span class="post-meta-item-text">更新于</span>
+      <time title="修改时间：2021-12-08 00:00:00" itemprop="dateModified" datetime="2021-12-08T00:00:00+08:00">2021-12-08</time>
+    </span>
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-folder"></i>
+      </span>
+      <span class="post-meta-item-text">分类于</span>
+        <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+          <a href="/categories/%E9%85%8D%E7%BD%AE%E6%8A%80%E5%B7%A7/" itemprop="url" rel="index"><span itemprop="name">配置技巧</span></a>
+        </span>
+    </span>
+
+  
+</div>
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+        <blockquote>
+<p>很多时候我们需要在某个文件夹下打开<code>cmd</code>或者<code>powershell</code>，可以在<code>Windows 运行</code>（<code>Winkey + R</code>）里输入<code>cmd</code>或者<code>powershell</code>，打开窗口默认目录为<code>C:\Users\&lt;xxx&gt;</code>，但切换到目的目录比较麻烦。此处给出快速在当前目录打开<code>cmd</code>或者<code>powershell</code>的方法。</p>
+</blockquote>
+<h2 id="shift-右键">shift + 右键</h2>
+<p>在 Windows
+下同时<code>shift + 右键</code>，则在右键菜单有在此处打开<code>命令提示符窗口/Powershell 窗口</code>，如下图所示（本人
+Windows 10 为 1809 版）：</p>
+<figure>
+<img
+src="https://raw.githubusercontent.com/NChilton/Picture/main/img/202112042133412.png"
+alt="shift + 右键" />
+<figcaption aria-hidden="true">shift + 右键</figcaption>
+</figure>
+<span id="more"></span>
+<p>有几点需要注意：</p>
+<ul>
+<li>在 Windows 10 1703
+版本之前，<code>shift + 右键</code>出现的是<code>在此处打开命令提示符（cmd)</code>，在此版本及之后出现的是<code>在此处打开 Powershell 窗口</code>。</li>
+<li>鼠标右击开始菜单，在 Windows 10 1703
+版本之前，选项中会出现<code>命令提示符</code>和<code>命令提示符（管理员）</code>，在此版本及之后出现的是<code>Windows Powershell</code>和<code>Windows Powershell（管理员）</code>。</li>
+<li>如果你的电脑安装了 Windows 子系统（WSL），则在 Windows 10 1809
+版本及以后，<code>shift + 右键</code>会多出一个<code>在此处打开 Linux shell</code>选项。</li>
+</ul>
+<h2 id="修改注册表">修改注册表</h2>
+<p><code>shift + 右键</code>中 2
+区对应的注册表位置为<code>计算机\HKEY_CLASSES_ROOT\Directory\Background\shell</code>，将注册表位置定位到地址，其中数值名称为<code>(默认)</code>的数据值为右键菜单显示的名称，数值名称为<code>ShowBaseOnVelocityld</code>表示启用该选项（如下图
+Powershell
+就启用了），数值名称为<code>HideBaseOnVelocityld</code>表示不启用该选项（如下图
+cmd 就没启用）。</p>
+<figure>
+<img
+src="https://raw.githubusercontent.com/NChilton/Picture/main/img/202112042133625.png"
+alt="注册表" />
+<figcaption aria-hidden="true">注册表</figcaption>
+</figure>
+<h2 id="安装-bandzip-软件">安装 Bandzip 软件</h2>
+<p>Bandzip 是一款解压缩软件，此处极力安利。安装 Bandzip
+软件后在选项中可以增加<code>打开命令提示符...</code>到右键菜单。</p>
+<figure>
+<img
+src="https://raw.githubusercontent.com/NChilton/Picture/main/img/202112042133135.png"
+alt="Bandzip" />
+<figcaption aria-hidden="true">Bandzip</figcaption>
+</figure>
+<p>这种方式也是在注册表增加<code>cmd</code>选项，如下所示，1 表示启用，0
+表示不启用。</p>
+<figure>
+<img
+src="https://raw.githubusercontent.com/NChilton/Picture/main/img/202112042133553.png"
+alt="注册表" />
+<figcaption aria-hidden="true">注册表</figcaption>
+</figure>
+
+    </div>
+
+    
+    
+    
+
+    <footer class="post-footer">
+          <div class="post-tags">
+              <a href="/tags/cmd/" rel="tag"># cmd</a>
+              <a href="/tags/powershell/" rel="tag"># powershell</a>
+          </div>
+
+        
+
+          <div class="post-nav">
+            <div class="post-nav-item">
+                <a href="/Algorithm-BP-ANN.html" rel="prev" title="人工神经网络算法">
+                  <i class="fa fa-chevron-left"></i> 人工神经网络算法
+                </a>
+            </div>
+            <div class="post-nav-item">
+                <a href="/Windows-LAMMPS-installation.html" rel="next" title="Windows 下安装并行版 LAMMPS">
+                  Windows 下安装并行版 LAMMPS <i class="fa fa-chevron-right"></i>
+                </a>
+            </div>
+          </div>
+    </footer>
+  </article>
+</div>
+
+
+
+
+
+
+</div>
+  </main>
+
+  <footer class="footer">
+    <div class="footer-inner">
+
+
+<div class="copyright">
+  &copy; 
+  <span itemprop="copyrightYear">2022</span>
+  <span class="with-love">
+    <i class="fa fa-heart"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">Chilton Nieh</span>
+</div>
+  <div class="powered-by">由 <a href="https://hexo.io/" rel="noopener" target="_blank">Hexo</a> & <a href="https://theme-next.js.org/" rel="noopener" target="_blank">NexT.Gemini</a> 强力驱动
+  </div>
+
+    </div>
+  </footer>
+
+  
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/animejs/3.2.1/anime.min.js" integrity="sha256-XL2inqUJaslATFnHdJOi9GfQ60on8Wx1C2H8DYiN1xY=" crossorigin="anonymous"></script>
+<script src="/js/comments.js"></script><script src="/js/utils.js"></script><script src="/js/next-boot.js"></script>
+
+  
+
+
+  <script class="next-config" data-name="mermaid" type="application/json">{"enable":true,"theme":{"light":"default","dark":"dark"},"js":{"url":"https://cdnjs.cloudflare.com/ajax/libs/mermaid/9.1.1/mermaid.min.js","integrity":"sha256-8L3O8tirFUa8Va4NSTAyIbHJeLd6OnlcxgupV9F77e0="}}</script>
+  <script src="/js/third-party/tags/mermaid.js"></script>
+
+
+
+  
+
+
+
+
+  
+
+  <script class="next-config" data-name="enableMath" type="application/json">false</script><script class="next-config" data-name="mathjax" type="application/json">{"enable":true,"tags":"all","js":{"url":"https://cdnjs.cloudflare.com/ajax/libs/mathjax/3.2.1/es5/tex-mml-chtml.js","integrity":"sha256-hlC2uSQYTmPsrzGZTEQEg9PZ1a/+SV6VBCTclohf2og="}}</script>
+<script src="/js/third-party/math/mathjax.js"></script>
+
+
+
+</body>
+</html>

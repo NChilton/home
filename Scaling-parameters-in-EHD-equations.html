@@ -1,0 +1,463 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+<meta name="viewport" content="width=device-width">
+<meta name="theme-color" content="#ddd"><meta name="generator" content="Hexo 6.2.0">
+
+
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png">
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png">
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png">
+  <link rel="mask-icon" href="/images/logo.svg" color="#ddd">
+
+<link rel="stylesheet" href="/css/main.css">
+
+<link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Lato:300,300italic,400,400italic,700,700italic&display=swap&subset=latin,latin-ext">
+
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.1.1/css/all.min.css" integrity="sha256-DfWjNxDkM94fVBWx1H5BMMp0Zq7luBlV8QRcSES7s+0=" crossorigin="anonymous">
+
+<script class="next-config" data-name="main" type="application/json">{"hostname":"example.com","root":"/","images":"/images","scheme":"Gemini","darkmode":false,"version":"8.12.1","exturl":false,"sidebar":{"position":"left","display":"post","padding":18,"offset":12},"copycode":{"enable":true,"style":null},"bookmark":{"enable":false,"color":"#222","save":"auto"},"mediumzoom":false,"lazyload":false,"pangu":false,"comments":{"style":"tabs","active":null,"storage":true,"lazyload":false,"nav":null},"stickytabs":false,"motion":{"enable":false,"async":false,"transition":{"post_block":"fadeIn","post_header":"fadeInDown","post_body":"fadeInDown","coll_header":"fadeInLeft","sidebar":"fadeInUp"}},"prism":false,"i18n":{"placeholder":"搜索...","empty":"没有找到任何搜索结果：${query}","hits_time":"找到 ${hits} 个搜索结果（用时 ${time} 毫秒）","hits":"找到 ${hits} 个搜索结果"}}</script><script src="/js/config.js"></script>
+
+    <meta name="description" content="This is a series of lecture notes on the advanced fluid dynamics. This original lectures see here. This blog introduces how to find scaling and similarity parameters relevant to a problem at hand">
+<meta property="og:type" content="article">
+<meta property="og:title" content="两相电流体方程组的无量纲化">
+<meta property="og:url" content="http://example.com/Scaling-parameters-in-EHD-equations.html">
+<meta property="og:site_name" content="Day day up!">
+<meta property="og:description" content="This is a series of lecture notes on the advanced fluid dynamics. This original lectures see here. This blog introduces how to find scaling and similarity parameters relevant to a problem at hand">
+<meta property="og:locale" content="zh_CN">
+<meta property="article:published_time" content="2019-12-14T16:00:00.000Z">
+<meta property="article:modified_time" content="2022-02-23T16:00:00.000Z">
+<meta property="article:author" content="Chilton Nieh">
+<meta property="article:tag" content="NS 方程">
+<meta property="article:tag" content="电流体">
+<meta name="twitter:card" content="summary">
+
+
+<link rel="canonical" href="http://example.com/Scaling-parameters-in-EHD-equations.html">
+
+
+
+<script class="next-config" data-name="page" type="application/json">{"sidebar":"","isHome":false,"isPost":true,"lang":"zh-CN","comments":true,"permalink":"http://example.com/Scaling-parameters-in-EHD-equations.html","path":"/Scaling-parameters-in-EHD-equations.html","title":"两相电流体方程组的无量纲化"}</script>
+
+<script class="next-config" data-name="calendar" type="application/json">""</script>
+<title>两相电流体方程组的无量纲化 | Day day up!</title>
+  
+
+
+
+
+
+  <noscript>
+    <link rel="stylesheet" href="/css/noscript.css">
+  </noscript>
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage">
+  <div class="headband"></div>
+
+  <main class="main">
+    <header class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-container">
+  <div class="site-nav-toggle">
+    <div class="toggle" aria-label="切换导航栏" role="button">
+        <span class="toggle-line"></span>
+        <span class="toggle-line"></span>
+        <span class="toggle-line"></span>
+    </div>
+  </div>
+
+  <div class="site-meta">
+
+    <a href="/" class="brand" rel="start">
+      <i class="logo-line"></i>
+      <p class="site-title">Day day up!</p>
+      <i class="logo-line"></i>
+    </a>
+      <p class="site-subtitle" itemprop="description">做人最重要的的是😀</p>
+  </div>
+
+  <div class="site-nav-right">
+    <div class="toggle popup-trigger">
+    </div>
+  </div>
+</div>
+
+
+
+<nav class="site-nav">
+  <ul class="main-menu menu"><li class="menu-item menu-item-home"><a href="/" rel="section"><i class="fa fa-home fa-fw"></i>首页</a></li><li class="menu-item menu-item-archives"><a href="/archives/" rel="section"><i class="fa fa-archive fa-fw"></i>归档<span class="badge">38</span></a></li><li class="menu-item menu-item-tags"><a href="/tags/" rel="section"><i class="fa fa-tags fa-fw"></i>标签<span class="badge">40</span></a></li><li class="menu-item menu-item-categories"><a href="/categories/" rel="section"><i class="fa fa-th fa-fw"></i>分类<span class="badge">6</span></a></li><li class="menu-item menu-item-about"><a href="/about/" rel="section"><i class="fa fa-user fa-fw"></i>关于</a></li>
+  </ul>
+</nav>
+
+
+
+
+</div>
+        
+  
+  <div class="toggle sidebar-toggle" role="button">
+    <span class="toggle-line"></span>
+    <span class="toggle-line"></span>
+    <span class="toggle-line"></span>
+  </div>
+
+  <aside class="sidebar">
+
+    <div class="sidebar-inner sidebar-nav-active sidebar-toc-active">
+      <ul class="sidebar-nav">
+        <li class="sidebar-nav-toc">
+          文章目录
+        </li>
+        <li class="sidebar-nav-overview">
+          站点概览
+        </li>
+      </ul>
+
+      <div class="sidebar-panel-container">
+        <!--noindex-->
+        <div class="post-toc-wrap sidebar-panel">
+            <div class="post-toc animated"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#%E7%94%B5%E6%B5%81%E4%BD%93%E6%96%B9%E7%A8%8B%E7%BB%84"><span class="nav-number">1.</span> <span class="nav-text">电流体方程组</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E6%97%A0%E9%87%8F%E7%BA%B2%E5%8F%82%E6%95%B0%E9%80%89%E5%8F%96"><span class="nav-number">2.</span> <span class="nav-text">无量纲参数选取</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%BB%BA%E8%AE%AE%E5%8F%96%E5%80%BC"><span class="nav-number">3.</span> <span class="nav-text">建议取值</span></a></li></ol></div>
+        </div>
+        <!--/noindex-->
+
+        <div class="site-overview-wrap sidebar-panel">
+          <div class="site-author site-overview-item animated" itemprop="author" itemscope itemtype="http://schema.org/Person">
+    <img class="site-author-image" itemprop="image" alt="Chilton Nieh"
+      src="/images/logo_fa.jpg">
+  <p class="site-author-name" itemprop="name">Chilton Nieh</p>
+  <div class="site-description" itemprop="description">路漫漫其修远兮，吾将上下而求索</div>
+</div>
+<div class="site-state-wrap site-overview-item animated">
+  <nav class="site-state">
+      <div class="site-state-item site-state-posts">
+        <a href="/archives/">
+          <span class="site-state-item-count">38</span>
+          <span class="site-state-item-name">日志</span>
+        </a>
+      </div>
+      <div class="site-state-item site-state-categories">
+          <a href="/categories/">
+        <span class="site-state-item-count">6</span>
+        <span class="site-state-item-name">分类</span></a>
+      </div>
+      <div class="site-state-item site-state-tags">
+          <a href="/tags/">
+        <span class="site-state-item-count">40</span>
+        <span class="site-state-item-name">标签</span></a>
+      </div>
+  </nav>
+</div>
+  <div class="links-of-author site-overview-item animated">
+      <span class="links-of-author-item">
+        <a href="https://github.com/yourname" title="GitHub → https:&#x2F;&#x2F;github.com&#x2F;yourname" rel="noopener" target="_blank"><i class="fab fa-github fa-fw"></i>GitHub</a>
+      </span>
+  </div>
+
+
+
+        </div>
+      </div>
+    </div>
+  </aside>
+  <div class="sidebar-dimmer"></div>
+
+
+    </header>
+
+    
+  <div class="back-to-top" role="button" aria-label="返回顶部">
+    <i class="fa fa-arrow-up"></i>
+    <span>0%</span>
+  </div>
+
+<noscript>
+  <div class="noscript-warning">Theme NexT works best with JavaScript enabled</div>
+</noscript>
+
+
+    <div class="main-inner post posts-expand">
+
+
+  
+
+
+<div class="post-block">
+  
+  
+
+  <article itemscope itemtype="http://schema.org/Article" class="post-content" lang="zh-CN">
+    <link itemprop="mainEntityOfPage" href="http://example.com/Scaling-parameters-in-EHD-equations.html">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/logo_fa.jpg">
+      <meta itemprop="name" content="Chilton Nieh">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Day day up!">
+      <meta itemprop="description" content="路漫漫其修远兮，吾将上下而求索">
+    </span>
+
+    <span hidden itemprop="post" itemscope itemtype="http://schema.org/CreativeWork">
+      <meta itemprop="name" content="两相电流体方程组的无量纲化 | Day day up!">
+      <meta itemprop="description" content="">
+    </span>
+      <header class="post-header">
+        <h1 class="post-title" itemprop="name headline">
+          两相电流体方程组的无量纲化
+        </h1>
+
+        <div class="post-meta-container">
+          <div class="post-meta">
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-calendar"></i>
+      </span>
+      <span class="post-meta-item-text">发表于</span>
+
+      <time title="创建时间：2019-12-15 00:00:00" itemprop="dateCreated datePublished" datetime="2019-12-15T00:00:00+08:00">2019-12-15</time>
+    </span>
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-calendar-check"></i>
+      </span>
+      <span class="post-meta-item-text">更新于</span>
+      <time title="修改时间：2022-02-24 00:00:00" itemprop="dateModified" datetime="2022-02-24T00:00:00+08:00">2022-02-24</time>
+    </span>
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-folder"></i>
+      </span>
+      <span class="post-meta-item-text">分类于</span>
+        <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+          <a href="/categories/%E7%A0%94%E7%A9%B6%E7%9B%B8%E5%85%B3/" itemprop="url" rel="index"><span itemprop="name">研究相关</span></a>
+        </span>
+    </span>
+
+  
+</div>
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+        <blockquote>
+<p>This is a series of lecture notes on the advanced fluid dynamics.
+This original lectures see <a
+target="_blank" rel="noopener" href="http://web.mit.edu/1.63/www/lecnote.html">here</a>. This blog
+introduces how to find scaling and similarity parameters relevant to a
+problem at hand. Normalization by these scales leads to dimensionless
+parameters which represent the relative importance of various parts of
+the full equations. Depending on the magnitudes of these parameters,
+suitable approximations can be devised which can lead to answers that
+capture the essence of the problem. As an illustration we use the
+incompressible fluid of constant density to explain this philosophy and
+approach.</p>
+</blockquote>
+<span id="more"></span>
+<h2 id="电流体方程组">电流体方程组</h2>
+<p>前面我们已经得到，对于电流体两相流动，如果物性参数如<strong>特征密度、特征粘度、特征表面张力、特征介电常数和特征电导率</strong>分别为
+<span
+class="math inline">\(\rho,\mu,\gamma,\varepsilon,\sigma\)</span>，其它特征参数如<strong>特征长度、特征时间、特征速度、特征压力、特征场强和特征电荷密度</strong>分别为
+<span class="math inline">\(L,T,U,P,E_0,\varepsilon E_0/L\)</span>，则
+NS 方程可无量纲化为（记为方程(1)） <span class="math display">\[
+\boxed{\begin{aligned}\frac{L}{TU}\frac{\partial
+\boldsymbol{u}^*}{\partial
+t^*}+\nabla^*\cdot(\boldsymbol{u}^*\otimes\boldsymbol{u}^*)=&amp;-\frac{P}{\rho
+U^2}\nabla^*p^*+\frac{\mu}{\rho UL}\nabla^*\cdot
+(\nabla^*\boldsymbol{u}^*)
+\\
+&amp;+\frac{\gamma}{\rho U^2L} \kappa^*\nabla^* c+\frac{\varepsilon
+E_0^2}{\rho U^2}\left(\rho_e^*
+\boldsymbol{E^*}-\frac{1}{2}\boldsymbol{E^*E^*}\nabla^*\varepsilon^*\right)\end{aligned}}.
+\]</span></p>
+<p>静电方程可无量化为（记为方程(2)） <span class="math display">\[
+\boxed{\nabla^*\cdot(\varepsilon^*\boldsymbol{E}^*)=\rho_e^*}.
+\]</span> 电荷传输方程可无量纲化为（记为方程(3)） <span
+class="math display">\[
+\boxed{\frac{\partial \rho_e^*}{\partial t^*}+\frac{\sigma
+T}{\varepsilon}\nabla\cdot(\sigma^*\boldsymbol{E}^*)+\frac{UT}{L}\nabla^*\cdot(\rho_e^*\boldsymbol{u}^*)=0}.
+\]</span></p>
+<h2 id="无量纲参数选取">无量纲参数选取</h2>
+<p>在流体力学中特征长度根据具体物理问题取值，特征时间可从以下几个时间尺度取值</p>
+<table>
+<thead>
+<tr class="header">
+<th>特征时间</th>
+<th>表达式</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td>粘性弛豫时间</td>
+<td><span class="math inline">\(\tau_\mu= (\rho L^2)/\mu\)</span></td>
+</tr>
+<tr class="even">
+<td>毛细时间</td>
+<td><span class="math inline">\(\tau_\gamma=\sqrt{(\rho
+L^3)/\gamma}\)</span></td>
+</tr>
+<tr class="odd">
+<td>表面张力弛豫时间</td>
+<td><span class="math inline">\(\tau_\text{s}=\mu L/\gamma\)</span></td>
+</tr>
+<tr class="even">
+<td>电荷弛豫时间</td>
+<td><span
+class="math inline">\(\tau_\text{e}=\varepsilon/\sigma\)</span></td>
+</tr>
+<tr class="odd">
+<td>电流体流动时间</td>
+<td><span class="math inline">\(\tau_\text{c}=\mu/(\varepsilon
+E_0^2)\)</span></td>
+</tr>
+</tbody>
+</table>
+<p>通过以上时间尺度可以组合以下无量纲数 <span class="math display">\[
+Ca_\text{E}=\frac{\tau_\text{s}}{\tau_c}=\frac{\varepsilon
+LE_0^2}{\gamma},\
+Re_\text{E}=\frac{\tau_e}{\tau_c}=\frac{\varepsilon^2E_0^2}{\sigma \mu}.
+\]</span>
+当然纯粹从量纲分析，给出流体的物性参数和特征长度、特征场强，一定可以组合很多个时间尺度参数。目前常用的时间尺度就如上表所示。为了使方程
+(1) 和 (3) 简化，特征速度取 <span class="math inline">\(U=L/T\)</span>
+则可以大大减少计算量。从压力梯度项系数可以看出，如果取特征压力为 <span
+class="math inline">\(P=\rho U^2 L\)</span>，则该系数可以化为
+1。如果取特征时间为 <span
+class="math inline">\(\tau_\gamma\)</span>，则特征压力建议取值为 <span
+class="math inline">\(P=\gamma/L\)</span>；如果特征时间为 <span
+class="math inline">\(\tau_\text{c}\)</span>，则特征压力建议取值为 <span
+class="math inline">\(P=\varepsilon E_0^2\)</span>。比如该<a
+target="_blank" rel="noopener" href="http://www.nature.com/articles/nphys807">文献</a>特征时间取值为
+<span class="math inline">\(\tau_{\gamma}\)</span>，特征压力取值为 <span
+class="math inline">\(\gamma/L\)</span>。</p>
+<h2 id="建议取值">建议取值</h2>
+<blockquote>
+<p>特征长度：<span class="math inline">\(L\)</span>，特征时间：<span
+class="math inline">\(T=\tau_\gamma=\sqrt{(\rho
+L^3)/\gamma}\)</span>，特征速度：<span
+class="math inline">\(U=L/T\)</span>，特征压力：<span
+class="math inline">\(P=\gamma/L\)</span>，特征电荷密度：<span
+class="math inline">\(\rho_e^0=\varepsilon E_0/L\)</span></p>
+</blockquote>
+<p>电流体方程组如下： <span class="math display">\[
+\boxed{\begin{aligned}
+&amp;\frac{\partial \boldsymbol{u}^*}{\partial
+t^*}+\nabla^*\cdot(\boldsymbol{u}^*\otimes\boldsymbol{u}^*)=\nabla^*p^*+Oh\nabla^{*2}\boldsymbol{u}^*+\kappa^*\nabla^*
+c+Ca_\text{E}\left(\rho_e^*
+\boldsymbol{E^*}-\frac{1}{2}\boldsymbol{E^*E^*}\nabla^*\varepsilon^*\right),
+\\
+&amp;\nabla^*\cdot(\varepsilon^*\boldsymbol{E}^*)=\rho_e^*, \\
+&amp;\frac{\partial \rho_e^*}{\partial
+t^*}+\frac{\tau_\gamma}{\tau_\text{e}}\nabla\cdot(\sigma^*\boldsymbol{E}^*)+\nabla^*\cdot(\rho_e^*\boldsymbol{u}^*)=0.
+\end{aligned}}
+\]</span> 其中 <span class="math inline">\(Oh=\mu/\sqrt{\rho
+L\gamma}\)</span>。</p>
+<blockquote>
+<p>特征长度：<span class="math inline">\(L\)</span>，特征时间：<span
+class="math inline">\(T=\tau_\text{c}=\mu/(\varepsilon
+E_0^2)\)</span>，特征速度：<span
+class="math inline">\(U=L/T\)</span>，特征压力：<span
+class="math inline">\(P=\varepsilon E_0^2\)</span>，特征电荷密度：<span
+class="math inline">\(\rho_e^0=\varepsilon E_0/L\)</span></p>
+</blockquote>
+<p>电流体方程组如下： <span class="math display">\[
+\boxed{\begin{aligned}
+&amp;\frac{\tau_\mu}{\tau_\text{c}}\left(\frac{\partial
+\boldsymbol{u}^*}{\partial
+t^*}+\nabla^*\cdot(\boldsymbol{u}^*\otimes\boldsymbol{u}^*)\right)=\nabla^*p^*+\nabla^{*2}\boldsymbol{u}^*+Ca_\text{E}\kappa^*\nabla^*
+c+\left(\rho_e^*
+\boldsymbol{E^*}-\frac{1}{2}\boldsymbol{E^*E^*}\nabla^*\varepsilon^*\right),
+\\
+&amp;\nabla^*\cdot(\varepsilon^*\boldsymbol{E}^*)=\rho_e^*, \\
+&amp;\frac{\partial \rho_e^*}{\partial
+t^*}+\frac{1}{Re_\text{E}}\nabla\cdot(\sigma^*\boldsymbol{E}^*)+\nabla^*\cdot(\rho_e^*\boldsymbol{u}^*)=0.
+\end{aligned}}
+\]</span> 注意，该方程组中 <span
+class="math inline">\(\tau_\mu/\tau_\text{c}=Re，Ca_\text{E}=Re/We\)</span>。</p>
+
+    </div>
+
+    
+    
+    
+
+    <footer class="post-footer">
+          <div class="post-tags">
+              <a href="/tags/NS-%E6%96%B9%E7%A8%8B/" rel="tag"># NS 方程</a>
+              <a href="/tags/%E7%94%B5%E6%B5%81%E4%BD%93/" rel="tag"># 电流体</a>
+          </div>
+
+        
+
+          <div class="post-nav">
+            <div class="post-nav-item">
+                <a href="/How-to-nondimensionalize-NS-equations.html" rel="prev" title="NS 方程的无量纲化">
+                  <i class="fa fa-chevron-left"></i> NS 方程的无量纲化
+                </a>
+            </div>
+            <div class="post-nav-item">
+                <a href="/Vector-calculus.html" rel="next" title="NS 方程中矢量计算">
+                  NS 方程中矢量计算 <i class="fa fa-chevron-right"></i>
+                </a>
+            </div>
+          </div>
+    </footer>
+  </article>
+</div>
+
+
+
+
+
+
+</div>
+  </main>
+
+  <footer class="footer">
+    <div class="footer-inner">
+
+
+<div class="copyright">
+  &copy; 
+  <span itemprop="copyrightYear">2022</span>
+  <span class="with-love">
+    <i class="fa fa-heart"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">Chilton Nieh</span>
+</div>
+  <div class="powered-by">由 <a href="https://hexo.io/" rel="noopener" target="_blank">Hexo</a> & <a href="https://theme-next.js.org/" rel="noopener" target="_blank">NexT.Gemini</a> 强力驱动
+  </div>
+
+    </div>
+  </footer>
+
+  
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/animejs/3.2.1/anime.min.js" integrity="sha256-XL2inqUJaslATFnHdJOi9GfQ60on8Wx1C2H8DYiN1xY=" crossorigin="anonymous"></script>
+<script src="/js/comments.js"></script><script src="/js/utils.js"></script><script src="/js/next-boot.js"></script>
+
+  
+
+
+  <script class="next-config" data-name="mermaid" type="application/json">{"enable":true,"theme":{"light":"default","dark":"dark"},"js":{"url":"https://cdnjs.cloudflare.com/ajax/libs/mermaid/9.1.1/mermaid.min.js","integrity":"sha256-8L3O8tirFUa8Va4NSTAyIbHJeLd6OnlcxgupV9F77e0="}}</script>
+  <script src="/js/third-party/tags/mermaid.js"></script>
+
+
+
+  
+
+
+
+
+  
+
+  <script class="next-config" data-name="enableMath" type="application/json">true</script><script class="next-config" data-name="mathjax" type="application/json">{"enable":true,"tags":"all","js":{"url":"https://cdnjs.cloudflare.com/ajax/libs/mathjax/3.2.1/es5/tex-mml-chtml.js","integrity":"sha256-hlC2uSQYTmPsrzGZTEQEg9PZ1a/+SV6VBCTclohf2og="}}</script>
+<script src="/js/third-party/math/mathjax.js"></script>
+
+
+
+</body>
+</html>

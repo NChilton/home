@@ -1,0 +1,397 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+<meta name="viewport" content="width=device-width">
+<meta name="theme-color" content="#ddd"><meta name="generator" content="Hexo 6.2.0">
+
+
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png">
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png">
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png">
+  <link rel="mask-icon" href="/images/logo.svg" color="#ddd">
+
+<link rel="stylesheet" href="/css/main.css">
+
+<link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Lato:300,300italic,400,400italic,700,700italic&display=swap&subset=latin,latin-ext">
+
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.1.1/css/all.min.css" integrity="sha256-DfWjNxDkM94fVBWx1H5BMMp0Zq7luBlV8QRcSES7s+0=" crossorigin="anonymous">
+
+<script class="next-config" data-name="main" type="application/json">{"hostname":"example.com","root":"/","images":"/images","scheme":"Gemini","darkmode":false,"version":"8.12.1","exturl":false,"sidebar":{"position":"left","display":"post","padding":18,"offset":12},"copycode":{"enable":true,"style":null},"bookmark":{"enable":false,"color":"#222","save":"auto"},"mediumzoom":false,"lazyload":false,"pangu":false,"comments":{"style":"tabs","active":null,"storage":true,"lazyload":false,"nav":null},"stickytabs":false,"motion":{"enable":false,"async":false,"transition":{"post_block":"fadeIn","post_header":"fadeInDown","post_body":"fadeInDown","coll_header":"fadeInLeft","sidebar":"fadeInUp"}},"prism":false,"i18n":{"placeholder":"搜索...","empty":"没有找到任何搜索结果：${query}","hits_time":"找到 ${hits} 个搜索结果（用时 ${time} 毫秒）","hits":"找到 ${hits} 个搜索结果"}}</script><script src="/js/config.js"></script>
+
+    <meta name="description" content="在使用 LAMMPS 构建模型时，有时需要在主组分原子中随机替换为其他种类原子。比如 Fe 的 10×20×30 晶格中 15% Ni 被替换，可以通过以下方式进行替换。以下使用的脚本和文件见百度云盘，提取码 ei4i。推荐使用 LAMMPS 内建 shell+Python 命令替换。  set type&#x2F;fraction 命令 set type&#x2F;fraction是 LAMMPS">
+<meta property="og:type" content="article">
+<meta property="og:title" content="LAMMPS 中随机替换原子">
+<meta property="og:url" content="http://example.com/Atom-replacement-in-LAMMPS.html">
+<meta property="og:site_name" content="Day day up!">
+<meta property="og:description" content="在使用 LAMMPS 构建模型时，有时需要在主组分原子中随机替换为其他种类原子。比如 Fe 的 10×20×30 晶格中 15% Ni 被替换，可以通过以下方式进行替换。以下使用的脚本和文件见百度云盘，提取码 ei4i。推荐使用 LAMMPS 内建 shell+Python 命令替换。  set type&#x2F;fraction 命令 set type&#x2F;fraction是 LAMMPS">
+<meta property="og:locale" content="zh_CN">
+<meta property="article:published_time" content="2019-03-12T16:00:00.000Z">
+<meta property="article:modified_time" content="2021-12-19T16:00:00.000Z">
+<meta property="article:author" content="Chilton Nieh">
+<meta property="article:tag" content="Matlab">
+<meta property="article:tag" content="Python">
+<meta property="article:tag" content="LAMMPS">
+<meta name="twitter:card" content="summary">
+
+
+<link rel="canonical" href="http://example.com/Atom-replacement-in-LAMMPS.html">
+
+
+
+<script class="next-config" data-name="page" type="application/json">{"sidebar":"","isHome":false,"isPost":true,"lang":"zh-CN","comments":true,"permalink":"http://example.com/Atom-replacement-in-LAMMPS.html","path":"/Atom-replacement-in-LAMMPS.html","title":"LAMMPS 中随机替换原子"}</script>
+
+<script class="next-config" data-name="calendar" type="application/json">""</script>
+<title>LAMMPS 中随机替换原子 | Day day up!</title>
+  
+
+
+
+
+
+  <noscript>
+    <link rel="stylesheet" href="/css/noscript.css">
+  </noscript>
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage">
+  <div class="headband"></div>
+
+  <main class="main">
+    <header class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-container">
+  <div class="site-nav-toggle">
+    <div class="toggle" aria-label="切换导航栏" role="button">
+        <span class="toggle-line"></span>
+        <span class="toggle-line"></span>
+        <span class="toggle-line"></span>
+    </div>
+  </div>
+
+  <div class="site-meta">
+
+    <a href="/" class="brand" rel="start">
+      <i class="logo-line"></i>
+      <p class="site-title">Day day up!</p>
+      <i class="logo-line"></i>
+    </a>
+      <p class="site-subtitle" itemprop="description">做人最重要的的是😀</p>
+  </div>
+
+  <div class="site-nav-right">
+    <div class="toggle popup-trigger">
+    </div>
+  </div>
+</div>
+
+
+
+<nav class="site-nav">
+  <ul class="main-menu menu"><li class="menu-item menu-item-home"><a href="/" rel="section"><i class="fa fa-home fa-fw"></i>首页</a></li><li class="menu-item menu-item-archives"><a href="/archives/" rel="section"><i class="fa fa-archive fa-fw"></i>归档<span class="badge">38</span></a></li><li class="menu-item menu-item-tags"><a href="/tags/" rel="section"><i class="fa fa-tags fa-fw"></i>标签<span class="badge">40</span></a></li><li class="menu-item menu-item-categories"><a href="/categories/" rel="section"><i class="fa fa-th fa-fw"></i>分类<span class="badge">6</span></a></li><li class="menu-item menu-item-about"><a href="/about/" rel="section"><i class="fa fa-user fa-fw"></i>关于</a></li>
+  </ul>
+</nav>
+
+
+
+
+</div>
+        
+  
+  <div class="toggle sidebar-toggle" role="button">
+    <span class="toggle-line"></span>
+    <span class="toggle-line"></span>
+    <span class="toggle-line"></span>
+  </div>
+
+  <aside class="sidebar">
+
+    <div class="sidebar-inner sidebar-nav-active sidebar-toc-active">
+      <ul class="sidebar-nav">
+        <li class="sidebar-nav-toc">
+          文章目录
+        </li>
+        <li class="sidebar-nav-overview">
+          站点概览
+        </li>
+      </ul>
+
+      <div class="sidebar-panel-container">
+        <!--noindex-->
+        <div class="post-toc-wrap sidebar-panel">
+            <div class="post-toc animated"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#set-typefraction-%E5%91%BD%E4%BB%A4"><span class="nav-number">1.</span> <span class="nav-text">set type&#x2F;fraction 命令</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%AF%B9-data-%E6%96%87%E4%BB%B6%E8%BF%9B%E8%A1%8C%E6%96%87%E6%9C%AC%E6%93%8D%E4%BD%9C"><span class="nav-number">2.</span> <span class="nav-text">对 data 文件进行文本操作</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E8%B0%83%E7%94%A8shell%E5%91%BD%E4%BB%A4"><span class="nav-number">3.</span> <span class="nav-text">调用shell命令</span></a></li></ol></div>
+        </div>
+        <!--/noindex-->
+
+        <div class="site-overview-wrap sidebar-panel">
+          <div class="site-author site-overview-item animated" itemprop="author" itemscope itemtype="http://schema.org/Person">
+    <img class="site-author-image" itemprop="image" alt="Chilton Nieh"
+      src="/images/logo_fa.jpg">
+  <p class="site-author-name" itemprop="name">Chilton Nieh</p>
+  <div class="site-description" itemprop="description">路漫漫其修远兮，吾将上下而求索</div>
+</div>
+<div class="site-state-wrap site-overview-item animated">
+  <nav class="site-state">
+      <div class="site-state-item site-state-posts">
+        <a href="/archives/">
+          <span class="site-state-item-count">38</span>
+          <span class="site-state-item-name">日志</span>
+        </a>
+      </div>
+      <div class="site-state-item site-state-categories">
+          <a href="/categories/">
+        <span class="site-state-item-count">6</span>
+        <span class="site-state-item-name">分类</span></a>
+      </div>
+      <div class="site-state-item site-state-tags">
+          <a href="/tags/">
+        <span class="site-state-item-count">40</span>
+        <span class="site-state-item-name">标签</span></a>
+      </div>
+  </nav>
+</div>
+  <div class="links-of-author site-overview-item animated">
+      <span class="links-of-author-item">
+        <a href="https://github.com/yourname" title="GitHub → https:&#x2F;&#x2F;github.com&#x2F;yourname" rel="noopener" target="_blank"><i class="fab fa-github fa-fw"></i>GitHub</a>
+      </span>
+  </div>
+
+
+
+        </div>
+      </div>
+    </div>
+  </aside>
+  <div class="sidebar-dimmer"></div>
+
+
+    </header>
+
+    
+  <div class="back-to-top" role="button" aria-label="返回顶部">
+    <i class="fa fa-arrow-up"></i>
+    <span>0%</span>
+  </div>
+
+<noscript>
+  <div class="noscript-warning">Theme NexT works best with JavaScript enabled</div>
+</noscript>
+
+
+    <div class="main-inner post posts-expand">
+
+
+  
+
+
+<div class="post-block">
+  
+  
+
+  <article itemscope itemtype="http://schema.org/Article" class="post-content" lang="zh-CN">
+    <link itemprop="mainEntityOfPage" href="http://example.com/Atom-replacement-in-LAMMPS.html">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/logo_fa.jpg">
+      <meta itemprop="name" content="Chilton Nieh">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Day day up!">
+      <meta itemprop="description" content="路漫漫其修远兮，吾将上下而求索">
+    </span>
+
+    <span hidden itemprop="post" itemscope itemtype="http://schema.org/CreativeWork">
+      <meta itemprop="name" content="LAMMPS 中随机替换原子 | Day day up!">
+      <meta itemprop="description" content="">
+    </span>
+      <header class="post-header">
+        <h1 class="post-title" itemprop="name headline">
+          LAMMPS 中随机替换原子
+        </h1>
+
+        <div class="post-meta-container">
+          <div class="post-meta">
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-calendar"></i>
+      </span>
+      <span class="post-meta-item-text">发表于</span>
+
+      <time title="创建时间：2019-03-13 00:00:00" itemprop="dateCreated datePublished" datetime="2019-03-13T00:00:00+08:00">2019-03-13</time>
+    </span>
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-calendar-check"></i>
+      </span>
+      <span class="post-meta-item-text">更新于</span>
+      <time title="修改时间：2021-12-20 00:00:00" itemprop="dateModified" datetime="2021-12-20T00:00:00+08:00">2021-12-20</time>
+    </span>
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-folder"></i>
+      </span>
+      <span class="post-meta-item-text">分类于</span>
+        <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+          <a href="/categories/%E8%BD%AF%E4%BB%B6%E6%95%99%E7%A8%8B/" itemprop="url" rel="index"><span itemprop="name">软件教程</span></a>
+        </span>
+    </span>
+
+  
+</div>
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+        <blockquote>
+<p>在使用 LAMMPS
+构建模型时，有时需要在主组分原子中随机替换为其他种类原子。比如 Fe 的
+10×20×30 晶格中 15% Ni
+被替换，可以通过以下方式进行替换。以下使用的脚本和文件见<a
+target="_blank" rel="noopener" href="https://pan.baidu.com/s/1DCyYA_oCv4OSNXs5Gh2HIw">百度云盘</a>，提取码
+ei4i。推荐使用 LAMMPS 内建 <code>shell+Python</code> 命令替换。</p>
+</blockquote>
+<h2 id="set-typefraction-命令">set type/fraction 命令</h2>
+<p><code>set type/fraction</code>是 LAMMPS
+的内建命令，可以指定选中类型的原子一部分为另一种原子，用法如下：</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">set type type-1-ID type/fraction type-2-ID fraction seed</span><br></pre></td></tr></table></figure>
+<p>以上表示<code>type-1-ID</code>类型的原子中有<code>fraction</code>比例被替换成<code>type-2-ID</code>类型原子。比如我们实现上述
+Fe 晶格中部分被替换成 Ni，LAMMPS 脚本（test.in）如下：</p>
+<span id="more"></span>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br></pre></td><td class="code"><pre><span class="line">##### 初始化（Initialization）</span><br><span class="line">dimension		3</span><br><span class="line">boundary		p p p</span><br><span class="line">units			metal</span><br><span class="line">atom_style		atomic</span><br><span class="line">neighbor		0.3 bin</span><br><span class="line">neigh_modify	delay 5</span><br><span class="line">##### 原子参数定义（Atom definition）</span><br><span class="line">lattice			bcc 2.863</span><br><span class="line">region			box block 0 10 0 20 0 30</span><br><span class="line">create_box		2 box</span><br><span class="line">create_atoms	1 box</span><br><span class="line">##### 设置（Settings）</span><br><span class="line">set 			type 1 type/fraction 2 0.15 123456 # 15%的Fe被替换成Ni</span><br><span class="line">mass			* 1.0 # 此处我们不关心质量</span><br><span class="line">write_data		test.data</span><br></pre></td></tr></table></figure>
+<p>打开日志文件（test.lammps），我们发现总原子数为 12000，然而 Ni
+原子数为1837，所以，<strong>set type/fraction
+不能精确替换原子</strong>。</p>
+<p><img
+src="https://raw.githubusercontent.com/NChilton/Picture/main/img/202112041138965.png" /></p>
+<h2 id="对-data-文件进行文本操作">对 data 文件进行文本操作</h2>
+<p>该方式操作自由度高，甚至任意更改任意原子的属性。但对于比较大的 data
+文件，通过其它软件处理缓慢。此处采用 Matlab 软件处理 data
+文件。如下所示，最简单 data 文件（test1.data）格式如下：</p>
+<p><img
+src="https://raw.githubusercontent.com/NChilton/Picture/main/img/202112041139224.png" /></p>
+<p>现在我们要把<code>Atom # atomic</code>中部分原子的 type 替换为
+2。思路如下：</p>
+<ul>
+<li>从 data 文件中获取总原子数</li>
+<li>设定替换比例，计算替换原子数，随机从所有原子 ID 中选取替换原子数量的
+ID</li>
+<li>读取 data 文件，将上一步选取的 ID 的原子类型更改为 2</li>
+</ul>
+<p>Matlab 处理脚本（test.m）如下：</p>
+<figure class="highlight matlab"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br></pre></td><td class="code"><pre><span class="line">clear; close all; clc;</span><br><span class="line">C = <span class="number">15</span>/<span class="number">100</span>; <span class="comment">% 替换比例</span></span><br><span class="line">Fid1 = fopen(<span class="string">&#x27;test2.data&#x27;</span>, <span class="string">&#x27;w+&#x27;</span>);</span><br><span class="line">Fid = fopen(<span class="string">&#x27;test1.data&#x27;</span>, <span class="string">&#x27;rt&#x27;</span>);</span><br><span class="line">Temp = cell(<span class="number">15</span>, <span class="number">1</span>); <span class="comment">% 前 15 行</span></span><br><span class="line"><span class="keyword">for</span> <span class="built_in">i</span> = <span class="number">1</span>:<span class="number">15</span></span><br><span class="line">    Temp&#123;<span class="built_in">i</span>&#125; = fgets(Fid);</span><br><span class="line"><span class="keyword">end</span></span><br><span class="line">fprintf(Fid1, <span class="string">&#x27;%s%s%s&#x27;</span>, char(Temp(<span class="number">1</span>)), char(Temp(<span class="number">2</span>)), char(Temp(<span class="number">3</span>)));</span><br><span class="line">Temp1 = strsplit(Temp&#123;<span class="number">3</span>&#125;, <span class="string">&#x27; &#x27;</span>); <span class="comment">% 分割第 3行</span></span><br><span class="line">NAtoms = str2double(Temp1&#123;<span class="number">1</span>, <span class="number">1</span>&#125;); <span class="comment">% 所有原子数</span></span><br><span class="line">NReplace = <span class="built_in">round</span>(NAtoms*C); <span class="comment">% 替换原子数量</span></span><br><span class="line">fprintf(Fid1, <span class="string">&#x27;%s\n&#x27;</span>, <span class="string">&#x27;2 atom types&#x27;</span>);</span><br><span class="line">fprintf(Fid1, <span class="string">&#x27;%s%s%s%s%s%s%s%s&#x27;</span>, char(Temp(<span class="number">5</span>)), char(Temp(<span class="number">6</span>)), ...</span><br><span class="line">    char(Temp(<span class="number">7</span>)), char(Temp(<span class="number">8</span>)), char(Temp(<span class="number">9</span>)), char(Temp(<span class="number">10</span>)), ...</span><br><span class="line">    char(Temp(<span class="number">11</span>)), char(Temp(<span class="number">12</span>)));</span><br><span class="line">fprintf(Fid1, <span class="string">&#x27;%s\n&#x27;</span>, <span class="string">&#x27;2 1&#x27;</span>);</span><br><span class="line">fprintf(Fid1, <span class="string">&#x27;%s%s%s&#x27;</span>, char(Temp(<span class="number">13</span>)), char(Temp(<span class="number">14</span>)), char(Temp(<span class="number">15</span>)));</span><br><span class="line">rng(<span class="number">123456</span>);</span><br><span class="line">IDReplace = randperm(NAtoms, NReplace);</span><br><span class="line"><span class="comment">% 替换部分原子的原子类型</span></span><br><span class="line"><span class="keyword">for</span> <span class="built_in">i</span> = <span class="number">1</span>:NAtoms</span><br><span class="line">    Temp = fgetl(Fid);</span><br><span class="line">    Temp1 = strsplit(Temp, <span class="string">&#x27; &#x27;</span>);</span><br><span class="line">    <span class="keyword">if</span> <span class="built_in">ismember</span>(str2double(Temp1&#123;<span class="number">1</span>,<span class="number">1</span>&#125;), IDReplace) == <span class="built_in">true</span> <span class="comment">% 判断是否替换</span></span><br><span class="line">        Temp1&#123;<span class="number">1</span>,<span class="number">2</span>&#125; = <span class="string">&#x27;2&#x27;</span>;</span><br><span class="line">    <span class="keyword">end</span></span><br><span class="line">    Temp1 = [Temp1&#123;<span class="number">1</span>,<span class="number">1</span>&#125;, <span class="string">&#x27; &#x27;</span>, Temp1&#123;<span class="number">1</span>,<span class="number">2</span>&#125;, <span class="string">&#x27; &#x27;</span>, Temp1&#123;<span class="number">1</span>,<span class="number">3</span>&#125;, <span class="string">&#x27; &#x27;</span>, ...</span><br><span class="line">        Temp1&#123;<span class="number">1</span>,<span class="number">4</span>&#125;, <span class="string">&#x27; &#x27;</span>, Temp1&#123;<span class="number">1</span>,<span class="number">5</span>&#125;, <span class="string">&#x27; &#x27;</span>, Temp1&#123;<span class="number">1</span>,<span class="number">6</span>&#125;, <span class="string">&#x27; &#x27;</span>, ...</span><br><span class="line">        Temp1&#123;<span class="number">1</span>,<span class="number">7</span>&#125;, <span class="string">&#x27; &#x27;</span>, Temp1&#123;<span class="number">1</span>,<span class="number">8</span>&#125;];</span><br><span class="line">    fprintf(Fid1, <span class="string">&#x27;%s\n&#x27;</span>, Temp1);</span><br><span class="line"><span class="keyword">end</span></span><br><span class="line">Temp = fgets(Fid);</span><br><span class="line">fprintf(Fid1, <span class="string">&#x27;%s&#x27;</span>, Temp);</span><br><span class="line">Temp = fgets(Fid);</span><br><span class="line">fprintf(Fid1, <span class="string">&#x27;%s&#x27;</span>, Temp);</span><br><span class="line">Temp = fgets(Fid);</span><br><span class="line">fprintf(Fid1, <span class="string">&#x27;%s&#x27;</span>, Temp);</span><br><span class="line"><span class="comment">% 原子速度</span></span><br><span class="line"><span class="keyword">for</span> <span class="built_in">i</span> = <span class="number">1</span>:NAtoms</span><br><span class="line">    Temp = fgets(Fid);</span><br><span class="line">    fprintf(Fid1, <span class="string">&#x27;%s&#x27;</span>, Temp);</span><br><span class="line"><span class="keyword">end</span></span><br><span class="line">fclose(Fid);</span><br><span class="line">fclose(Fid1);</span><br></pre></td></tr></table></figure>
+<p>相关的 Matlab
+的命令有<code>fopen, fgetl, fgets, fprintf, strsplit, randperm</code>等。在替换部分原子
+type
+时，虽然我们可以一次性读取所有原子数据到矩阵，即<code>Atom # atomic</code>和<code>Velocities</code>之间的数据，但如果
+data
+文件有几百兆，则可能爆内存。建议逐行读取，虽然缓慢，但起码还可以处理文件。</p>
+<h2 id="调用shell命令">调用<code>shell</code>命令</h2>
+<p>LAMMPS
+内建<code>shell</code>命令，可以调用外部命令执行外部脚本，如调用 Python
+程序取随机数组。由于可以把替换比例等参数直接加入 LAMMPS
+脚本中，因此可以快速生成多个替换比例的
+data文件，这种方式大大提高建模的效率，尤其是 data 文件超大（&gt;
+1G）时该方式是唯一准确有效的替换方式，极力推荐。思路如下：</p>
+<ul>
+<li>利用 LAMMPS 自带命令（<code>lattice</code>等）构建未替换模型</li>
+<li>设置<strong>替换比例</strong>变量（<code>variable</code>），计算总原子数，将<strong>替换比例</strong>和<strong>总原子数</strong>通过<code>shell</code>命令导出文本</li>
+<li>利用<code>shell</code>命令调用 Python，通过 Python 脚本将替换的原子
+ID 导出文本</li>
+<li>利用<code>shell</code>命令将替换的原子 ID
+分组（<code>group</code>）</li>
+<li>设定上一步分组的原子类型</li>
+</ul>
+<p>LAMMPS 脚本（test3.in）如下，其中 Natoms.txt 是导出文本：</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br></pre></td><td class="code"><pre><span class="line">log				test3.lammps</span><br><span class="line"><span class="comment">##### 初始化（Initialization）</span></span><br><span class="line">dimension		<span class="number">3</span></span><br><span class="line">boundary		p p p</span><br><span class="line">units			metal</span><br><span class="line">atom_style		atomic</span><br><span class="line">neighbor		<span class="number">0.3</span> <span class="built_in">bin</span></span><br><span class="line">neigh_modify	delay <span class="number">5</span></span><br><span class="line"><span class="comment">##### 原子参数定义（Atom definition）</span></span><br><span class="line">lattice			bcc <span class="number">2.863</span></span><br><span class="line">region			box block <span class="number">0</span> <span class="number">10</span> <span class="number">0</span> <span class="number">20</span> <span class="number">0</span> <span class="number">30</span></span><br><span class="line">create_box		<span class="number">2</span> box</span><br><span class="line">create_atoms	<span class="number">1</span> box</span><br><span class="line"><span class="comment">##### 设置（Settings）</span></span><br><span class="line">variable		Natoms equal atoms</span><br><span class="line">variable		N equal $&#123;Natoms&#125;</span><br><span class="line">variable		C equal <span class="number">0.15</span> <span class="comment"># 替换比例</span></span><br><span class="line">shell			touch Natoms.txt <span class="comment"># 计算总原子数</span></span><br><span class="line">shell			echo $&#123;C&#125; &gt; Natoms.txt <span class="comment"># 输出替换比例到文本</span></span><br><span class="line">shell			echo $&#123;N&#125; &gt;&gt; Natoms.txt <span class="comment"># 输出总原子数到文本</span></span><br><span class="line">shell			python3 test.py <span class="comment"># 调用 Python np.random.choice 随机选择原子 ID，并输出文本</span></span><br><span class="line">shell			<span class="string">&quot;sed -i &#x27;s/^/group Ni id &amp;/g&#x27; ID.txt&quot;</span> <span class="comment"># 在文本前添加 group Ni id 命令</span></span><br><span class="line">include			ID.txt</span><br><span class="line"><span class="built_in">set</span>				group Ni <span class="built_in">type</span> <span class="number">2</span></span><br><span class="line">mass			* <span class="number">1.0</span> <span class="comment"># 此处我们不关心质量</span></span><br><span class="line">write_data		test3.data</span><br></pre></td></tr></table></figure>
+<p>Python 脚本（test.py）如下，该脚本根据 LAMMPS
+中导出的含原子数量和替换比例的文件 ID.txt，随机选取替换原子 ID，再将原子
+ID 导出文本。</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># -*- coding: utf-8 -*-</span></span><br><span class="line"><span class="keyword">import</span> numpy <span class="keyword">as</span> np</span><br><span class="line">A = np.loadtxt(<span class="string">&#x27;Natoms.txt&#x27;</span>)</span><br><span class="line">np.random.seed(<span class="number">123456</span>)</span><br><span class="line">NReplace = <span class="built_in">int</span>(<span class="built_in">round</span>(A[<span class="number">1</span>]*A[<span class="number">0</span>])) <span class="comment"># 替换原子数量</span></span><br><span class="line">IDReplace = np.random.choice(<span class="built_in">int</span>(A[<span class="number">1</span>]), size=NReplace, replace=<span class="literal">False</span>)+<span class="number">1</span> <span class="comment"># 替换原子 ID</span></span><br><span class="line">np.savetxt(<span class="string">&#x27;ID.txt&#x27;</span>, IDReplace, fmt=<span class="string">&#x27;%u&#x27;</span>, newline=<span class="string">&#x27; &#x27;</span>)</span><br></pre></td></tr></table></figure>
+
+    </div>
+
+    
+    
+    
+
+    <footer class="post-footer">
+          <div class="post-tags">
+              <a href="/tags/Matlab/" rel="tag"># Matlab</a>
+              <a href="/tags/Python/" rel="tag"># Python</a>
+              <a href="/tags/LAMMPS/" rel="tag"># LAMMPS</a>
+          </div>
+
+        
+
+          <div class="post-nav">
+            <div class="post-nav-item">
+                <a href="/Windows-LAMMPS-installation.html" rel="prev" title="Windows 下安装并行版 LAMMPS">
+                  <i class="fa fa-chevron-left"></i> Windows 下安装并行版 LAMMPS
+                </a>
+            </div>
+            <div class="post-nav-item">
+                <a href="/Some-configurations-in-Windows.html" rel="next" title="新装 Windows 系统后的配置">
+                  新装 Windows 系统后的配置 <i class="fa fa-chevron-right"></i>
+                </a>
+            </div>
+          </div>
+    </footer>
+  </article>
+</div>
+
+
+
+
+
+
+</div>
+  </main>
+
+  <footer class="footer">
+    <div class="footer-inner">
+
+
+<div class="copyright">
+  &copy; 
+  <span itemprop="copyrightYear">2022</span>
+  <span class="with-love">
+    <i class="fa fa-heart"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">Chilton Nieh</span>
+</div>
+  <div class="powered-by">由 <a href="https://hexo.io/" rel="noopener" target="_blank">Hexo</a> & <a href="https://theme-next.js.org/" rel="noopener" target="_blank">NexT.Gemini</a> 强力驱动
+  </div>
+
+    </div>
+  </footer>
+
+  
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/animejs/3.2.1/anime.min.js" integrity="sha256-XL2inqUJaslATFnHdJOi9GfQ60on8Wx1C2H8DYiN1xY=" crossorigin="anonymous"></script>
+<script src="/js/comments.js"></script><script src="/js/utils.js"></script><script src="/js/next-boot.js"></script>
+
+  
+
+
+  <script class="next-config" data-name="mermaid" type="application/json">{"enable":true,"theme":{"light":"default","dark":"dark"},"js":{"url":"https://cdnjs.cloudflare.com/ajax/libs/mermaid/9.1.1/mermaid.min.js","integrity":"sha256-8L3O8tirFUa8Va4NSTAyIbHJeLd6OnlcxgupV9F77e0="}}</script>
+  <script src="/js/third-party/tags/mermaid.js"></script>
+
+
+
+  
+
+
+
+
+  
+
+  <script class="next-config" data-name="enableMath" type="application/json">false</script><script class="next-config" data-name="mathjax" type="application/json">{"enable":true,"tags":"all","js":{"url":"https://cdnjs.cloudflare.com/ajax/libs/mathjax/3.2.1/es5/tex-mml-chtml.js","integrity":"sha256-hlC2uSQYTmPsrzGZTEQEg9PZ1a/+SV6VBCTclohf2og="}}</script>
+<script src="/js/third-party/math/mathjax.js"></script>
+
+
+
+</body>
+</html>

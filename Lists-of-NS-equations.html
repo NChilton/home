@@ -1,0 +1,543 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+<meta name="viewport" content="width=device-width">
+<meta name="theme-color" content="#ddd"><meta name="generator" content="Hexo 6.2.0">
+
+
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png">
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png">
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png">
+  <link rel="mask-icon" href="/images/logo.svg" color="#ddd">
+
+<link rel="stylesheet" href="/css/main.css">
+
+<link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Lato:300,300italic,400,400italic,700,700italic&display=swap&subset=latin,latin-ext">
+
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.1.1/css/all.min.css" integrity="sha256-DfWjNxDkM94fVBWx1H5BMMp0Zq7luBlV8QRcSES7s+0=" crossorigin="anonymous">
+
+<script class="next-config" data-name="main" type="application/json">{"hostname":"example.com","root":"/","images":"/images","scheme":"Gemini","darkmode":false,"version":"8.12.1","exturl":false,"sidebar":{"position":"left","display":"post","padding":18,"offset":12},"copycode":{"enable":true,"style":null},"bookmark":{"enable":false,"color":"#222","save":"auto"},"mediumzoom":false,"lazyload":false,"pangu":false,"comments":{"style":"tabs","active":null,"storage":true,"lazyload":false,"nav":null},"stickytabs":false,"motion":{"enable":false,"async":false,"transition":{"post_block":"fadeIn","post_header":"fadeInDown","post_body":"fadeInDown","coll_header":"fadeInLeft","sidebar":"fadeInUp"}},"prism":false,"i18n":{"placeholder":"搜索...","empty":"没有找到任何搜索结果：${query}","hits_time":"找到 ${hits} 个搜索结果（用时 ${time} 毫秒）","hits":"找到 ${hits} 个搜索结果"}}</script><script src="/js/config.js"></script>
+
+    <meta name="description" content="流体流动类型众多，可以按照流体粘性种类划分，也可以按照流体压缩性划分。本文参考了 COMSOL 帮助文档，列出主要常用的各种流体流动方程，以作参考。">
+<meta property="og:type" content="article">
+<meta property="og:title" content="NS 方程索引">
+<meta property="og:url" content="http://example.com/Lists-of-NS-equations.html">
+<meta property="og:site_name" content="Day day up!">
+<meta property="og:description" content="流体流动类型众多，可以按照流体粘性种类划分，也可以按照流体压缩性划分。本文参考了 COMSOL 帮助文档，列出主要常用的各种流体流动方程，以作参考。">
+<meta property="og:locale" content="zh_CN">
+<meta property="og:image" content="https://raw.githubusercontent.com/NChilton/Picture/main/img/202112061710021.png">
+<meta property="article:published_time" content="2020-05-17T16:00:00.000Z">
+<meta property="article:modified_time" content="2021-11-21T16:00:00.000Z">
+<meta property="article:author" content="Chilton Nieh">
+<meta property="article:tag" content="NS 方程">
+<meta property="article:tag" content="流体力学">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="https://raw.githubusercontent.com/NChilton/Picture/main/img/202112061710021.png">
+
+
+<link rel="canonical" href="http://example.com/Lists-of-NS-equations.html">
+
+
+
+<script class="next-config" data-name="page" type="application/json">{"sidebar":"","isHome":false,"isPost":true,"lang":"zh-CN","comments":true,"permalink":"http://example.com/Lists-of-NS-equations.html","path":"/Lists-of-NS-equations.html","title":"NS 方程索引"}</script>
+
+<script class="next-config" data-name="calendar" type="application/json">""</script>
+<title>NS 方程索引 | Day day up!</title>
+  
+
+
+
+
+
+  <noscript>
+    <link rel="stylesheet" href="/css/noscript.css">
+  </noscript>
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage">
+  <div class="headband"></div>
+
+  <main class="main">
+    <header class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-container">
+  <div class="site-nav-toggle">
+    <div class="toggle" aria-label="切换导航栏" role="button">
+        <span class="toggle-line"></span>
+        <span class="toggle-line"></span>
+        <span class="toggle-line"></span>
+    </div>
+  </div>
+
+  <div class="site-meta">
+
+    <a href="/" class="brand" rel="start">
+      <i class="logo-line"></i>
+      <p class="site-title">Day day up!</p>
+      <i class="logo-line"></i>
+    </a>
+      <p class="site-subtitle" itemprop="description">做人最重要的的是😀</p>
+  </div>
+
+  <div class="site-nav-right">
+    <div class="toggle popup-trigger">
+    </div>
+  </div>
+</div>
+
+
+
+<nav class="site-nav">
+  <ul class="main-menu menu"><li class="menu-item menu-item-home"><a href="/" rel="section"><i class="fa fa-home fa-fw"></i>首页</a></li><li class="menu-item menu-item-archives"><a href="/archives/" rel="section"><i class="fa fa-archive fa-fw"></i>归档<span class="badge">38</span></a></li><li class="menu-item menu-item-tags"><a href="/tags/" rel="section"><i class="fa fa-tags fa-fw"></i>标签<span class="badge">40</span></a></li><li class="menu-item menu-item-categories"><a href="/categories/" rel="section"><i class="fa fa-th fa-fw"></i>分类<span class="badge">6</span></a></li><li class="menu-item menu-item-about"><a href="/about/" rel="section"><i class="fa fa-user fa-fw"></i>关于</a></li>
+  </ul>
+</nav>
+
+
+
+
+</div>
+        
+  
+  <div class="toggle sidebar-toggle" role="button">
+    <span class="toggle-line"></span>
+    <span class="toggle-line"></span>
+    <span class="toggle-line"></span>
+  </div>
+
+  <aside class="sidebar">
+
+    <div class="sidebar-inner sidebar-nav-active sidebar-toc-active">
+      <ul class="sidebar-nav">
+        <li class="sidebar-nav-toc">
+          文章目录
+        </li>
+        <li class="sidebar-nav-overview">
+          站点概览
+        </li>
+      </ul>
+
+      <div class="sidebar-panel-container">
+        <!--noindex-->
+        <div class="post-toc-wrap sidebar-panel">
+            <div class="post-toc animated"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#%E6%A0%87%E5%87%86-ns-%E6%96%B9%E7%A8%8B"><span class="nav-number">1.</span> <span class="nav-text">标准 NS 方程</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E6%B9%8D%E6%B5%81"><span class="nav-number">2.</span> <span class="nav-text">湍流</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E7%83%AD%E6%95%88%E5%BA%94"><span class="nav-number">3.</span> <span class="nav-text">热效应</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E4%B8%A4%E7%9B%B8%E6%B5%81"><span class="nav-number">4.</span> <span class="nav-text">两相流</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#vof-%E6%96%B9%E6%B3%95"><span class="nav-number">4.1.</span> <span class="nav-text">VOF 方法</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#level-set-%E6%96%B9%E6%B3%95"><span class="nav-number">4.2.</span> <span class="nav-text">Level-set 方法</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#ale-%E6%96%B9%E6%B3%95"><span class="nav-number">4.3.</span> <span class="nav-text">ALE 方法</span></a></li></ol></li></ol></div>
+        </div>
+        <!--/noindex-->
+
+        <div class="site-overview-wrap sidebar-panel">
+          <div class="site-author site-overview-item animated" itemprop="author" itemscope itemtype="http://schema.org/Person">
+    <img class="site-author-image" itemprop="image" alt="Chilton Nieh"
+      src="/images/logo_fa.jpg">
+  <p class="site-author-name" itemprop="name">Chilton Nieh</p>
+  <div class="site-description" itemprop="description">路漫漫其修远兮，吾将上下而求索</div>
+</div>
+<div class="site-state-wrap site-overview-item animated">
+  <nav class="site-state">
+      <div class="site-state-item site-state-posts">
+        <a href="/archives/">
+          <span class="site-state-item-count">38</span>
+          <span class="site-state-item-name">日志</span>
+        </a>
+      </div>
+      <div class="site-state-item site-state-categories">
+          <a href="/categories/">
+        <span class="site-state-item-count">6</span>
+        <span class="site-state-item-name">分类</span></a>
+      </div>
+      <div class="site-state-item site-state-tags">
+          <a href="/tags/">
+        <span class="site-state-item-count">40</span>
+        <span class="site-state-item-name">标签</span></a>
+      </div>
+  </nav>
+</div>
+  <div class="links-of-author site-overview-item animated">
+      <span class="links-of-author-item">
+        <a href="https://github.com/yourname" title="GitHub → https:&#x2F;&#x2F;github.com&#x2F;yourname" rel="noopener" target="_blank"><i class="fab fa-github fa-fw"></i>GitHub</a>
+      </span>
+  </div>
+
+
+
+        </div>
+      </div>
+    </div>
+  </aside>
+  <div class="sidebar-dimmer"></div>
+
+
+    </header>
+
+    
+  <div class="back-to-top" role="button" aria-label="返回顶部">
+    <i class="fa fa-arrow-up"></i>
+    <span>0%</span>
+  </div>
+
+<noscript>
+  <div class="noscript-warning">Theme NexT works best with JavaScript enabled</div>
+</noscript>
+
+
+    <div class="main-inner post posts-expand">
+
+
+  
+
+
+<div class="post-block">
+  
+  
+
+  <article itemscope itemtype="http://schema.org/Article" class="post-content" lang="zh-CN">
+    <link itemprop="mainEntityOfPage" href="http://example.com/Lists-of-NS-equations.html">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/logo_fa.jpg">
+      <meta itemprop="name" content="Chilton Nieh">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Day day up!">
+      <meta itemprop="description" content="路漫漫其修远兮，吾将上下而求索">
+    </span>
+
+    <span hidden itemprop="post" itemscope itemtype="http://schema.org/CreativeWork">
+      <meta itemprop="name" content="NS 方程索引 | Day day up!">
+      <meta itemprop="description" content="">
+    </span>
+      <header class="post-header">
+        <h1 class="post-title" itemprop="name headline">
+          NS 方程索引
+        </h1>
+
+        <div class="post-meta-container">
+          <div class="post-meta">
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-calendar"></i>
+      </span>
+      <span class="post-meta-item-text">发表于</span>
+
+      <time title="创建时间：2020-05-18 00:00:00" itemprop="dateCreated datePublished" datetime="2020-05-18T00:00:00+08:00">2020-05-18</time>
+    </span>
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-calendar-check"></i>
+      </span>
+      <span class="post-meta-item-text">更新于</span>
+      <time title="修改时间：2021-11-22 00:00:00" itemprop="dateModified" datetime="2021-11-22T00:00:00+08:00">2021-11-22</time>
+    </span>
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-folder"></i>
+      </span>
+      <span class="post-meta-item-text">分类于</span>
+        <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+          <a href="/categories/%E7%A0%94%E7%A9%B6%E7%9B%B8%E5%85%B3/" itemprop="url" rel="index"><span itemprop="name">研究相关</span></a>
+        </span>
+    </span>
+
+  
+</div>
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+        <blockquote>
+<p>流体流动类型众多，可以按照流体粘性种类划分，也可以按照流体压缩性划分。本文参考了
+COMSOL 帮助文档，列出主要常用的各种流体流动方程，以作参考。</p>
+</blockquote>
+<p><img
+src="https://raw.githubusercontent.com/NChilton/Picture/main/img/202111301507193.png" /></p>
+<span id="more"></span>
+<h2 id="标准-ns-方程">标准 NS 方程</h2>
+<p>NS 方程用于描述速度场 <span
+class="math inline">\(\boldsymbol{u}\)</span> 和压力场 <span
+class="math inline">\(p\)</span> 的关系，可以写作 <span
+class="math display">\[
+\begin{align}
+\underbrace{\rho \left( \frac{\partial \boldsymbol{u}}{\partial t} +
+(\boldsymbol{u}\cdot\nabla) \boldsymbol{u} \right)}_\text{惯性力} &amp;
+= \underbrace{-\nabla p}_\text{压力} + \underbrace{\nabla\cdot
+\boldsymbol{K}}_\text{粘性力} +
+\underbrace{\boldsymbol{F}}_\text{体积力}, \label{eq_momentum} \\
+\frac{\partial \rho}{\partial t} + \nabla\cdot(\rho\boldsymbol{u}) &amp;
+= 0. \label{eq_mass}
+\end{align}
+\]</span> 其中 <span class="math inline">\(\rho\)</span>
+是流体密度，粘性力项中张量 <span
+class="math inline">\(\boldsymbol{K}\)</span> 与动力粘度 <span
+class="math inline">\(\mu\)</span> 和速度 <span
+class="math inline">\(\boldsymbol{u}\)</span> 相关 <span
+class="math display">\[
+\boldsymbol{K} = \mu(\nabla
+\boldsymbol{u}+(\nabla\boldsymbol{u})^\mathsf{T})-\frac{2}{3}\mu((\nabla
+\cdot\boldsymbol{u})\boldsymbol{I}).
+\]</span> 其中 <span class="math inline">\(\boldsymbol{I}\)</span>
+是单位矩阵，<span
+class="math inline">\(\nabla\boldsymbol{u}+(\nabla\boldsymbol{u})^\mathsf{T}=\boldsymbol{D}\)</span>
+也被称为变形率张量。如果流体不可压，则有 <span
+class="math inline">\(\text{d}\rho/\text{d}t=0\)</span>，代入方程 <span
+class="math inline">\(\eqref{eq_mass}\)</span> 得 <span
+class="math inline">\(\nabla\cdot\boldsymbol{u}=0\)</span>。假设流体粘度恒定，此时粘性力项可简化为
+<span class="math display">\[
+\begin{align*}
+\nabla\cdot \boldsymbol{K} &amp; = \nabla\cdot \left[ \mu(\nabla
+\boldsymbol{u}+(\nabla\boldsymbol{u})^\mathsf{T})-\frac{2}{3}\mu((\nabla
+\cdot\boldsymbol{u})\boldsymbol{I})\right] \\
+&amp; = \nabla \cdot \left[ \mu(\nabla
+\boldsymbol{u}+(\nabla\boldsymbol{u})^\mathsf{T})\right] \\
+&amp; = \mu \nabla \cdot \nabla \boldsymbol{u} = \mu
+\nabla^2\boldsymbol{u}.
+\end{align*}
+\]</span> 则不可压、粘性、层流 NS 方程可写作 <span
+class="math display">\[
+\begin{equation}\label{eq_ns}
+\boxed{\begin{aligned}
+\rho \left( \frac{\partial \boldsymbol{u}}{\partial t} +
+(\boldsymbol{u}\cdot\nabla) \boldsymbol{u} \right) &amp; = -\nabla p +
+\mu \nabla^2\boldsymbol{u} + \boldsymbol{F}, \\
+\nabla\cdot\boldsymbol{u} &amp; = 0.
+\end{aligned}}
+\end{equation}
+\]</span> 流体的可压缩性可以通过无量纲数——马赫数 <span
+class="math display">\[
+Ma = U/c
+\]</span> 来判定，其中 <span class="math inline">\(U\)</span>
+是流体特征速度， <span class="math inline">\(c\)</span>
+是流体声速。按马赫数大小可分为</p>
+<ul>
+<li>不可压流动（<span class="math inline">\(Ma=0\)</span>）</li>
+<li>弱可压缩流动（<span class="math inline">\(Ma&lt;0.3\)</span>）</li>
+<li>亚声速流动（<span class="math inline">\(Ma=0.3～0.8\)</span>
+左右）</li>
+<li>跨声速流动（<span class="math inline">\(Ma=0.8～1.2\)</span>
+左右）</li>
+<li>超声速流动（<span class="math inline">\(Ma=1.2～5.0\)</span>
+左右）</li>
+<li>高超声速流动（<span class="math inline">\(Ma&gt;5.0\)</span>）</li>
+</ul>
+<p>不可压流动可通过方程 <span
+class="math inline">\(\eqref{eq_ns}\)</span>
+求解，弱可压缩流动可通过方程 <span
+class="math inline">\(\eqref{eq_momentum}\)</span> 和 <span
+class="math inline">\(\eqref{eq_mass}\)</span> 求解。当 <span
+class="math inline">\(Ma&gt;0.3\)</span>
+需要考虑湍流效应和热效应，需要额外方程来描述流体流动特征。</p>
+<p>对于不可压流动，描述湍流效应还有一重要的无量纲数——雷诺数 <span
+class="math display">\[
+Re=\frac{\rho UL}{\mu}=\frac{\text{惯性力}}{\text{粘性力}},
+\]</span> 其中 <span class="math inline">\(L\)</span>
+是流动结构特征长度。尽管不同的流动结构产生湍流效应的临界雷诺数不同，一般可认为当
+<span class="math inline">\(Re&gt;2000\)</span> 时产生湍流效应，当 <span
+class="math inline">\(Re&lt;2000\)</span> 流体流动可通过方程 <span
+class="math inline">\(\eqref{eq_ns}\)</span>
+求解。如果惯性力相对于粘性力可以忽略（一般 <span
+class="math inline">\(Re&lt;&lt;1\)</span>），流体流动及其缓慢，该种流动也被称为为<strong>蠕动流</strong>。在求解时，方程
+<span class="math inline">\(\eqref{eq_ns}\)</span> 中惯性项中对流项
+<span class="math inline">\((\boldsymbol{u}\cdot\nabla)
+\boldsymbol{u}\)</span> 可以忽略 <span class="math display">\[
+\begin{equation}
+\boxed{\begin{aligned}
+\rho \frac{\partial \boldsymbol{u}}{\partial t} &amp; = -\nabla p + \mu
+\nabla^2\boldsymbol{u} + \boldsymbol{F}, \\
+\nabla\cdot\boldsymbol{u} &amp; = 0.
+\end{aligned}}
+\end{equation}
+\]</span></p>
+<h2 id="湍流">湍流</h2>
+<h2 id="热效应">热效应</h2>
+<h2 id="两相流">两相流</h2>
+<p>在工程上，有时需要追踪流体的界面，此时，表面张力在界面变形中起到重要作用。如最常见的水龙头接水时，液柱界面形状变化。考虑最普通的气液两相不可压流动，如下图所示</p>
+<p><img src="https://raw.githubusercontent.com/NChilton/Picture/main/img/202112061710021.png" style="zoom:50%;" /></p>
+<p>若空间内气液界面 <span
+class="math inline">\(\boldsymbol{s}=\boldsymbol{s}(\boldsymbol{\xi};t)\)</span>
+用两个参数 <span
+class="math inline">\(\boldsymbol{\xi}=(\xi_1,\xi_2)\)</span>
+的参数方程表示，则界面的运动方程满足 <span class="math display">\[
+\left( \frac{\partial \boldsymbol{s}(\boldsymbol{\xi};t)}{\partial
+t}-\boldsymbol{u}(\boldsymbol{\xi};t) \right)\cdot\boldsymbol{n} = 0,
+\]</span> 其中 <span
+class="math inline">\(\boldsymbol{u}(\boldsymbol{\xi};t)\)</span>
+表示位置 <span
+class="math inline">\(\boldsymbol{\xi}=(\xi_1,\xi_2)\)</span>
+的速度，该方程通常也简写为动力学边界条件 <span
+class="math inline">\(\boldsymbol{n}\cdot(\boldsymbol{u}-\boldsymbol{u}_S)=0\)</span>，<span
+class="math inline">\(\boldsymbol{u}_S\)</span>
+是气液界面运动速度。如果用等值面 <span
+class="math inline">\(S(\boldsymbol{s}(\boldsymbol{\xi};t);t) =
+S_0\)</span> 来表示气液界面，上式可写作 <span class="math display">\[
+\begin{align}\label{eq_S}
+\frac{\partial S}{\partial t} + \boldsymbol{u}\cdot \nabla S = 0.
+\end{align}
+\]</span> 在气相和液相 <span
+class="math inline">\(\Omega_1\cup\Omega_2\)</span>
+中，流体流动均满足方程 <span
+class="math inline">\(\eqref{eq_ns}\)</span> 。在气液界面 <span
+class="math inline">\(S\)</span>
+上，两侧的应力差驱动界面流动，满足界面应力平衡方程 <span
+class="math display">\[
+\begin{align}\label{bc_stress}
+\boxed{\boldsymbol{n}\cdot[\boldsymbol{T}_i]_2^1=\gamma\kappa\boldsymbol{n},}
+\end{align}
+\]</span> 其中 <span class="math inline">\([x_i]_2^1=x_1-x_2\)</span>
+表示物理量跨越界面时的差值，<span
+class="math inline">\(\boldsymbol{T}_i=-p_i\boldsymbol{I}
+\boldsymbol+\mu_i\boldsymbol{D}_i\)</span>
+称为水动力应力张量（hydrodynamic stress tensor），<span
+class="math inline">\(\kappa=-\nabla\cdot \boldsymbol{n}\)</span>
+是界面平均曲率。如果气液两相可当作无粘流体或者均处于静止状态，则两侧压力差为
+<span class="math display">\[
+\Delta p=p_1-p_2=\gamma\kappa,
+\]</span> 该压力差也被称为拉普拉斯压力。注意NS
+方程是<strong>体方程</strong>，而方程 <span
+class="math inline">\(\eqref{bc_stress}\)</span>
+是<strong>表面方程</strong>。追踪界面方法有流体体积（Volume of fluid，
+VOF）法、水平集（Level set，LS）法和任意拉格朗日（Arbitrary Lagrangian
+Eulerian，ALE）法等。其中 VOF 和 LS 法将界面处理成一定厚度的过渡层。</p>
+<h3 id="vof-方法">VOF 方法</h3>
+<p>VOF 法引入相体积分数 <span class="math inline">\(c\)</span>
+来实现对计算域内界面进行追踪，同时将双流体方程（气液相各一个）转化为单流体方程。流体体积分数一般设置为
+<span class="math display">\[
+\left\{
+\begin{align*}
+&amp; c=0 &amp; \text{气相} \\
+&amp; 0&lt;c&lt;1 &amp; \text{界面} \\
+&amp; c = 1 &amp; \text{液相}
+\end{align*}.
+\right.
+\]</span></p>
+<p>通过求出整个计算域内各网格单元的相分数，从而可以构建出界面</p>
+<p><img
+src="https://raw.githubusercontent.com/NChilton/Picture/main/img/202112071047804.png" /></p>
+<p>在 VOF
+法中，所有物理量经过界面都是渐变的，如转化为单流体方程中密度和粘度可表示为
+<span class="math display">\[
+\rho(c)=(1-c)\rho_1+c\rho_2,\ \mu(c)=(1-c)\mu_1+c\mu_2.
+\]</span> 此时求解的单流体动量方程为 <span class="math display">\[
+\begin{align}
+\rho(c) \left( \frac{\partial \boldsymbol{u}}{\partial t} +
+(\boldsymbol{u}\cdot\nabla) \boldsymbol{u} \right) = \nabla \cdot
+\boldsymbol{T} + \boldsymbol{F_S},\label{eq_mo}
+\end{align}
+\]</span> 此处我们用 <span class="math inline">\(\boldsymbol{T} =
+-p\boldsymbol{I} \boldsymbol+\mu(c)\boldsymbol{D}\)</span> 代替了 <span
+class="math inline">\(\eqref{eq_ns}\)</span> 中的压力项和粘性项，<span
+class="math inline">\(\boldsymbol{F_S}\)</span>
+为表面张力导出的体积力。单流体仍然当作是不可压流体，有 <span
+class="math display">\[
+\frac{\text{d}\rho}{\text{d}t} = 0 \rightarrow  \frac{\text{d}
+\left((1-c)\rho_1+c\rho_2 \right)}{\text{d}t}=
+(\rho_2-\rho_1)\frac{\text{d}c}{\text{d}t} = 0,
+\]</span> 即 <span class="math display">\[
+\boxed{\frac{\partial c}{\partial t}+\boldsymbol{u}\cdot\nabla c=0.}
+\]</span> 该方程是不可压缩 VOF
+模型中的相方程，也是最常见的对流方程，也与方程 <span
+class="math inline">\(\eqref{eq_S}\)</span> 一致。VOF
+模型中，界面法向向量和曲率可以写为 <span class="math display">\[
+\boldsymbol{n}=\frac{\nabla c}{\left |\nabla c \right|},\ \kappa =
+-\nabla \cdot \left( \frac{\nabla c}{\left |\nabla c \right|} \right).
+\]</span> 为了将表面方程 <span
+class="math inline">\(\eqref{bc_stress}\)</span> 考虑到 VOF
+方法中，需要用到连续力（Continuum surface
+force，CSF）模型，该模型将间断的压力处理成连续过渡的体积力，即（不考虑马兰戈尼效应）
+<span class="math display">\[
+\boldsymbol{n}\cdot(\boldsymbol{T}_1-\boldsymbol{T}_2)=\gamma\kappa\boldsymbol{n}\rightarrow
+\nabla \cdot \boldsymbol{T} = \nabla (\gamma\kappa)=\gamma\kappa\nabla
+c,
+\]</span> 结合方程 <span class="math inline">\(\eqref{eq_mo}\)</span>
+不可压缩 VOF 模型中动量方程 <span class="math display">\[
+\boxed{\rho(c) \left( \frac{\partial \boldsymbol{u}}{\partial t} +
+(\boldsymbol{u}\cdot\nabla) \boldsymbol{u} \right) = -\nabla p +
+\nabla\cdot \left( \mu(c)\boldsymbol{D} \right) - \gamma \nabla \cdot
+\left( \frac{\nabla c}{\left |\nabla c \right|} \right) \nabla c.}
+\]</span></p>
+<h3 id="level-set-方法">Level-set 方法</h3>
+<h3 id="ale-方法">ALE 方法</h3>
+
+    </div>
+
+    
+    
+    
+
+    <footer class="post-footer">
+          <div class="post-tags">
+              <a href="/tags/NS-%E6%96%B9%E7%A8%8B/" rel="tag"># NS 方程</a>
+              <a href="/tags/%E6%B5%81%E4%BD%93%E5%8A%9B%E5%AD%A6/" rel="tag"># 流体力学</a>
+          </div>
+
+        
+
+          <div class="post-nav">
+            <div class="post-nav-item">
+                <a href="/COMSOL-simulation-of-viscous-jet.html" rel="prev" title="粘性射流非线性断裂过程模拟">
+                  <i class="fa fa-chevron-left"></i> 粘性射流非线性断裂过程模拟
+                </a>
+            </div>
+            <div class="post-nav-item">
+                <a href="/COMSOL-batch-mode.html" rel="next" title="COMSOL batch mode 运行">
+                  COMSOL batch mode 运行 <i class="fa fa-chevron-right"></i>
+                </a>
+            </div>
+          </div>
+    </footer>
+  </article>
+</div>
+
+
+
+
+
+
+</div>
+  </main>
+
+  <footer class="footer">
+    <div class="footer-inner">
+
+
+<div class="copyright">
+  &copy; 
+  <span itemprop="copyrightYear">2022</span>
+  <span class="with-love">
+    <i class="fa fa-heart"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">Chilton Nieh</span>
+</div>
+  <div class="powered-by">由 <a href="https://hexo.io/" rel="noopener" target="_blank">Hexo</a> & <a href="https://theme-next.js.org/" rel="noopener" target="_blank">NexT.Gemini</a> 强力驱动
+  </div>
+
+    </div>
+  </footer>
+
+  
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/animejs/3.2.1/anime.min.js" integrity="sha256-XL2inqUJaslATFnHdJOi9GfQ60on8Wx1C2H8DYiN1xY=" crossorigin="anonymous"></script>
+<script src="/js/comments.js"></script><script src="/js/utils.js"></script><script src="/js/next-boot.js"></script>
+
+  
+
+
+  <script class="next-config" data-name="mermaid" type="application/json">{"enable":true,"theme":{"light":"default","dark":"dark"},"js":{"url":"https://cdnjs.cloudflare.com/ajax/libs/mermaid/9.1.1/mermaid.min.js","integrity":"sha256-8L3O8tirFUa8Va4NSTAyIbHJeLd6OnlcxgupV9F77e0="}}</script>
+  <script src="/js/third-party/tags/mermaid.js"></script>
+
+
+
+  
+
+
+
+
+  
+
+  <script class="next-config" data-name="enableMath" type="application/json">true</script><script class="next-config" data-name="mathjax" type="application/json">{"enable":true,"tags":"all","js":{"url":"https://cdnjs.cloudflare.com/ajax/libs/mathjax/3.2.1/es5/tex-mml-chtml.js","integrity":"sha256-hlC2uSQYTmPsrzGZTEQEg9PZ1a/+SV6VBCTclohf2og="}}</script>
+<script src="/js/third-party/math/mathjax.js"></script>
+
+
+
+</body>
+</html>

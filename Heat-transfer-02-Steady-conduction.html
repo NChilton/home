@@ -1,0 +1,828 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+<meta name="viewport" content="width=device-width">
+<meta name="theme-color" content="#ddd"><meta name="generator" content="Hexo 6.2.0">
+
+
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png">
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png">
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png">
+  <link rel="mask-icon" href="/images/logo.svg" color="#ddd">
+
+<link rel="stylesheet" href="/css/main.css">
+
+<link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Lato:300,300italic,400,400italic,700,700italic&display=swap&subset=latin,latin-ext">
+
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.1.1/css/all.min.css" integrity="sha256-DfWjNxDkM94fVBWx1H5BMMp0Zq7luBlV8QRcSES7s+0=" crossorigin="anonymous">
+
+<script class="next-config" data-name="main" type="application/json">{"hostname":"example.com","root":"/","images":"/images","scheme":"Gemini","darkmode":false,"version":"8.12.1","exturl":false,"sidebar":{"position":"left","display":"post","padding":18,"offset":12},"copycode":{"enable":true,"style":null},"bookmark":{"enable":false,"color":"#222","save":"auto"},"mediumzoom":false,"lazyload":false,"pangu":false,"comments":{"style":"tabs","active":null,"storage":true,"lazyload":false,"nav":null},"stickytabs":false,"motion":{"enable":false,"async":false,"transition":{"post_block":"fadeIn","post_header":"fadeInDown","post_body":"fadeInDown","coll_header":"fadeInLeft","sidebar":"fadeInUp"}},"prism":false,"i18n":{"placeholder":"搜索...","empty":"没有找到任何搜索结果：${query}","hits_time":"找到 ${hits} 个搜索结果（用时 ${time} 毫秒）","hits":"找到 ${hits} 个搜索结果"}}</script><script src="/js/config.js"></script>
+
+    <meta name="description" content="本文参考杨世铭、陶文铨所著《传热学》第四版第二章  导热基本定律——傅里叶定律 各类物体的导热机理 气体中，导热是气体分子不规则热运动相互碰撞的结果，气体温度越高，分子运动动能越大。不同能量水平的分子相互碰撞的结果，使热量从高温处传递到低温处。导电固体中有相当多的自由电子，它们在晶格之间像气体分子那样运动（称为电子气）。自由电子的运动在导电固体的导热中起着主要作用。在非导电固体中，导热">
+<meta property="og:type" content="article">
+<meta property="og:title" content="稳态热传导">
+<meta property="og:url" content="http://example.com/Heat-transfer-02-Steady-conduction.html">
+<meta property="og:site_name" content="Day day up!">
+<meta property="og:description" content="本文参考杨世铭、陶文铨所著《传热学》第四版第二章  导热基本定律——傅里叶定律 各类物体的导热机理 气体中，导热是气体分子不规则热运动相互碰撞的结果，气体温度越高，分子运动动能越大。不同能量水平的分子相互碰撞的结果，使热量从高温处传递到低温处。导电固体中有相当多的自由电子，它们在晶格之间像气体分子那样运动（称为电子气）。自由电子的运动在导电固体的导热中起着主要作用。在非导电固体中，导热">
+<meta property="og:locale" content="zh_CN">
+<meta property="og:image" content="https://raw.githubusercontent.com/NChilton/Picture/main/img/202205271736644.png">
+<meta property="og:image" content="https://raw.githubusercontent.com/NChilton/Picture/main/img/202205272321410.png">
+<meta property="og:image" content="https://raw.githubusercontent.com/NChilton/Picture/main/img/202205272323452.png">
+<meta property="og:image" content="https://raw.githubusercontent.com/NChilton/Picture/main/img/202205281816436.png">
+<meta property="og:image" content="https://raw.githubusercontent.com/NChilton/Picture/main/img/202205281819683.png">
+<meta property="og:image" content="https://raw.githubusercontent.com/NChilton/Picture/main/img/202205290051303.png">
+<meta property="og:image" content="https://raw.githubusercontent.com/NChilton/Picture/main/img/202205290054422.png">
+<meta property="article:published_time" content="2021-04-28T16:00:00.000Z">
+<meta property="article:modified_time" content="2022-05-26T16:00:00.000Z">
+<meta property="article:author" content="Chilton Nieh">
+<meta property="article:tag" content="导热">
+<meta property="article:tag" content="傅里叶定律">
+<meta property="article:tag" content="肋片">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="https://raw.githubusercontent.com/NChilton/Picture/main/img/202205271736644.png">
+
+
+<link rel="canonical" href="http://example.com/Heat-transfer-02-Steady-conduction.html">
+
+
+
+<script class="next-config" data-name="page" type="application/json">{"sidebar":"","isHome":false,"isPost":true,"lang":"zh-CN","comments":true,"permalink":"http://example.com/Heat-transfer-02-Steady-conduction.html","path":"/Heat-transfer-02-Steady-conduction.html","title":"稳态热传导"}</script>
+
+<script class="next-config" data-name="calendar" type="application/json">""</script>
+<title>稳态热传导 | Day day up!</title>
+  
+
+
+
+
+
+  <noscript>
+    <link rel="stylesheet" href="/css/noscript.css">
+  </noscript>
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage">
+  <div class="headband"></div>
+
+  <main class="main">
+    <header class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-container">
+  <div class="site-nav-toggle">
+    <div class="toggle" aria-label="切换导航栏" role="button">
+        <span class="toggle-line"></span>
+        <span class="toggle-line"></span>
+        <span class="toggle-line"></span>
+    </div>
+  </div>
+
+  <div class="site-meta">
+
+    <a href="/" class="brand" rel="start">
+      <i class="logo-line"></i>
+      <p class="site-title">Day day up!</p>
+      <i class="logo-line"></i>
+    </a>
+      <p class="site-subtitle" itemprop="description">做人最重要的的是😀</p>
+  </div>
+
+  <div class="site-nav-right">
+    <div class="toggle popup-trigger">
+    </div>
+  </div>
+</div>
+
+
+
+<nav class="site-nav">
+  <ul class="main-menu menu"><li class="menu-item menu-item-home"><a href="/" rel="section"><i class="fa fa-home fa-fw"></i>首页</a></li><li class="menu-item menu-item-archives"><a href="/archives/" rel="section"><i class="fa fa-archive fa-fw"></i>归档<span class="badge">38</span></a></li><li class="menu-item menu-item-tags"><a href="/tags/" rel="section"><i class="fa fa-tags fa-fw"></i>标签<span class="badge">40</span></a></li><li class="menu-item menu-item-categories"><a href="/categories/" rel="section"><i class="fa fa-th fa-fw"></i>分类<span class="badge">6</span></a></li><li class="menu-item menu-item-about"><a href="/about/" rel="section"><i class="fa fa-user fa-fw"></i>关于</a></li>
+  </ul>
+</nav>
+
+
+
+
+</div>
+        
+  
+  <div class="toggle sidebar-toggle" role="button">
+    <span class="toggle-line"></span>
+    <span class="toggle-line"></span>
+    <span class="toggle-line"></span>
+  </div>
+
+  <aside class="sidebar">
+
+    <div class="sidebar-inner sidebar-nav-active sidebar-toc-active">
+      <ul class="sidebar-nav">
+        <li class="sidebar-nav-toc">
+          文章目录
+        </li>
+        <li class="sidebar-nav-overview">
+          站点概览
+        </li>
+      </ul>
+
+      <div class="sidebar-panel-container">
+        <!--noindex-->
+        <div class="post-toc-wrap sidebar-panel">
+            <div class="post-toc animated"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%AF%BC%E7%83%AD%E5%9F%BA%E6%9C%AC%E5%AE%9A%E5%BE%8B%E5%82%85%E9%87%8C%E5%8F%B6%E5%AE%9A%E5%BE%8B"><span class="nav-number">1.</span> <span class="nav-text">导热基本定律——傅里叶定律</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#%E5%90%84%E7%B1%BB%E7%89%A9%E4%BD%93%E7%9A%84%E5%AF%BC%E7%83%AD%E6%9C%BA%E7%90%86"><span class="nav-number">1.1.</span> <span class="nav-text">各类物体的导热机理</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E6%B8%A9%E5%BA%A6%E5%9C%BA"><span class="nav-number">1.2.</span> <span class="nav-text">温度场</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E5%AF%BC%E7%83%AD%E5%9F%BA%E6%9C%AC%E5%AE%9A%E5%BE%8B"><span class="nav-number">1.3.</span> <span class="nav-text">导热基本定律</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E5%AF%BC%E7%83%AD%E7%B3%BB%E6%95%B0"><span class="nav-number">1.4.</span> <span class="nav-text">导热系数</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E5%AF%BC%E7%83%AD%E5%BE%AE%E5%88%86%E6%96%B9%E7%A8%8B"><span class="nav-number">1.5.</span> <span class="nav-text">导热微分方程</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E5%AE%9A%E8%A7%A3%E6%9D%A1%E4%BB%B6"><span class="nav-number">1.6.</span> <span class="nav-text">定解条件</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E7%83%AD%E6%89%A9%E6%95%A3%E7%8E%87%E7%9A%84%E7%89%A9%E7%90%86%E6%84%8F%E4%B9%89"><span class="nav-number">1.7.</span> <span class="nav-text">热扩散率的物理意义</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E5%82%85%E9%87%8C%E5%8F%B6%E5%AE%9A%E5%BE%8B%E5%8F%8A%E5%BE%AE%E5%88%86%E6%96%B9%E7%A8%8B%E9%80%82%E7%94%A8%E8%8C%83%E5%9B%B4"><span class="nav-number">1.8.</span> <span class="nav-text">傅里叶定律及微分方程适用范围</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%85%B8%E5%9E%8B%E4%B8%80%E7%BB%B4%E7%A8%B3%E6%80%81%E5%AF%BC%E7%83%AD%E9%97%AE%E9%A2%98%E7%9A%84%E5%88%86%E6%9E%90%E8%A7%A3"><span class="nav-number">2.</span> <span class="nav-text">典型一维稳态导热问题的分析解</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#%E9%80%9A%E8%BF%87%E5%B9%B3%E5%A3%81%E7%9A%84%E5%AF%BC%E7%83%AD"><span class="nav-number">2.1.</span> <span class="nav-text">通过平壁的导热</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E9%80%9A%E8%BF%87%E5%9C%86%E7%AD%92%E5%A3%81%E7%9A%84%E5%AF%BC%E7%83%AD"><span class="nav-number">2.2.</span> <span class="nav-text">通过圆筒壁的导热</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E9%80%9A%E8%BF%87%E7%90%83%E5%A3%B3%E7%9A%84%E5%AF%BC%E7%83%AD"><span class="nav-number">2.3.</span> <span class="nav-text">通过球壳的导热</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E9%80%9A%E8%BF%87%E8%82%8B%E7%89%87%E7%9A%84%E5%AF%BC%E7%83%AD"><span class="nav-number">3.</span> <span class="nav-text">通过肋片的导热</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#%E9%80%9A%E8%BF%87%E7%AD%89%E6%88%AA%E9%9D%A2%E7%9B%B4%E8%82%8B%E7%9A%84%E5%AF%BC%E7%83%AD"><span class="nav-number">3.1.</span> <span class="nav-text">通过等截面直肋的导热</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E8%82%8B%E6%95%88%E7%8E%87%E4%B8%8E%E8%82%8B%E9%9D%A2%E6%80%BB%E6%95%88%E7%8E%87"><span class="nav-number">3.2.</span> <span class="nav-text">肋效率与肋面总效率</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E8%82%8B%E7%89%87%E7%9A%84%E9%80%89%E7%94%A8%E4%B8%8E%E6%9C%80%E5%B0%8F%E9%87%8D%E9%87%8F%E8%82%8B%E7%89%87"><span class="nav-number">3.3.</span> <span class="nav-text">肋片的选用与最小重量肋片</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E6%8E%A5%E8%A7%A6%E7%83%AD%E9%98%BB"><span class="nav-number">3.4.</span> <span class="nav-text">接触热阻</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%85%B7%E6%9C%89%E5%86%85%E7%83%AD%E6%BA%90%E7%9A%84%E4%B8%80%E7%BB%B4%E5%AF%BC%E7%83%AD%E9%97%AE%E9%A2%98"><span class="nav-number">4.</span> <span class="nav-text">具有内热源的一维导热问题</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#%E5%85%B7%E6%9C%89%E5%86%85%E7%83%AD%E6%BA%90%E7%9A%84%E5%B9%B3%E6%9D%BF%E5%AF%BC%E7%83%AD"><span class="nav-number">4.1.</span> <span class="nav-text">具有内热源的平板导热</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E5%85%B7%E6%9C%89%E5%86%85%E7%83%AD%E6%BA%90%E7%9A%84%E5%9C%86%E6%9F%B1%E4%BD%93%E5%AF%BC%E7%83%AD"><span class="nav-number">4.2.</span> <span class="nav-text">具有内热源的圆柱体导热</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%A4%9A%E7%BB%B4%E7%A8%B3%E6%80%81%E5%AF%BC%E7%83%AD%E7%9A%84%E6%B1%82%E8%A7%A3"><span class="nav-number">5.</span> <span class="nav-text">多维稳态导热的求解</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#%E7%A8%B3%E6%80%81%E5%AF%BC%E7%83%AD%E9%97%AE%E9%A2%98%E6%B1%82%E8%A7%A3%E6%96%B9%E6%B3%95%E7%9A%84%E7%AE%80%E8%BF%B0"><span class="nav-number">5.1.</span> <span class="nav-text">稳态导热问题求解方法的简述</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E8%AE%A1%E7%AE%97%E5%AF%BC%E7%83%AD%E9%87%8F%E7%9A%84%E5%BD%A2%E7%8A%B6%E5%9B%A0%E5%AD%90"><span class="nav-number">5.2.</span> <span class="nav-text">计算导热量的形状因子</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E6%B1%82%E8%A7%A3%E7%A8%B3%E6%80%81%E5%AF%BC%E7%83%AD%E7%9A%84%E5%88%86%E7%A6%BB%E5%8F%98%E9%87%8F%E6%B3%95%E4%B8%BE%E4%BE%8B"><span class="nav-number">5.3.</span> <span class="nav-text">求解稳态导热的分离变量法举例</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%B0%8F%E7%BB%93"><span class="nav-number">6.</span> <span class="nav-text">小结</span></a></li></ol></div>
+        </div>
+        <!--/noindex-->
+
+        <div class="site-overview-wrap sidebar-panel">
+          <div class="site-author site-overview-item animated" itemprop="author" itemscope itemtype="http://schema.org/Person">
+    <img class="site-author-image" itemprop="image" alt="Chilton Nieh"
+      src="/images/logo_fa.jpg">
+  <p class="site-author-name" itemprop="name">Chilton Nieh</p>
+  <div class="site-description" itemprop="description">路漫漫其修远兮，吾将上下而求索</div>
+</div>
+<div class="site-state-wrap site-overview-item animated">
+  <nav class="site-state">
+      <div class="site-state-item site-state-posts">
+        <a href="/archives/">
+          <span class="site-state-item-count">38</span>
+          <span class="site-state-item-name">日志</span>
+        </a>
+      </div>
+      <div class="site-state-item site-state-categories">
+          <a href="/categories/">
+        <span class="site-state-item-count">6</span>
+        <span class="site-state-item-name">分类</span></a>
+      </div>
+      <div class="site-state-item site-state-tags">
+          <a href="/tags/">
+        <span class="site-state-item-count">40</span>
+        <span class="site-state-item-name">标签</span></a>
+      </div>
+  </nav>
+</div>
+  <div class="links-of-author site-overview-item animated">
+      <span class="links-of-author-item">
+        <a href="https://github.com/yourname" title="GitHub → https:&#x2F;&#x2F;github.com&#x2F;yourname" rel="noopener" target="_blank"><i class="fab fa-github fa-fw"></i>GitHub</a>
+      </span>
+  </div>
+
+
+
+        </div>
+      </div>
+    </div>
+  </aside>
+  <div class="sidebar-dimmer"></div>
+
+
+    </header>
+
+    
+  <div class="back-to-top" role="button" aria-label="返回顶部">
+    <i class="fa fa-arrow-up"></i>
+    <span>0%</span>
+  </div>
+
+<noscript>
+  <div class="noscript-warning">Theme NexT works best with JavaScript enabled</div>
+</noscript>
+
+
+    <div class="main-inner post posts-expand">
+
+
+  
+
+
+<div class="post-block">
+  
+  
+
+  <article itemscope itemtype="http://schema.org/Article" class="post-content" lang="zh-CN">
+    <link itemprop="mainEntityOfPage" href="http://example.com/Heat-transfer-02-Steady-conduction.html">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/logo_fa.jpg">
+      <meta itemprop="name" content="Chilton Nieh">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Day day up!">
+      <meta itemprop="description" content="路漫漫其修远兮，吾将上下而求索">
+    </span>
+
+    <span hidden itemprop="post" itemscope itemtype="http://schema.org/CreativeWork">
+      <meta itemprop="name" content="稳态热传导 | Day day up!">
+      <meta itemprop="description" content="">
+    </span>
+      <header class="post-header">
+        <h1 class="post-title" itemprop="name headline">
+          稳态热传导
+        </h1>
+
+        <div class="post-meta-container">
+          <div class="post-meta">
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-calendar"></i>
+      </span>
+      <span class="post-meta-item-text">发表于</span>
+
+      <time title="创建时间：2021-04-29 00:00:00" itemprop="dateCreated datePublished" datetime="2021-04-29T00:00:00+08:00">2021-04-29</time>
+    </span>
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-calendar-check"></i>
+      </span>
+      <span class="post-meta-item-text">更新于</span>
+      <time title="修改时间：2022-05-27 00:00:00" itemprop="dateModified" datetime="2022-05-27T00:00:00+08:00">2022-05-27</time>
+    </span>
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-folder"></i>
+      </span>
+      <span class="post-meta-item-text">分类于</span>
+        <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+          <a href="/categories/%E8%AF%BE%E7%A8%8B%E7%AC%94%E8%AE%B0/" itemprop="url" rel="index"><span itemprop="name">课程笔记</span></a>
+        </span>
+    </span>
+
+  
+</div>
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+        <blockquote>
+<p>本文参考杨世铭、陶文铨所著《传热学》第四版第二章</p>
+</blockquote>
+<h2 id="导热基本定律傅里叶定律">导热基本定律——傅里叶定律</h2>
+<h3 id="各类物体的导热机理">各类物体的导热机理</h3>
+<p>气体中，导热是气体分子不规则热运动相互碰撞的结果，气体温度越高，分子运动动能越大。不同能量水平的分子相互碰撞的结果，使热量从高温处传递到低温处。导电固体中有相当多的自由电子，它们在晶格之间像气体分子那样运动（称为电子气）。自由电子的运动在导电固体的导热中起着主要作用。在非导电固体中，导热是通过晶格结构的振动，即原子、分子在其平衡位置附近的振动来实现的。晶格结构振动的传递在文献中常称为弹性声波，其量子化表示为声子，与辐射能量的量子化表示——光子相类似。至于液体中导热机理，存在不同观点。一种观点认为定性上类似于气体，只是情况更复杂，因为液体分子间的间距比较近，分子间的作用力对碰撞过程的影响远比气体大。另一种观点则认为液体的导热机理类似于非导电固体，主要靠弹性声波的作用。</p>
+<span id="more"></span>
+<h3 id="温度场">温度场</h3>
+<p>一般来说，物体的温度场是坐标与时间的函数，即 <span
+class="math display">\[
+T = f(x,y,z,t).
+\]</span> 稳态温度场（steady temperature
+filed）中各点温度不随时间变化，随时间变化称为非稳态温度场或瞬态温度场（unsteady
+or transient temperature field）。</p>
+<h3 id="导热基本定律">导热基本定律</h3>
+<p>三维空间内，热流密度是一个矢量，记为<span
+class="math inline">\(~\boldsymbol{q}\)</span>。描述导热的傅里叶定律写为
+<span class="math display">\[
+\boldsymbol{q} = -\lambda \nabla T,
+\]</span> 其中<span class="math inline">\(~\nabla
+T~\)</span>是空间某点的温度梯度（temperature
+gradient），笛卡尔坐标系（Cartesian coordinates）下该值为 <span
+class="math display">\[
+\nabla T = \frac{\partial T}{\partial x}\boldsymbol{e}_x +
+\frac{\partial T}{\partial y}\boldsymbol{e}_y + \frac{\partial
+T}{\partial z}\boldsymbol{e}_z,
+\]</span> 其中<span
+class="math inline">\(~\boldsymbol{e}_x\)</span>、<span
+class="math inline">\(\boldsymbol{e}_y\)</span>、<span
+class="math inline">\(\boldsymbol{e}_z~\)</span>分别是<span
+class="math inline">\(~x\)</span>、<span
+class="math inline">\(y\)</span>、<span
+class="math inline">\(z~\)</span>方向的单位矢量。</p>
+<h3 id="导热系数">导热系数</h3>
+<p>测量导热系数的方法有稳态法和非稳态法两大类，傅里叶定律是稳态测定的基础。导热系数数值取决于物质的种类和温度，金属的导热系数很高。常温（<span
+class="math inline">\(20^\circ
+\text{C}\)</span>）下金属导热系数的典型值是：纯铜为<span
+class="math inline">\(~399~\text{W/(m}\cdot\text{K})\)</span>、碳钢（含碳量<span
+class="math inline">\(~\omega_\text{C}=1.5\%\)</span>）为<span
+class="math inline">\(~36.7~\text{W/(m}\cdot\text{K})\)</span>。气体的导热系数很小，如<span
+class="math inline">\(~20^\circ
+\text{C}\)</span>时干空气的导热系数为<span
+class="math inline">\(~0.0259~\text{W/(m}\cdot\text{K})\)</span>。液体数值介于金属和气体之间，如<span
+class="math inline">\(~293~\text{K}\)</span>时水的导热系数为<span
+class="math inline">\(~0.599~\text{W/(m}\cdot\text{K})\)</span>。习惯上把导热系数小的材料称为保温材料，又称隔热材料或绝缘材料（insulating
+material）。1992 年我国国家标准定义凡平均温度不高于<span
+class="math inline">\(~350^\circ \text{C}~\)</span>时导热系数不大于<span
+class="math inline">\(~0.12~\text{W/(m}\cdot\text{K})~\)</span>的材料称为保温材料。下图为常见材料导热系数随温度的变化</p>
+<p><img src="https://raw.githubusercontent.com/NChilton/Picture/main/img/202205271736644.png" alt="温度对导热系数的影响" style="zoom: 33%;" /></p>
+<p>## 导热问题的数学描述</p>
+<h3 id="导热微分方程">导热微分方程</h3>
+<p>笛卡尔坐标系下三维非稳态导热微分方程一般形式写作 <span
+class="math display">\[
+\rho C_p \frac{\partial T}{\partial t} = \frac{\partial}{\partial
+x}\left(\lambda \frac{\partial T}{\partial x}\right) +
+\frac{\partial}{\partial y}\left(\lambda \frac{\partial T}{\partial
+y}\right) + \frac{\partial}{\partial z}\left(\lambda \frac{\partial
+T}{\partial z}\right) + \dot{\Phi},\label{ht_conduction}
+\]</span> 其中<span class="math inline">\(~\rho\)</span>、<span
+class="math inline">\(C_p~\)</span>和<span
+class="math inline">\(~\dot{\Phi}~\)</span>分别为密度、比热容和单位时间内单位体积内内热源的生成热，其单位分别为<span
+class="math inline">\(~\text{kg}/\text{m}^3\)</span>、<span
+class="math inline">\(\text{J}/(\text{kg}\cdot\text{K})~\)</span>和<span
+class="math inline">\(~\text{W}/\text{m}^3\)</span>。</p>
+<ol type="1">
+<li>导热系数<span class="math inline">\(~\lambda~\)</span>为常数时</li>
+</ol>
+<p>式<span class="math inline">\(~\eqref{ht_conduction}~\)</span>化简为
+<span class="math display">\[
+\frac{\partial T}{\partial t} = a\left( \frac{\partial^2 T}{\partial
+x^2} + \frac{\partial^2 T}{\partial y^2} + \frac{\partial^2 T}{\partial
+z^2} \right) + \frac{\dot{\Phi}}{\rho C_p},\label{ht_conduction2}
+\]</span> 其中<span class="math inline">\(~a=\lambda/(\rho
+C_p)~\)</span>称为热扩散率或热扩散系数（thermal
+diffusivity），单位为<span
+class="math inline">\(~\text{m}^2/\text{s}\)</span>。</p>
+<ol start="2" type="1">
+<li>导热系数为常数、无内热源</li>
+</ol>
+<p>式<span class="math inline">\(~\eqref{ht_conduction}~\)</span>化简为
+<span class="math display">\[
+\frac{\partial T}{\partial t} = a\left( \frac{\partial^2 T}{\partial
+x^2} + \frac{\partial^2 T}{\partial y^2} + \frac{\partial^2 T}{\partial
+z^2} \right),
+\]</span> 这就是常物性、无内热源的三维非稳态导热微分方程。</p>
+<ol start="3" type="1">
+<li>常物性、稳态</li>
+</ol>
+<p>式<span class="math inline">\(~\eqref{ht_conduction}~\)</span>化简为
+<span class="math display">\[
+\frac{\partial^2 T}{\partial x^2} + \frac{\partial^2 T}{\partial y^2} +
+\frac{\partial^2 T}{\partial z^2} + \frac{\dot{\Phi}}{\lambda} = 0,
+\]</span> 数学上，上式称为泊松（Poisson）方程。</p>
+<ol start="4" type="1">
+<li>常物性、无内热源、稳态</li>
+</ol>
+<p>式<span
+class="math inline">\(~\eqref{ht_conduction}~\)</span>化简为以下拉普拉斯（Laplace）方程
+<span class="math display">\[
+\frac{\partial^2 T}{\partial x^2} + \frac{\partial^2 T}{\partial y^2} +
+\frac{\partial^2 T}{\partial z^2} = 0.
+\]</span></p>
+<h3 id="定解条件">定解条件</h3>
+<ol type="1">
+<li>第一类边界条件：规定了边界上的温度值<span
+class="math inline">\(~T_\text{w}~\)</span>为常数</li>
+</ol>
+<p>非稳态导热，在边界上，有 <span class="math display">\[
+T_\text{w} = f_1(t).
+\]</span></p>
+<ol start="2" type="1">
+<li>第二类边界条件：规定了边界上的热流密度<span
+class="math inline">\(~q_\text{w}=\boldsymbol{q}\cdot\boldsymbol{n}~\)</span>为常数</li>
+</ol>
+<p>非稳态导热，在边界上，有 <span class="math display">\[
+-\lambda\left( \frac{\partial T}{\partial n} \right)_\text{w} = f_2(t),
+\]</span> 其中，<span
+class="math inline">\(n~\)</span>为表面的法线方向。</p>
+<ol start="3" type="1">
+<li>第三类边界条件：规定了边界上物体与周围流体间的表面传热系数<span
+class="math inline">\(~h~\)</span>及周围流体的温度<span
+class="math inline">\(~T_\text{f}~\)</span>的关系</li>
+</ol>
+<p>以物体被冷却为例，有 <span class="math display">\[
+-\lambda \left( \frac{\partial T}{\partial n} \right)_\text{w} =
+h(T_\text{w}-T_\text{f}).
+\]</span>
+以上三种边界条件与数学物理方程理论中的三类边界条件相对应，又分别称为
+Dirichlet 条件、Neumann 条件和 Robin
+条件。在处理复杂的实际工程问题时，还会遇到以下情形</p>
+<ol start="4" type="1">
+<li>辐射边界条件：导热物体表面与温度为<span
+class="math inline">\(~T_\text{e}~\)</span>的外界环境只发生辐射换热</li>
+</ol>
+<p><span class="math display">\[
+-\lambda \frac{\partial T}{\partial n} =
+\varepsilon\sigma(T_\text{w}^4-T_\text{e}^4).
+\]</span></p>
+<ol start="5" type="1">
+<li>界面连续条件：介质1 与介质 2 的温度与热流密度连续</li>
+</ol>
+<p><span class="math display">\[
+T_1 = T_2,\quad \left( \lambda \frac{\partial T}{\partial n} \right)_1 =
+\left( \lambda \frac{\partial T}{\partial n} \right)_2.
+\]</span></p>
+<h3 id="热扩散率的物理意义">热扩散率的物理意义</h3>
+<p>由式<span
+class="math inline">\(~\eqref{ht_conduction2}~\)</span>中热扩散率的定义<span
+class="math inline">\(~a=\lambda/(\rho C_p)~\)</span>可知</p>
+<ol type="1">
+<li><span class="math inline">\(\lambda~\)</span>是物体的导热系数，<span
+class="math inline">\(\lambda~\)</span>越大，在相同的温度梯度下可以传导更多的热量；</li>
+<li><span class="math inline">\(\rho
+C_p~\)</span>是单位体积的物体温度升高<span
+class="math inline">\(~1^\circ \text{C}~\)</span>所需要的热量，<span
+class="math inline">\(\rho C_p~\)</span>越小，温度上升<span
+class="math inline">\(~1^\circ\text{C}~\)</span>所吸收的热量越少；</li>
+<li>热扩散率<span class="math inline">\(~a~\)</span>是<span
+class="math inline">\(~\lambda~\)</span>与<span
+class="math inline">\(~\rho C_p~\)</span>的商，<span
+class="math inline">\(a~\)</span>越大，表示物体内部温度扯平的能力越大。</li>
+</ol>
+<p>从另一个角度看，<span
+class="math inline">\(a~\)</span>越大，材料中温度变化传播得越迅速，可见<span
+class="math inline">\(~a~\)</span>也是材料传播温度变化能力大小的指标，并因此有导温系数之称。</p>
+<h3 id="傅里叶定律及微分方程适用范围">傅里叶定律及微分方程适用范围</h3>
+<p>傅里叶定律实际上是基于热扰动的传递速度无限大的假定之上的，
+对于下列三种情形，傅里叶定律及导热微分方程是不适用的：</p>
+<ol type="1">
+<li>当导热物体的温度接近<span
+class="math inline">\(~0~\text{K}~\)</span>时</li>
+<li>当过程的作用时间极短，与材料本身固有的时间尺度接近。对于金属，其值在<span
+class="math inline">\(~10^{-12}\sim
+10^{-13}~\text{s}~\)</span>左右，极短时间的脉冲加工就可能属于这种情形</li>
+<li>空间尺度极小，与微观粒子的平均自由程接近时。如通过气层的导热。</li>
+</ol>
+<h2 id="典型一维稳态导热问题的分析解">典型一维稳态导热问题的分析解</h2>
+<h3 id="通过平壁的导热">通过平壁的导热</h3>
+<ol type="1">
+<li>单层平壁</li>
+</ol>
+<p>厚度为<span
+class="math inline">\(~\delta~\)</span>、两个壁面分别维持恒定温度<span
+class="math inline">\(~T_1~\)</span>和<span
+class="math inline">\(~T_2~\)</span>的平壁，导热数学描述为 <span
+class="math display">\[
+\frac{\mathrm{d}^2 T}{\partial x^2} = 0,\\
+x = 0, T = T_1; x = \delta, T = T_2.
+\]</span> 该平壁的温度分布为 <span class="math display">\[
+T = \frac{T_2-T_1}{\delta} x + T_1.
+\]</span> 热流密度为 <span class="math display">\[
+q = \frac{\lambda}{\delta}(T_2-T_1).
+\]</span> 热流量为 <span class="math display">\[
+\Phi = A \frac{\lambda}{\delta}(T_2-T_1).
+\]</span></p>
+<ol start="2" type="1">
+<li>多层平壁</li>
+</ol>
+<p><span class="math inline">\(n~\)</span>层多层壁的计算公式是 <span
+class="math display">\[
+q = \frac{T_1 - T_2}{\sum_{i=1}^n \frac{\delta_i}{\lambda_i}}.
+\]</span></p>
+<h3 id="通过圆筒壁的导热">通过圆筒壁的导热</h3>
+<p>考察内外半径分别为<span class="math inline">\(~r_1\)</span>、<span
+class="math inline">\(r_2~\)</span>的圆筒壁，其内、外表面温度分别维持均匀恒定的温度<span
+class="math inline">\(~T_1~\)</span>和<span
+class="math inline">\(~T_2\)</span>。采用柱坐标系<span
+class="math inline">\(~(r,\theta,z)~\)</span>描述圆筒导热，则其数学描述为
+<span class="math display">\[
+\frac{\mathrm{d}}{\mathrm{d}r}\left(r\frac{\mathrm{d}T}{\mathrm{d}r}\right)
+= 0,\\
+r = r_1, T = T_1; \\
+r = r_2, T = T_2.
+\]</span> 则温度分布为 <span class="math display">\[
+T = T_1 + \frac{T_2-T_1}{\ln(r_2/r_1)}\ln(r/r_1).
+\]</span> 热流密度为 <span class="math display">\[
+q = -\lambda\frac{\mathrm{d}T}{\mathrm{d}r} =
+\frac{\lambda}{r}\frac{T_1-T_2}{\ln(r_2/r_1)}.
+\]</span> 热流量为 <span class="math display">\[
+\Phi = 2\pi rlq = \frac{2\pi\lambda l(T_1-T_2)}{\ln(r_2/r_1)},
+\]</span> 其中<span class="math inline">\(~l~\)</span>是圆筒长度。</p>
+<p>导热热阻为 <span class="math display">\[
+R = \frac{T_2-T_1}{\Phi} = \frac{\ln(r_2/r_1)}{2\pi\lambda l}.
+\]</span></p>
+<h3 id="通过球壳的导热">通过球壳的导热</h3>
+<p>温度分布 <span class="math display">\[
+T = T_2 + (T_1-T_2)\frac{1/r-1/r_2}{1/r_1-1/r_2}.
+\]</span> 热流量 <span class="math display">\[
+\Phi = \frac{4\pi\lambda(T_1-T_2)}{1/r_1-1/r_2}.
+\]</span> 热阻 <span class="math display">\[
+R = \frac{1}{4\pi\lambda}\left(\frac{1}{r_1}-\frac{1}{r_2}\right).
+\]</span></p>
+<h2 id="通过肋片的导热">通过肋片的导热</h2>
+<p>要增加对流传热量（通常称为强化传热）可以通过增加温差、增加表面传热系数以及增加换热面积三种方法来达到，采用肋片（翅片）是增加换热面积的有效方法。下图展示了四种典型肋片结构</p>
+<p><img src="https://raw.githubusercontent.com/NChilton/Picture/main/img/202205272321410.png" alt="肋片的典型结构" style="zoom:50%;" /></p>
+<h3 id="通过等截面直肋的导热">通过等截面直肋的导热</h3>
+<p>以下图肋片进行表面传热分析，肋片与基础表面相交处温度<span
+class="math inline">\(~T_0~\)</span>已知，周围温度为<span
+class="math inline">\(~T_\infty,(T_0&gt;T_\infty)\)</span>。</p>
+<p><img src="https://raw.githubusercontent.com/NChilton/Picture/main/img/202205272323452.png" alt="通过肋片的热量传递" style="zoom:50%;" /></p>
+<ol type="1">
+<li>物理模型
+<ol type="1">
+<li>材料导热系数<span
+class="math inline">\(~\lambda\)</span>、表面传热系数<span
+class="math inline">\(~h~\)</span>以及沿肋高方向的横截面积<span
+class="math inline">\(~A_\text{c}~\)</span>均为常数</li>
+<li>肋片温度在垂直于纸面方向不发生变化</li>
+<li>表面上的换热热阻<span
+class="math inline">\(~1/h~\)</span>远远大于肋片中的导热热阻<span
+class="math inline">\(~\delta/\lambda\)</span></li>
+<li>肋片顶端可视为绝缘，即在肋的顶端<span
+class="math inline">\(~x=H~\)</span>有<span
+class="math inline">\(~\mathrm{d}T/\mathrm{d}x=0\)</span></li>
+</ol></li>
+<li>数学模型</li>
+</ol>
+<p>肋片中的温度场的数学方程为 <span class="math display">\[
+\frac{\mathrm{d}^2 T}{\mathrm{d}x^2} + \frac{\dot{\Phi}}{\lambda} = 0.
+\]</span> 取长度为<span
+class="math inline">\(~\mathrm{d}x~\)</span>的微元段分析，设参与换热的截面周长为<span
+class="math inline">\(~P\)</span>，则表面的总散热量为 <span
+class="math display">\[
+\Phi_\text{s} = (P\mathrm{d}x)h(T-T_\infty),
+\]</span> 相应的微元体积<span
+class="math inline">\(~A_\text{c}\mathrm{d}x\)</span>，因而相应的折算源项为
+<span class="math display">\[
+\dot{\Phi} =
+-\frac{\Phi_\text{s}}{A_\text{c}\mathrm{d}x}=-\frac{hP(T-T_\infty)}{A_\text{c}}.
+\]</span></p>
+<p>因此有 <span class="math display">\[
+\frac{\mathrm{d}^2 T}{\mathrm{d}x^2} =
+\frac{hP(T-T_\infty)}{A_\text{c}}.
+\]</span> 其相应的边界条件为 <span class="math display">\[
+x = 0, T = T_0; x = H, \frac{\mathrm{d}T}{\mathrm{d}x} = 0.
+\]</span></p>
+<ol start="3" type="1">
+<li>分析解</li>
+</ol>
+<p>引入过余温度<span class="math inline">\(~\theta = T -
+T_\infty\)</span>，令<span class="math inline">\(~m=\sqrt{hP/(\lambda
+A_\text{c})}\)</span>，可得到过余温度的齐次方程 <span
+class="math display">\[
+\frac{\mathrm{d}^2 \theta}{\mathrm{d}x^2} = m^2\theta, \\
+x = 0, \theta = \theta_0 = T_0 - T_\infty; x = H,
+\frac{\mathrm{d}\theta}{\mathrm{d}x} = 0.
+\]</span> 其解为 <span class="math display">\[
+\theta = \theta_0
+\frac{\mathrm{e}^{mx}+\mathrm{e}^{2mH}\mathrm{e}^{-mx}}{1+\mathrm{e}^{2mH}}
+= \theta_0 \frac{\cosh \left[m(x-H)\right]}{\cosh(mH)}.
+\]</span> 由肋片散入外界的全部热量都必须通过<span
+class="math inline">\(~x=0~\)</span>处的肋根截面，此时热流量为 <span
+class="math display">\[
+\Phi_{x=0} = -\lambda A_\text{c}\left(
+\frac{\mathrm{d}\theta}{\mathrm{d} x} \right)_{x=0}
+= -\lambda A_\text{c} \theta_0(-m) \frac{\sinh (mH)}{\cosh (mH)} \\
+= \lambda A_\text{c} \theta_0 m \tanh(mH) = \frac{hP}{m} \theta_0
+\tanh(mH).
+\]</span></p>
+<h3 id="肋效率与肋面总效率">肋效率与肋面总效率</h3>
+<ol type="1">
+<li>等截面直肋的效率</li>
+</ol>
+<p>为了表征肋片的散热的有效程度，引入肋效率（fin efficiency） <span
+class="math display">\[
+\eta_\text{f} = \frac{\text{实际散热量}},
+\]</span> 则有 <span class="math display">\[
+\eta_\text{f} = \frac{ \frac{hP}{m} \theta_0 \tanh(mH)}{hPH\theta_0} =
+\frac{\tanh (mH)}{mH}.
+\]</span></p>
+<ol start="2" type="1">
+<li>其它形状肋片效率</li>
+</ol>
+<p>下图展示了矩形界面直肋、三角形界面直肋、环肋和针肋</p>
+<p><img src="https://raw.githubusercontent.com/NChilton/Picture/main/img/202205281816436.png" alt="常见肋片的肋效率计算式" style="zoom: 40%;" /></p>
+<ol start="3" type="1">
+<li>肋面总销量</li>
+</ol>
+<p>实际肋片总是成组地被采用地，如下图所示</p>
+<p><img src="https://raw.githubusercontent.com/NChilton/Picture/main/img/202205281819683.png" alt="肋化表面示意图" style="zoom:50%;" /></p>
+<p>假设流体的温度为<span
+class="math inline">\(~T_\text{f}\)</span>，流体与整个表面的表面传热系数为<span
+class="math inline">\(~h\)</span>，肋片的表面积为<span
+class="math inline">\(~A_\text{f}\)</span>，两个肋片之间的根部表面积为<span
+class="math inline">\(~A_\text{r}\)</span>，根部温度为<span
+class="math inline">\(~T_0\)</span>，则所有肋片与根部面积之和为<span
+class="math inline">\(~A_0 = A_\text{f} +
+A_\text{r}\)</span>。计算该表面对流换热量时，以<span
+class="math inline">\(~T_0-T_\text{f}~\)</span>为温差，则有： <span
+class="math display">\[
+\Phi = A_\text{r} h (T_0 - T_\text{f}) + A_\text{f}
+\eta_\text{f}h(T_0-T_\text{f})
+= h(T_0 - T_\text{f})(A_\text{r} + \eta_\text{f}A_\text{f}) = A_0\eta_0
+h(T_0-T_\text{f}),
+\]</span> 其中 <span class="math display">\[
+\eta_0 = \frac{A_\text{r} + \eta_\text{f} A_\text{f}}{A_\text{r} +
+A_\text{f}}
+\]</span> 称为肋面总效率（overall fin surface
+efficiency），显然肋片总效率高于肋片效率。</p>
+<h3 id="肋片的选用与最小重量肋片">肋片的选用与最小重量肋片</h3>
+<p>为了增加传热量，可知可以采用增加传热面积的方法，当会增加通过固体的导热热阻。增加肋片是否有利传热取决于导热热阻（<span
+class="math inline">\(\delta/\lambda\)</span>）与表面对流传热阻力（<span
+class="math inline">\(1/h\)</span>）之比。这两个数比值记为<span
+class="math inline">\(~Bi=h\delta/\lambda\)</span>，称为毕渥数（Biot
+数）。对于等截面的直肋，当<span class="math inline">\(~Bi\leq
+0.25~\)</span>时，加肋总是有利的。</p>
+<h3 id="接触热阻">接触热阻</h3>
+<p>肋片与管子之间的接触是否良好对于肋片作用发挥重要意义，实际上两个互相接触的固体表面，常常充满空气，热量将以导热方式穿过这种气隙层。这种情况与两固体表面真正完全接触相比，增加了附加的接触热阻。常见电子器件接触面处的空气间隙厚度大约在<span
+class="math inline">\(~1\sim
+25~\mu\text{m}~\)</span>范围。在常规压力下，几个代表性的单位面积界面热阻如下：不锈钢/不锈钢<span
+class="math inline">\(~(2.2\sim 5.88)\times
+10^{-4}~\text{m}^2\cdot\text{K}/\text{W}\)</span>，铝/铝为<span
+class="math inline">\(~(0.833\sim 4.55)\times
+10^{-4}~\text{m}^2\cdot\text{K}/\text{W}\)</span>，不锈钢/铝为<span
+class="math inline">\(~(2.22\sim 3.33)\times
+10^{-4}~\text{m}^2\cdot\text{K}/\text{W}\)</span>，铜/铜为<span
+class="math inline">\(~(0.25\sim 2.5)\times
+10^{-4}~\text{m}^2\cdot\text{K}/\text{W}\)</span>。减小固体间接触热阻有：(1)
+降低接触面粗糙度，(2) 增加接触面压力，(3) 使用硬度小的物体。</p>
+<h2 id="具有内热源的一维导热问题">具有内热源的一维导热问题</h2>
+<h3 id="具有内热源的平板导热">具有内热源的平板导热</h3>
+<p>假设一大平壁具有均匀内热源<span
+class="math inline">\(~\dot{\Phi}\)</span>，其两侧同时与温度为<span
+class="math inline">\(~T_\text{f}~\)</span>的流体发生对流传热，表面传热系数为<span
+class="math inline">\(~h\)</span>，壁厚为<span
+class="math inline">\(~2\delta\)</span>，导热系数为<span
+class="math inline">\(~\lambda\)</span>，则平壁内部温度分布为 <span
+class="math display">\[
+T = \frac{\dot{\Phi}}{2\lambda}(\delta^2 - x^2) +
+\frac{\dot{\Phi}\delta}{h} + T_\text{f}.
+\]</span></p>
+<h3 id="具有内热源的圆柱体导热">具有内热源的圆柱体导热</h3>
+<p>半径为<span
+class="math inline">\(~r_1~\)</span>的圆柱体，具有均匀内热源<span
+class="math inline">\(~\dot{\Phi}\)</span>，导热系数为<span
+class="math inline">\(~\lambda\)</span>，外表面维持恒定温度<span
+class="math inline">\(~T_\text{f}\)</span>，则圆柱体中温度分布为 <span
+class="math display">\[
+T = \frac{1}{4} \frac{\dot{\Phi}}{\lambda}(r_1^2-r^2) + T_\text{f}.
+\]</span></p>
+<h2 id="多维稳态导热的求解">多维稳态导热的求解</h2>
+<h3 id="稳态导热问题求解方法的简述">稳态导热问题求解方法的简述</h3>
+<ol type="1">
+<li>分析解法</li>
+</ol>
+<p>分离变量法（method of separation of variables）是傅里叶 19
+世纪发展起来的。该方法具有以下限制：(1) 求解区域比较简单；(2)
+边界条件比较简单；(3) 物体的热物性为常数。</p>
+<ol start="2" type="1">
+<li>数值解法</li>
+</ol>
+<p>随着计算机的发展,通过计算机获得导热问题的数值解的方法迅速发展。这时得到的并不是物体中温度场的函数形式，而只是相应于某个计算条件下物体中代表性地点上的温度值。尽管解的通用性不及分析解，但是由于可以获得分析方法难以得到的结果，并且实施方便，其应用日益广泛，将在<strong>第
+4 章</strong>中予以介绍。</p>
+<ol start="3" type="1">
+<li>模拟方法（analog method）</li>
+</ol>
+<p>由于稳态导热温度场与导电物体中的电势场都要满足拉普拉斯方程，因此当两者的边界条件安排恰当时，从数学角度，两种场的解是一样的或者成比例的，这就导致通过比较容易测定的电势场来获得温度场的思想，这种方法称为模拟法（analog
+method）。</p>
+<h3 id="计算导热量的形状因子">计算导热量的形状因子</h3>
+<p>如果求解的目的在于获得物体所传导的热量，则当导热物体主要是由两个等温的边界组成时，可以采用下述形状因子法（shape
+factor method）。</p>
+<p>两个等温面间导热热流量总是可以表示为统一形式： <span
+class="math display">\[
+\Phi = \lambda S(T_1 - T_2),
+\]</span> 其中形状因子<span
+class="math inline">\(~S~\)</span>与导热物体的形状及大小有关。下表列举了一些形状因子的表达式</p>
+<p><img src="https://raw.githubusercontent.com/NChilton/Picture/main/img/202205290051303.png" alt="几种几何条件下形状因子" style="zoom:40%;" /></p>
+<h3 id="求解稳态导热的分离变量法举例">求解稳态导热的分离变量法举例</h3>
+<p>一个二维矩形物体三个边界温度均为<span
+class="math inline">\(~T_1\)</span>，第四个边界温度为<span
+class="math inline">\(~T_2\)</span>，物体无内热源，导热系数为常数，现要确定物体中的温度分布。</p>
+<p><img src="https://raw.githubusercontent.com/NChilton/Picture/main/img/202205290054422.png" alt="矩形区域中的二维稳态导热" style="zoom:60%;" /></p>
+<p>数学描述写作 <span class="math display">\[
+\frac{\partial^2 T}{\partial x^2} + \frac{\partial^2 T}{\partial y^2}
+=0,\ \text{其中：}0&lt;x&lt;a,0&lt;y&lt;b; \\
+T(0,y) = T_1, T(a,y) = T_1, \\
+T(x,0) = T_1, T(x,b) = T_2.
+\]</span> 引入无量纲过余温度 <span class="math display">\[
+\Theta = \frac{T - T_1}{T_2 - T_1},
+\]</span> 则有 <span class="math display">\[
+\frac{\partial^2 \Theta}{\partial x^2} + \frac{\partial^2
+\Theta}{\partial y^2} =0; \\
+\Theta(0,y) = 0, T(a,y) = 0, \\
+\Theta(x,0) = 0, T(x,b) = 1.
+\]</span> 该方程的边界条件是齐次的，设<span
+class="math inline">\(~\Theta(x,y) = X(x)\cdot
+Y(y)\)</span>，则方程可化为关于<span
+class="math inline">\(~X~\)</span>和<span
+class="math inline">\(~Y~\)</span>的两个常微分方程。为使通解满足边界条件，引入傅里叶级数，可以得出如下分析解：
+<span class="math display">\[
+\Theta(x,y) = \frac{2}{\pi} \sum_{n=1}^\infty \frac{(-1)^{n+1}+1}{n}
+\sin\frac{n\pi x}{a}\frac{\sinh(n\pi y/a)}{\sinh(n\pi b/a)}.
+\]</span></p>
+<h2 id="小结">小结</h2>
+<p>对于三种典型的几何形状在常物性、无内热源、第一类边界条件下的温度场、热流量计算式、热阻以及肋片导热分析解如下表所示</p>
+<table>
+<colgroup>
+<col style="width: 7%" />
+<col style="width: 32%" />
+<col style="width: 26%" />
+<col style="width: 32%" />
+</colgroup>
+<thead>
+<tr class="header">
+<th>导热问题</th>
+<th>温度场分析解<span class="math inline">\(~T\)</span></th>
+<th>热流量计算式<span class="math inline">\(~\Phi\)</span></th>
+<th>热阻表达式<span class="math inline">\(~R\)</span></th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td>平板导热</td>
+<td><span
+class="math inline">\(T_1+(T_2-T_1)\frac{x}{\delta}\)</span></td>
+<td><span class="math inline">\(\lambda
+A\frac{T_1-T_2}{\delta}\)</span></td>
+<td><span class="math inline">\(\frac{\delta}{\lambda A}\)</span></td>
+</tr>
+<tr class="even">
+<td>圆筒体导热</td>
+<td><span
+class="math inline">\(T_1+(T_2-T_1)\frac{\ln(r/r_1)}{\ln{r_2/r_1}}\)</span></td>
+<td><span class="math inline">\(\frac{2\pi\lambda
+l(T_1-T_2)}{\ln(r_2/r_1)}\)</span></td>
+<td><span class="math inline">\(\frac{\ln(r_2/r_1)}{2\pi\lambda
+l}\)</span></td>
+</tr>
+<tr class="odd">
+<td>球壳导热</td>
+<td><span
+class="math inline">\(T_1+(T_2-T_1)\frac{1/r-1/r_2}{1/r_1-1/r_2}\)</span></td>
+<td><span
+class="math inline">\(\frac{4\pi\lambda(T_1-T_2)}{1/r_1-1/r_2}\)</span></td>
+<td><span
+class="math inline">\(\frac{1}{4\pi\lambda}\left(\frac{1}{r_1}-\frac{1}{r_2}\right)\)</span></td>
+</tr>
+<tr class="even">
+<td>等截面直肋导热</td>
+<td><span class="math inline">\(T_\text{f}+(T_0-T_\text{f}) \frac{\cosh
+\left[m(x-H)\right]}{\cosh(mH)}\)</span></td>
+<td><span class="math inline">\(\lambda A_\text{c} (T_0-T_\text{f}) m
+\tanh(mH)\)</span></td>
+<td><span class="math inline">\(\frac{1}{(\lambda A_\text{c}
+hP)^{1/2}\tanh(mH)}\)</span></td>
+</tr>
+</tbody>
+</table>
+
+    </div>
+
+    
+    
+    
+
+    <footer class="post-footer">
+          <div class="post-tags">
+              <a href="/tags/%E5%AF%BC%E7%83%AD/" rel="tag"># 导热</a>
+              <a href="/tags/%E5%82%85%E9%87%8C%E5%8F%B6%E5%AE%9A%E5%BE%8B/" rel="tag"># 傅里叶定律</a>
+              <a href="/tags/%E8%82%8B%E7%89%87/" rel="tag"># 肋片</a>
+          </div>
+
+        
+
+          <div class="post-nav">
+            <div class="post-nav-item">
+                <a href="/Heat-transfer-01-Introduction.html" rel="prev" title="传热学绪论">
+                  <i class="fa fa-chevron-left"></i> 传热学绪论
+                </a>
+            </div>
+            <div class="post-nav-item">
+                <a href="/Heat-transfer-03-Unsteady-conduction.html" rel="next" title="非稳态热传导">
+                  非稳态热传导 <i class="fa fa-chevron-right"></i>
+                </a>
+            </div>
+          </div>
+    </footer>
+  </article>
+</div>
+
+
+
+
+
+
+</div>
+  </main>
+
+  <footer class="footer">
+    <div class="footer-inner">
+
+
+<div class="copyright">
+  &copy; 
+  <span itemprop="copyrightYear">2022</span>
+  <span class="with-love">
+    <i class="fa fa-heart"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">Chilton Nieh</span>
+</div>
+  <div class="powered-by">由 <a href="https://hexo.io/" rel="noopener" target="_blank">Hexo</a> & <a href="https://theme-next.js.org/" rel="noopener" target="_blank">NexT.Gemini</a> 强力驱动
+  </div>
+
+    </div>
+  </footer>
+
+  
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/animejs/3.2.1/anime.min.js" integrity="sha256-XL2inqUJaslATFnHdJOi9GfQ60on8Wx1C2H8DYiN1xY=" crossorigin="anonymous"></script>
+<script src="/js/comments.js"></script><script src="/js/utils.js"></script><script src="/js/next-boot.js"></script>
+
+  
+
+
+  <script class="next-config" data-name="mermaid" type="application/json">{"enable":true,"theme":{"light":"default","dark":"dark"},"js":{"url":"https://cdnjs.cloudflare.com/ajax/libs/mermaid/9.1.1/mermaid.min.js","integrity":"sha256-8L3O8tirFUa8Va4NSTAyIbHJeLd6OnlcxgupV9F77e0="}}</script>
+  <script src="/js/third-party/tags/mermaid.js"></script>
+
+
+
+  
+
+
+
+
+  
+
+  <script class="next-config" data-name="enableMath" type="application/json">true</script><script class="next-config" data-name="mathjax" type="application/json">{"enable":true,"tags":"all","js":{"url":"https://cdnjs.cloudflare.com/ajax/libs/mathjax/3.2.1/es5/tex-mml-chtml.js","integrity":"sha256-hlC2uSQYTmPsrzGZTEQEg9PZ1a/+SV6VBCTclohf2og="}}</script>
+<script src="/js/third-party/math/mathjax.js"></script>
+
+
+
+</body>
+</html>
