@@ -19,12 +19,12 @@
 
 <script class="next-config" data-name="main" type="application/json">{"hostname":"example.com","root":"/","images":"/images","scheme":"Gemini","darkmode":false,"version":"8.12.1","exturl":false,"sidebar":{"position":"left","display":"post","padding":18,"offset":12},"copycode":{"enable":true,"style":null},"bookmark":{"enable":false,"color":"#222","save":"auto"},"mediumzoom":false,"lazyload":false,"pangu":false,"comments":{"style":"tabs","active":null,"storage":true,"lazyload":false,"nav":null},"stickytabs":false,"motion":{"enable":false,"async":false,"transition":{"post_block":"fadeIn","post_header":"fadeInDown","post_body":"fadeInDown","coll_header":"fadeInLeft","sidebar":"fadeInUp"}},"prism":false,"i18n":{"placeholder":"搜索...","empty":"没有找到任何搜索结果：${query}","hits_time":"找到 ${hits} 个搜索结果（用时 ${time} 毫秒）","hits":"找到 ${hits} 个搜索结果"}}</script><script src="/js/config.js"></script>
 
-    <meta name="description" content="本文参考杨世铭、陶文铨所著《传热学》第四版第二章。气体中，导热是气体分子不规则热运动相互碰撞的结果，气体温度越高，分子运动动能越大。不同能量水平的分子相互碰撞的结果，使热量从高温处传递到低温处。导电固体中有相当多的自由电子，它们在晶格之间像气体分子那样运动（称为电子气）。自由电子的运动在导电固体的导热中起着主要作用。在非导电固体中，导热是通过晶格结构的振动，即原子、分子在其平衡位置附近的振动来">
+    <meta name="description" content="本文参考杨世铭、陶文铨所著《传热学》第四版第二章。不同状态物质导热机理各不相同，但宏观上都可以通过傅里叶定律来描述其内部温度变化。气体中，导热是气体分子不规则热运动相互碰撞的结果，气体温度越高，分子运动动能越大。不同能量水平的分子相互碰撞的结果，使热量从高温处传递到低温处。导电固体中有相当多的自由电子，它们在晶格之间像气体分子那样运动（称为电子气）。自由电子的运动在导电固体的导热中起着主要作用">
 <meta property="og:type" content="article">
 <meta property="og:title" content="稳态热传导">
 <meta property="og:url" content="http://example.com/Heat-transfer-02-Steady-conduction.html">
 <meta property="og:site_name" content="Day day up!">
-<meta property="og:description" content="本文参考杨世铭、陶文铨所著《传热学》第四版第二章。气体中，导热是气体分子不规则热运动相互碰撞的结果，气体温度越高，分子运动动能越大。不同能量水平的分子相互碰撞的结果，使热量从高温处传递到低温处。导电固体中有相当多的自由电子，它们在晶格之间像气体分子那样运动（称为电子气）。自由电子的运动在导电固体的导热中起着主要作用。在非导电固体中，导热是通过晶格结构的振动，即原子、分子在其平衡位置附近的振动来">
+<meta property="og:description" content="本文参考杨世铭、陶文铨所著《传热学》第四版第二章。不同状态物质导热机理各不相同，但宏观上都可以通过傅里叶定律来描述其内部温度变化。气体中，导热是气体分子不规则热运动相互碰撞的结果，气体温度越高，分子运动动能越大。不同能量水平的分子相互碰撞的结果，使热量从高温处传递到低温处。导电固体中有相当多的自由电子，它们在晶格之间像气体分子那样运动（称为电子气）。自由电子的运动在导电固体的导热中起着主要作用">
 <meta property="og:locale" content="zh_CN">
 <meta property="og:image" content="https://raw.githubusercontent.com/NChilton/Picture/main/img/202205271736644.png">
 <meta property="og:image" content="https://raw.githubusercontent.com/NChilton/Picture/main/img/202205272321410.png">
@@ -255,7 +255,7 @@
     
     <div class="post-body" itemprop="articleBody">
         <blockquote>
-<p>本文参考杨世铭、陶文铨所著《传热学》第四版第二章。气体中，导热是气体分子不规则热运动相互碰撞的结果，气体温度越高，分子运动动能越大。不同能量水平的分子相互碰撞的结果，使热量从高温处传递到低温处。导电固体中有相当多的自由电子，它们在晶格之间像气体分子那样运动（称为电子气）。自由电子的运动在导电固体的导热中起着主要作用。在非导电固体中，导热是通过晶格结构的振动，即原子、分子在其平衡位置附近的振动来实现的。晶格结构振动的传递在文献中常称为弹性声波，其量子化表示为声子，与辐射能量的量子化表示——光子相类似。至于液体中导热机理，存在不同观点。一种观点认为定性上类似于气体，只是情况更复杂，因为液体分子间的间距比较近，分子间的作用力对碰撞过程的影响远比气体大。另一种观点则认为液体的导热机理类似于非导电固体，主要靠弹性声波的作用。</p>
+<p>本文参考杨世铭、陶文铨所著《传热学》第四版第二章。不同状态物质导热机理各不相同，但宏观上都可以通过傅里叶定律来描述其内部温度变化。气体中，导热是气体分子不规则热运动相互碰撞的结果，气体温度越高，分子运动动能越大。不同能量水平的分子相互碰撞的结果，使热量从高温处传递到低温处。导电固体中有相当多的自由电子，它们在晶格之间像气体分子那样运动（称为电子气）。自由电子的运动在导电固体的导热中起着主要作用。在非导电固体中，导热是通过晶格结构的振动，即原子、分子在其平衡位置附近的振动来实现的。晶格结构振动的传递在文献中常称为弹性声波，其量子化表示为声子，与辐射能量的量子化表示——光子相类似。至于液体中导热机理，存在不同观点。一种观点认为定性上类似于气体，只是情况更复杂，因为液体分子间的间距比较近，分子间的作用力对碰撞过程的影响远比气体大。另一种观点则认为液体的导热机理类似于非导电固体，主要靠弹性声波的作用。</p>
 </blockquote>
 <span id="more"></span>
 <h2 id="导热基本定律傅里叶定律">导热基本定律——傅里叶定律</h2>
@@ -289,9 +289,9 @@ class="math inline">\(z~\)</span>方向的单位矢量。</p>
 <p>测量导热系数的方法有稳态法和非稳态法两大类，傅里叶定律是稳态测定的基础。导热系数数值取决于物质的种类和温度，金属的导热系数很高。常温（20℃）下金属导热系数的典型值是：纯铜为
 399 W/(m·K)、碳钢（含碳量 1.5%）为
 36.7W/(m·K)。气体的导热系数很小，如时干空 20℃ 气的导热系数为 0.0259
-W/(m·K)。液体数值介于金属和气体之间，如20℃ 时水的导热系数为 0.599
+W/(m·K)。液体数值介于金属和气体之间， 20℃ 时水的导热系数为 0.599
 W/(m·K)。习惯上把导热系数小的材料称为保温材料，又称隔热材料或绝缘材料（insulating
-material）。1992年我国国家标准定义凡平均温度不高于时导热系数不 350℃ 大于
+material）。1992 年我国国家标准定义平均温度不高于 350℃ 时导热系数不大于
 0.12 W/(m·K) 的材料称为保温材料。下图为常见材料导热系数随温度的变化</p>
 <p><img src="https://raw.githubusercontent.com/NChilton/Picture/main/img/202205271736644.png" alt="温度对导热系数的影响" style="zoom: 33%;" /></p>
 <h2 id="导热问题的数学描述">导热问题的数学描述</h2>
