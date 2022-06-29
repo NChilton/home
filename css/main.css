@@ -1132,7 +1132,7 @@ pre code {
   color: var(--brand-hover-color);
 }
 .site-title {
-  font-family: Noto Sans SC, 'PingFang SC', 'Segoe UI', 'Microsoft YaHei UI', sans-serif;
+  font-family: Noto Sans SC, Noto Sans SC, 'PingFang SC', 'Segoe UI', 'Microsoft YaHei UI', sans-serif;
   font-size: 1.375em;
   font-weight: bold;
   color: var(--text-color);

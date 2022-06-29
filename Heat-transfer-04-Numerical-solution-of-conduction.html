@@ -19,12 +19,12 @@
 
 <script class="next-config" data-name="main" type="application/json">{"hostname":"example.com","root":"/","images":"/images","scheme":"Gemini","darkmode":false,"version":"8.12.1","exturl":false,"sidebar":{"position":"left","display":"post","padding":18,"offset":12},"copycode":{"enable":true,"style":null},"bookmark":{"enable":false,"color":"#222","save":"auto"},"mediumzoom":false,"lazyload":false,"pangu":false,"comments":{"style":"tabs","active":null,"storage":true,"lazyload":false,"nav":null},"stickytabs":false,"motion":{"enable":false,"async":false,"transition":{"post_block":"fadeIn","post_header":"fadeInDown","post_body":"fadeInDown","coll_header":"fadeInLeft","sidebar":"fadeInUp"}},"prism":false,"i18n":{"placeholder":"搜索...","empty":"没有找到任何搜索结果：${query}","hits_time":"找到 ${hits} 个搜索结果（用时 ${time} 毫秒）","hits":"找到 ${hits} 个搜索结果"}}</script><script src="/js/config.js"></script>
 
-    <meta name="description" content="本文参考杨世铭、陶文铨所著《传热学》第四版第四章  导热问题数值求解的基本思想 基本思想 将原来在时间、空间坐标系中连续的物理量场，用有限个离散点上的值的集合来代替，通过求解按一定方法建立起来的关于这些值的代数方程，来获得离散点上被求物理量的值。这些离散点上被求物理量值集合称为该物理量的数值解。如下左图所示">
+    <meta name="description" content="本文参考杨世铭、陶文铨所著《传热学》第四版第四章">
 <meta property="og:type" content="article">
 <meta property="og:title" content="热传导问题的数值解法">
 <meta property="og:url" content="http://example.com/Heat-transfer-04-Numerical-solution-of-conduction.html">
 <meta property="og:site_name" content="Day day up!">
-<meta property="og:description" content="本文参考杨世铭、陶文铨所著《传热学》第四版第四章  导热问题数值求解的基本思想 基本思想 将原来在时间、空间坐标系中连续的物理量场，用有限个离散点上的值的集合来代替，通过求解按一定方法建立起来的关于这些值的代数方程，来获得离散点上被求物理量的值。这些离散点上被求物理量值集合称为该物理量的数值解。如下左图所示">
+<meta property="og:description" content="本文参考杨世铭、陶文铨所著《传热学》第四版第四章">
 <meta property="og:locale" content="zh_CN">
 <meta property="og:image" content="https://raw.githubusercontent.com/NChilton/Picture/main/img/202205292330812.png">
 <meta property="og:image" content="https://raw.githubusercontent.com/NChilton/Picture/main/img/202205300018850.png">
@@ -91,7 +91,7 @@
 
 
 <nav class="site-nav">
-  <ul class="main-menu menu"><li class="menu-item menu-item-home"><a href="/" rel="section"><i class="fa fa-home fa-fw"></i>首页</a></li><li class="menu-item menu-item-archives"><a href="/archives/" rel="section"><i class="fa fa-archive fa-fw"></i>归档<span class="badge">38</span></a></li><li class="menu-item menu-item-tags"><a href="/tags/" rel="section"><i class="fa fa-tags fa-fw"></i>标签<span class="badge">40</span></a></li><li class="menu-item menu-item-categories"><a href="/categories/" rel="section"><i class="fa fa-th fa-fw"></i>分类<span class="badge">6</span></a></li><li class="menu-item menu-item-about"><a href="/about/" rel="section"><i class="fa fa-user fa-fw"></i>关于</a></li>
+  <ul class="main-menu menu"><li class="menu-item menu-item-home"><a href="/" rel="section"><i class="fa fa-home fa-fw"></i>首页</a></li><li class="menu-item menu-item-archives"><a href="/archives/" rel="section"><i class="fa fa-archive fa-fw"></i>归档<span class="badge">38</span></a></li><li class="menu-item menu-item-tags"><a href="/tags/" rel="section"><i class="fa fa-tags fa-fw"></i>标签<span class="badge">41</span></a></li><li class="menu-item menu-item-categories"><a href="/categories/" rel="section"><i class="fa fa-th fa-fw"></i>分类<span class="badge">6</span></a></li><li class="menu-item menu-item-about"><a href="/about/" rel="section"><i class="fa fa-user fa-fw"></i>关于</a></li>
   </ul>
 </nav>
 
@@ -148,7 +148,7 @@
       </div>
       <div class="site-state-item site-state-tags">
           <a href="/tags/">
-        <span class="site-state-item-count">40</span>
+        <span class="site-state-item-count">41</span>
         <span class="site-state-item-name">标签</span></a>
       </div>
   </nav>
@@ -253,10 +253,10 @@
         <blockquote>
 <p>本文参考杨世铭、陶文铨所著《传热学》第四版第四章</p>
 </blockquote>
+<span id="more"></span>
 <h2 id="导热问题数值求解的基本思想">导热问题数值求解的基本思想</h2>
 <h3 id="基本思想">基本思想</h3>
 <p>将原来在时间、空间坐标系中连续的物理量场，用有限个离散点上的值的集合来代替，通过求解按一定方法建立起来的关于这些值的代数方程，来获得离散点上被求物理量的值。这些离散点上被求物理量值集合称为该物理量的数值解。如下左图所示</p>
-<span id="more"></span>
 <p><img src="https://raw.githubusercontent.com/NChilton/Picture/main/img/202205292330812.png" alt="数值求解" style="zoom:50%;" /></p>
 <h3 id="导热问题数值求解基本步骤">导热问题数值求解基本步骤</h3>
 <p>右上图所示的二维矩形域内稳态、无内热源、常物性的导热问题为例</p>
@@ -319,6 +319,7 @@ class="math inline">\(~(m,n)~\)</span>处的二阶偏导数为例，导出其差
 class="math inline">\(~(m+1,n)~\)</span>及<span
 class="math inline">\(~(m-1,n)~\)</span>分别写出温度的泰勒级数展开式
 <span class="math display">\[
+\begin{aligned}
 T_{m+1,n} = T_{m,n} + \Delta x \left. \frac{\partial T}{\partial x}
 \right |_{m.n} +
 \frac{\Delta x^2}{2} \left. \frac{\partial^2 T}{\partial x^2} \right
@@ -331,6 +332,7 @@ T_{m-1,n} = T_{m,n} - \Delta x \left. \frac{\partial T}{\partial x}
 |_{m.n} -
 \frac{\Delta x^3}{6} \left. \frac{\partial^3 T}{\partial x^3} \right
 |_{m.n} + \cdots.
+\end{aligned}
 \]</span> 以上两式相加得 <span class="math display">\[
 T_{m+1,n} + T_{m-1,n} = 2T_{m,n} + \Delta x^2 \left. \frac{\partial^2
 T}{\partial x^2} \right |_{m.n} + \frac{\Delta x^4}{12} \left.
@@ -375,10 +377,12 @@ class="math inline">\(~(m,n)~\)</span>的能量守恒方程 <span
 class="math display">\[
 \Phi_e + \Phi_w + \Phi_n + \Phi_s = 0,
 \]</span> 即 <span class="math display">\[
-\lambda\Delta y\frac{T_{m-1,n}-T_{m,n}}{\Delta x} +
-\lambda\Delta y\frac{T_{m+1,n}-T_{m,n}}{\Delta x} +
-\lambda\Delta x\frac{T_{m,n+1}-T_{m,n}}{\Delta y} +
+\begin{aligned}
+&amp;\lambda\Delta y\frac{T_{m-1,n}-T_{m,n}}{\Delta x} +
+\lambda\Delta y\frac{T_{m+1,n}-T_{m,n}}{\Delta x} + \\
+&amp;\lambda\Delta x\frac{T_{m,n+1}-T_{m,n}}{\Delta y} +
 \lambda\Delta x\frac{T_{m,n-1}-T_{m,n}}{\Delta y} = 0.
+\end{aligned}
 \]</span> 上式进一步简化可得到式<span
 class="math inline">\(~\eqref{eq7}\)</span>。</p>
 <h2

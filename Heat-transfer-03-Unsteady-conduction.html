@@ -19,17 +19,19 @@
 
 <script class="next-config" data-name="main" type="application/json">{"hostname":"example.com","root":"/","images":"/images","scheme":"Gemini","darkmode":false,"version":"8.12.1","exturl":false,"sidebar":{"position":"left","display":"post","padding":18,"offset":12},"copycode":{"enable":true,"style":null},"bookmark":{"enable":false,"color":"#222","save":"auto"},"mediumzoom":false,"lazyload":false,"pangu":false,"comments":{"style":"tabs","active":null,"storage":true,"lazyload":false,"nav":null},"stickytabs":false,"motion":{"enable":false,"async":false,"transition":{"post_block":"fadeIn","post_header":"fadeInDown","post_body":"fadeInDown","coll_header":"fadeInLeft","sidebar":"fadeInUp"}},"prism":false,"i18n":{"placeholder":"搜索...","empty":"没有找到任何搜索结果：${query}","hits_time":"找到 ${hits} 个搜索结果（用时 ${time} 毫秒）","hits":"找到 ${hits} 个搜索结果"}}</script><script src="/js/config.js"></script>
 
-    <meta name="description" content="本文参考杨世铭、陶文铨所著《传热学》第四版第三章  非稳态导热基本概念 非稳态导热特点 零维问题的分析法——集总参数法 典型一维物体非稳态导热的分析解 半无限大物体的非稳态导热 简单几何形状物体多维非稳态导热的热分解 小结">
+    <meta name="description" content="本文参考杨世铭、陶文铨所著《传热学》第四版第三章。物体的温度随时间而变化的导热过程称为非稳态导热(unsteady heat conduction)。根据物体温度随时间的推移而变化的特性，非稳态导热分为两类：(1) 物体的温度随时间的推移逐渐趋近于恒定值和 (2) 物体的温度随时间而做周期性的变化。在周期性的非稳态导热过程中，物体中各点的温度及热流密度都随时间做周期性的变化。例如，由于">
 <meta property="og:type" content="article">
 <meta property="og:title" content="非稳态热传导">
 <meta property="og:url" content="http://example.com/Heat-transfer-03-Unsteady-conduction.html">
 <meta property="og:site_name" content="Day day up!">
-<meta property="og:description" content="本文参考杨世铭、陶文铨所著《传热学》第四版第三章  非稳态导热基本概念 非稳态导热特点 零维问题的分析法——集总参数法 典型一维物体非稳态导热的分析解 半无限大物体的非稳态导热 简单几何形状物体多维非稳态导热的热分解 小结">
+<meta property="og:description" content="本文参考杨世铭、陶文铨所著《传热学》第四版第三章。物体的温度随时间而变化的导热过程称为非稳态导热(unsteady heat conduction)。根据物体温度随时间的推移而变化的特性，非稳态导热分为两类：(1) 物体的温度随时间的推移逐渐趋近于恒定值和 (2) 物体的温度随时间而做周期性的变化。在周期性的非稳态导热过程中，物体中各点的温度及热流密度都随时间做周期性的变化。例如，由于">
 <meta property="og:locale" content="zh_CN">
 <meta property="article:published_time" content="2021-05-02T16:00:00.000Z">
 <meta property="article:modified_time" content="2022-05-27T16:00:00.000Z">
 <meta property="article:author" content="Chilton Nieh">
-<meta property="article:tag" content="COMSOL, Matlab, CFD, MD">
+<meta property="article:tag" content="导热">
+<meta property="article:tag" content="傅里叶定律">
+<meta property="article:tag" content="瞬态">
 <meta name="twitter:card" content="summary">
 
 
@@ -85,7 +87,7 @@
 
 
 <nav class="site-nav">
-  <ul class="main-menu menu"><li class="menu-item menu-item-home"><a href="/" rel="section"><i class="fa fa-home fa-fw"></i>首页</a></li><li class="menu-item menu-item-archives"><a href="/archives/" rel="section"><i class="fa fa-archive fa-fw"></i>归档<span class="badge">38</span></a></li><li class="menu-item menu-item-tags"><a href="/tags/" rel="section"><i class="fa fa-tags fa-fw"></i>标签<span class="badge">40</span></a></li><li class="menu-item menu-item-categories"><a href="/categories/" rel="section"><i class="fa fa-th fa-fw"></i>分类<span class="badge">6</span></a></li><li class="menu-item menu-item-about"><a href="/about/" rel="section"><i class="fa fa-user fa-fw"></i>关于</a></li>
+  <ul class="main-menu menu"><li class="menu-item menu-item-home"><a href="/" rel="section"><i class="fa fa-home fa-fw"></i>首页</a></li><li class="menu-item menu-item-archives"><a href="/archives/" rel="section"><i class="fa fa-archive fa-fw"></i>归档<span class="badge">38</span></a></li><li class="menu-item menu-item-tags"><a href="/tags/" rel="section"><i class="fa fa-tags fa-fw"></i>标签<span class="badge">41</span></a></li><li class="menu-item menu-item-categories"><a href="/categories/" rel="section"><i class="fa fa-th fa-fw"></i>分类<span class="badge">6</span></a></li><li class="menu-item menu-item-about"><a href="/about/" rel="section"><i class="fa fa-user fa-fw"></i>关于</a></li>
   </ul>
 </nav>
 
@@ -116,7 +118,7 @@
       <div class="sidebar-panel-container">
         <!--noindex-->
         <div class="post-toc-wrap sidebar-panel">
-            <div class="post-toc animated"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#%E9%9D%9E%E7%A8%B3%E6%80%81%E5%AF%BC%E7%83%AD%E5%9F%BA%E6%9C%AC%E6%A6%82%E5%BF%B5"><span class="nav-number">1.</span> <span class="nav-text">非稳态导热基本概念</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#%E9%9D%9E%E7%A8%B3%E6%80%81%E5%AF%BC%E7%83%AD%E7%89%B9%E7%82%B9"><span class="nav-number">1.1.</span> <span class="nav-text">非稳态导热特点</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E9%9B%B6%E7%BB%B4%E9%97%AE%E9%A2%98%E7%9A%84%E5%88%86%E6%9E%90%E6%B3%95%E9%9B%86%E6%80%BB%E5%8F%82%E6%95%B0%E6%B3%95"><span class="nav-number">2.</span> <span class="nav-text">零维问题的分析法——集总参数法</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%85%B8%E5%9E%8B%E4%B8%80%E7%BB%B4%E7%89%A9%E4%BD%93%E9%9D%9E%E7%A8%B3%E6%80%81%E5%AF%BC%E7%83%AD%E7%9A%84%E5%88%86%E6%9E%90%E8%A7%A3"><span class="nav-number">3.</span> <span class="nav-text">典型一维物体非稳态导热的分析解</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%8D%8A%E6%97%A0%E9%99%90%E5%A4%A7%E7%89%A9%E4%BD%93%E7%9A%84%E9%9D%9E%E7%A8%B3%E6%80%81%E5%AF%BC%E7%83%AD"><span class="nav-number">4.</span> <span class="nav-text">半无限大物体的非稳态导热</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E7%AE%80%E5%8D%95%E5%87%A0%E4%BD%95%E5%BD%A2%E7%8A%B6%E7%89%A9%E4%BD%93%E5%A4%9A%E7%BB%B4%E9%9D%9E%E7%A8%B3%E6%80%81%E5%AF%BC%E7%83%AD%E7%9A%84%E7%83%AD%E5%88%86%E8%A7%A3"><span class="nav-number">5.</span> <span class="nav-text">简单几何形状物体多维非稳态导热的热分解</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%B0%8F%E7%BB%93"><span class="nav-number">6.</span> <span class="nav-text">小结</span></a></li></ol></div>
+            <div class="post-toc animated"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#%E9%9D%9E%E7%A8%B3%E6%80%81%E5%AF%BC%E7%83%AD%E5%9F%BA%E6%9C%AC%E6%A6%82%E5%BF%B5"><span class="nav-number">1.</span> <span class="nav-text">非稳态导热基本概念</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#%E9%9D%9E%E7%A8%B3%E6%80%81%E5%AF%BC%E7%83%AD%E7%89%B9%E7%82%B9"><span class="nav-number">1.1.</span> <span class="nav-text">非稳态导热特点</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E5%AF%BC%E7%83%AD%E5%BE%AE%E5%88%86%E6%96%B9%E7%A8%8B%E8%A7%A3%E7%9A%84%E5%94%AF%E4%B8%80%E6%80%A7%E5%AE%9A%E5%BE%8B"><span class="nav-number">1.2.</span> <span class="nav-text">导热微分方程解的唯一性定律</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E7%AC%AC%E4%B8%89%E7%B1%BB%E8%BE%B9%E7%95%8C%E6%9D%A1%E4%BB%B6%E4%B8%8Bbi%E6%95%B0%E5%AF%B9%E5%B9%B3%E6%9D%BF%E4%B8%AD%E6%B8%A9%E5%BA%A6%E5%88%86%E5%B8%83%E7%9A%84%E5%BD%B1%E5%93%8D"><span class="nav-number">1.3.</span> <span class="nav-text">第三类边界条件下\(~Bi~\)数对平板中温度分布的影响</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E9%9B%B6%E7%BB%B4%E9%97%AE%E9%A2%98%E7%9A%84%E5%88%86%E6%9E%90%E6%B3%95%E9%9B%86%E6%80%BB%E5%8F%82%E6%95%B0%E6%B3%95"><span class="nav-number">2.</span> <span class="nav-text">零维问题的分析法——集总参数法</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#%E9%9B%86%E6%80%BB%E5%8F%82%E6%95%B0%E6%B3%95%E6%B8%A9%E5%BA%A6%E5%9C%BA%E7%9A%84%E5%88%86%E6%9E%90%E8%A7%A3"><span class="nav-number">2.1.</span> <span class="nav-text">集总参数法温度场的分析解</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E5%AF%BC%E7%83%AD%E9%87%8F%E8%AE%A1%E7%AE%97%E5%BC%8F%E6%97%B6%E9%97%B4%E5%B8%B8%E6%95%B0%E4%B8%8E%E5%82%85%E9%87%8C%E5%8F%B6%E6%95%B0"><span class="nav-number">2.2.</span> <span class="nav-text">导热量计算式、时间常数与傅里叶数</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E9%9B%86%E6%80%BB%E5%8F%82%E6%95%B0%E6%B3%95%E7%9A%84%E9%80%82%E7%94%A8%E8%8C%83%E5%9B%B4%E5%8F%8A%E5%BA%94%E7%94%A8%E4%B8%BE%E4%BE%8B"><span class="nav-number">2.3.</span> <span class="nav-text">集总参数法的适用范围及应用举例</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%85%B8%E5%9E%8B%E4%B8%80%E7%BB%B4%E7%89%A9%E4%BD%93%E9%9D%9E%E7%A8%B3%E6%80%81%E5%AF%BC%E7%83%AD%E7%9A%84%E5%88%86%E6%9E%90%E8%A7%A3"><span class="nav-number">3.</span> <span class="nav-text">典型一维物体非稳态导热的分析解</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#%E4%B8%89%E7%A7%8D%E5%87%A0%E4%BD%95%E5%BD%A2%E7%8A%B6%E7%89%A9%E4%BD%93%E7%9A%84%E6%B8%A9%E5%BA%A6%E5%9C%BA%E5%88%86%E6%9E%90%E8%A7%A3"><span class="nav-number">3.1.</span> <span class="nav-text">三种几何形状物体的温度场分析解</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E9%9D%9E%E7%A8%B3%E6%80%81%E5%AF%BC%E7%83%AD%E6%AD%A3%E8%A7%84%E7%8A%B6%E5%86%B5%E9%98%B6%E6%AE%B5%E5%88%86%E6%9E%90%E8%A7%A3%E7%9A%84%E7%AE%80%E5%8C%96"><span class="nav-number">3.2.</span> <span class="nav-text">非稳态导热正规状况阶段分析解的简化</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E9%9D%9E%E7%A8%B3%E6%80%81%E5%AF%BC%E7%83%AD%E6%AD%A3%E8%A7%84%E7%8A%B6%E5%86%B5%E9%98%B6%E6%AE%B5%E7%9A%84%E5%B7%A5%E7%A8%8B%E8%AE%A1%E7%AE%97%E6%96%B9%E6%B3%95"><span class="nav-number">3.3.</span> <span class="nav-text">非稳态导热正规状况阶段的工程计算方法</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%8D%8A%E6%97%A0%E9%99%90%E5%A4%A7%E7%89%A9%E4%BD%93%E7%9A%84%E9%9D%9E%E7%A8%B3%E6%80%81%E5%AF%BC%E7%83%AD"><span class="nav-number">4.</span> <span class="nav-text">半无限大物体的非稳态导热</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#%E4%B8%89%E7%A7%8D%E8%BE%B9%E7%95%8C%E6%9D%A1%E4%BB%B6%E4%B8%8B%E5%8D%8A%E6%97%A0%E9%99%90%E5%A4%A7%E7%89%A9%E4%BD%93%E6%B8%A9%E5%BA%A6%E5%9C%BA%E7%9A%84%E5%88%86%E6%9E%90%E8%A7%A3"><span class="nav-number">4.1.</span> <span class="nav-text">三种边界条件下半无限大物体温度场的分析解</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E5%AF%BC%E7%83%AD%E9%87%8F%E8%AE%A1%E7%AE%97%E5%BC%8F"><span class="nav-number">4.2.</span> <span class="nav-text">导热量计算式</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E7%AE%80%E5%8D%95%E5%87%A0%E4%BD%95%E5%BD%A2%E7%8A%B6%E7%89%A9%E4%BD%93%E5%A4%9A%E7%BB%B4%E9%9D%9E%E7%A8%B3%E6%80%81%E5%AF%BC%E7%83%AD%E7%9A%84%E7%83%AD%E5%88%86%E8%A7%A3"><span class="nav-number">5.</span> <span class="nav-text">简单几何形状物体多维非稳态导热的热分解</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#%E8%8E%B7%E5%BE%97%E6%97%A0%E9%87%8F%E7%BA%B2%E6%B8%A9%E5%BA%A6%E5%9C%BA%E7%9A%84%E4%B9%98%E7%A7%AF%E8%A7%A3%E6%B3%95"><span class="nav-number">5.1.</span> <span class="nav-text">获得无量纲温度场的乘积解法</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E4%BA%8C%E7%BB%B4%E9%97%AE%E9%A2%98%E7%9A%84%E8%AF%81%E6%98%8E"><span class="nav-number">5.2.</span> <span class="nav-text">二维问题的证明</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E5%AF%BC%E7%83%AD%E9%87%8F%E7%9A%84%E8%AE%A1%E7%AE%97"><span class="nav-number">5.3.</span> <span class="nav-text">导热量的计算</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%B0%8F%E7%BB%93"><span class="nav-number">6.</span> <span class="nav-text">小结</span></a></li></ol></div>
         </div>
         <!--/noindex-->
 
@@ -142,7 +144,7 @@
       </div>
       <div class="site-state-item site-state-tags">
           <a href="/tags/">
-        <span class="site-state-item-count">40</span>
+        <span class="site-state-item-count">41</span>
         <span class="site-state-item-name">标签</span></a>
       </div>
   </nav>
@@ -224,6 +226,15 @@
       <span class="post-meta-item-text">更新于</span>
       <time title="修改时间：2022-05-28 00:00:00" itemprop="dateModified" datetime="2022-05-28T00:00:00+08:00">2022-05-28</time>
     </span>
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-folder"></i>
+      </span>
+      <span class="post-meta-item-text">分类于</span>
+        <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+          <a href="/categories/%E8%AF%BE%E7%A8%8B%E7%AC%94%E8%AE%B0/" itemprop="url" rel="index"><span itemprop="name">课程笔记</span></a>
+        </span>
+    </span>
 
   
 </div>
@@ -236,17 +247,641 @@
     
     <div class="post-body" itemprop="articleBody">
         <blockquote>
-<p>本文参考杨世铭、陶文铨所著《传热学》第四版第三章</p>
+<p>本文参考杨世铭、陶文铨所著《传热学》第四版第三章。物体的温度随时间而变化的导热过程称为非稳态导热(unsteady
+heat
+conduction)。根据物体温度随时间的推移而变化的特性，非稳态导热分为两类：(1)
+物体的温度随时间的推移逐渐趋近于恒定值和 (2)
+物体的温度随时间而做周期性的变化。在周期性的非稳态导热过程中，物体中各点的温度及热流密度都随时间做周期性的变化。例如，由于太阳辅射的周期性变化而引起的房屋的墙壁、屋顶等的温度场随时间的变化（以
+24 h 为周期），地球表面层的温度由于季节更替而引起的周期性变化（以 1
+年为周期）等等。</p>
 </blockquote>
+<span id="more"></span>
 <h2 id="非稳态导热基本概念">非稳态导热基本概念</h2>
 <h3 id="非稳态导热特点">非稳态导热特点</h3>
+<p>工程上几种典型的非稳态导热过程温度变化率的数量级如下图所示。在该图极高速非稳态导热区域（例如短脉冲、高强度激光处理）应当考虑非傅里叶导热的影响。</p>
+<figure>
+<img
+src="https://raw.githubusercontent.com/NChilton/Picture/main/img/202206271651862.png"
+alt="几种典型的非稳态导热过程温度变化率" />
+<figcaption
+aria-hidden="true">几种典型的非稳态导热过程温度变化率</figcaption>
+</figure>
+<p>非稳态导热过程中在热量传递方向上不同位置处的导热量是处处不同的，不同位置间导热量的差别用于（或来自）该两个位置间的物体内能随时间的变化，这是区别于稳态导热的一个特点。因此，对非稳态导热一般不能用热阻的方法来作问题的定量分析。</p>
+<h3 id="导热微分方程解的唯一性定律">导热微分方程解的唯一性定律</h3>
+<p>假定物体热物性参数均为常数，则导热微分方程可写作 <span
+class="math display">\[
+\rho C_p \frac{\partial T}{\partial t} = \lambda \nabla^2 T +
+\dot{\Phi},
+\]</span> 其中<span
+class="math inline">\(~\nabla^2~\)</span>是拉普拉斯（Laplace）算子。如果用热扩散率<span
+class="math inline">\(~a=\lambda/(\rho
+C_p)~\)</span>进行变量替换，于是有 <span class="math display">\[
+\begin{align}\label{ht1}
+\frac{\partial T}{\partial t} = a \nabla^2 T + \frac{\dot{\Phi}}{\rho
+C_p}.
+\end{align}
+\]</span> 一个实用上经常遇到的简单特例是初始温度均匀，即<span
+class="math inline">\(~T(x,y,z;0) =
+T_0\)</span>。鉴于第三类边界条件比较常见，本文将着重讨论物体处于恒温介质中的第三类边界条件的非稳态导热，即：
+<span class="math display">\[
+-\lambda \left( \frac{\partial T}{\partial n} \right)_\text{w} =
+h(T_\text{w}-T_\text{f}).
+\]</span> 如果某一函数<span
+class="math inline">\(~T(x,y,z;t)~\)</span>同时满足以上微分方程、边界条件以及一定初始值，则该函数就是这一特定导热问题的唯一解。该结论称为解的唯一性定律。</p>
+<h3
+id="第三类边界条件下bi数对平板中温度分布的影响">第三类边界条件下<span
+class="math inline">\(~Bi~\)</span>数对平板中温度分布的影响</h3>
+<p>为了说明第三类边界条件下非稳态导热时物体中的温度变化特性与边界条件参数的关系，下面来分析以下简单情形。设有一块厚为<span
+class="math inline">\(~2\delta~\)</span>的金属平板，初始温度为<span
+class="math inline">\(~T_0\)</span>，突然将它置于温度为<span
+class="math inline">\(~T_\infty~\)</span>的流体中进行冷却，表面传热系数为<span
+class="math inline">\(~h\)</span>，平板的导热系数为<span
+class="math inline">\(~\lambda\)</span>。根据平板导热热阻<span
+class="math inline">\(~\delta/\lambda~\)</span>与表面对流热阻<span
+class="math inline">\(~1/h~\)</span>的相对大小，平板中温度场变换有以下三种情况</p>
+<figure>
+<img
+src="https://raw.githubusercontent.com/NChilton/Picture/main/img/202206271719803.png"
+alt="Bi~数对平板中温度分布的影响" />
+<figcaption aria-hidden="true"><span
+class="math inline">\(Bi~\)</span>数对平板中温度分布的影响</figcaption>
+</figure>
+<ol type="1">
+<li><span class="math inline">\(1/h \ll \delta/\lambda\)</span></li>
+</ol>
+<p>这时，由于表面对流换热热阻<span
+class="math inline">\(~1/h~\)</span>几乎可以忽略，因而过程一开始平板的表面温度就被冷却到<span
+class="math inline">\(~T_\infty\)</span>。随着时间的推移，平板内部各点的温度逐渐下降而趋近于<span
+class="math inline">\(~T_\infty\)</span>，如上图（a）。</p>
+<ol start="2" type="1">
+<li><span class="math inline">\(1/h \gg \delta/\lambda\)</span></li>
+</ol>
+<p>这时，平板内部导热热阻<span
+class="math inline">\(~\delta/\lambda~\)</span>几乎可以忽略，因而任一时刻平板中各点的温度接近均匀，并随着时间的推移整体地下降，逐渐趋近于<span
+class="math inline">\(~T_\infty\)</span>，如上图（b）。</p>
+<ol start="3" type="1">
+<li><span class="math inline">\(1/h \sim \delta/\lambda\)</span></li>
+</ol>
+<p>这时，平板中不同时刻的温度分布介于上述两种极端情况之间，如上图（c）。</p>
+<p>由此可见，上述两个热阻的相对大小对于物体中非稳态导热的温度场的变化具有重要影响。我们知道，表征这两个热阻比值的量纲为一的量（习惯上称为无量纲量或无量纲数）就是毕渥（Biot）数
+<span class="math display">\[
+Bi = \frac{\delta/\lambda}{1/h} = \frac{\delta h}{\lambda}.
+\]</span>
+像毕渥数、雷诺数这一类表征某一类物理现象或物理过程特征的无量纲数称为特征数（characteristic
+number），习惯上又称准则数。出现在特征数定义式中的几何尺度称为特征长度（characteristic
+length）,一般用符号<span
+class="math inline">\(~l~\)</span>表示。在这里以平板的半厚作为特征长度，即取<span
+class="math inline">\(~l=δ\)</span>。</p>
 <h2 id="零维问题的分析法集总参数法">零维问题的分析法——集总参数法</h2>
+<p>当固体内部的导热热阻远小于其表面的换热热阻时，任何时刻固体内部的温度都趋于一致，以致可以认为整个固体在同一瞬间均处于同一温度下。这时所要求解的温度仅是时间<span
+class="math inline">\(~t~\)</span>的一元函数而与空间坐标无关，好像该固体原来连续分布的质量与热容量汇总到一点上，而只有一个温度值那样。这种忽略物体内部导热热阻的简化分析方法称为集中参数法（lumped
+parameter
+method）。显然，如果物体的导热系数相当大，或者几何尺寸很小，或表面传热系数极低，则其非稳态导热都可能属于这一类型的问题。例如，测量变化着的温度的热电偶就是个典型的实例。</p>
+<h3 id="集总参数法温度场的分析解">集总参数法温度场的分析解</h3>
+<p>设有一任意形状的固体，其体积为<span
+class="math inline">\(~V\)</span>，表面积为<span
+class="math inline">\(~A\)</span>，并具有均匀的初始温度<span
+class="math inline">\(~t_0\)</span>。在初始时刻，突然将它置于温度恒为<span
+class="math inline">\(~T_\infty~\)</span>的流体中，设<span
+class="math inline">\(~T_0&gt;T_\infty\)</span>，固体与流体间的表面传热系数<span
+class="math inline">\(~h~\)</span>及固体的物性参数均保持常数，试求物体温度随时间的依变关系。此问题可应用集总参数法分析。</p>
+<p>由于物体的内部热阻可以忽略，温度与空间坐标无关，所以式<span
+class="math inline">\(~\eqref{ht1}~\)</span>可简化为 <span
+class="math display">\[
+\frac{\mathrm{d}T}{\mathrm{d}t} = \frac{\dot{\Phi}}{\rho C_p}.
+\]</span> 其中<span
+class="math inline">\(~\dot{\Phi}~\)</span>是广义热源，界面上的热量边界条件为
+<span class="math display">\[
+-\dot{\Phi}V = hA(T-T_\infty).
+\]</span> 因为物体被冷却，<span
+class="math inline">\(T&gt;T_\infty\)</span>，故<span
+class="math inline">\(~\dot{\Phi}~\)</span>为负值。联立以上两式，则有
+<span class="math display">\[
+\rho C_p V\frac{\mathrm{d}T}{\mathrm{d}t} = -hA(T-T_\infty).
+\]</span> 引入过余温度<span class="math inline">\(~\theta = T -
+T_\infty\)</span>，则上式变成 <span class="math display">\[
+\begin{align}\label{eq1}
+\rho C_p V\frac{\mathrm{d}\theta}{\mathrm{d}t} = -hA\theta,\
+\end{align}
+\]</span> 初始条件为<span class="math inline">\(~\theta(0) = T_0 -
+T_\infty = \theta_0\)</span>。将式<span
+class="math inline">\(~\eqref{eq1}~\)</span>分离变量，得 <span
+class="math display">\[
+\frac{\mathrm{d}\theta}{\theta} = - \frac{hA}{\rho C_p V}\mathrm{d}t.
+\]</span> 对上式进行积分 <span class="math display">\[
+\int_{\theta_0}^\theta \frac{\mathrm{d}\theta}{\theta} = - \int_0^t
+\frac{hA}{\rho C_p V}\mathrm{d}t,
+\]</span> 求解得 <span class="math display">\[
+\begin{align}\label{eq2}
+\frac{\theta}{\theta_0} = \frac{T - T_\infty}{T_0 - T_\infty} =
+\exp\left(- \frac{hA}{\rho C_p V}t\right).
+\end{align}
+\]</span> 令<span class="math inline">\(~l_\text{c} = V/A\)</span>，则
+<span class="math display">\[
+\frac{hA}{\rho C_p V}t = \frac{hl_\text{c}}{\lambda} \frac{\lambda}{\rho
+C_p}\frac{t}{l_\text{c}^2} = \frac{hl_\text{c}}{\lambda}
+\frac{at}{l_\text{c}^2} = Bi\cdot Fo,
+\]</span> 其中<span
+class="math inline">\(~Fo~\)</span>是傅里叶数。式<span
+class="math inline">\(~\eqref{eq2}~\)</span>可写作<br />
+<span class="math display">\[
+\frac{\theta}{\theta_0} = \exp(-Bi\cdot Fo).
+\]</span></p>
+<h3
+id="导热量计算式时间常数与傅里叶数">导热量计算式、时间常数与傅里叶数</h3>
+<ol type="1">
+<li>导热量计算式</li>
+</ol>
+<p>采用集总参数法分析时，从初始时刻到某一瞬间为止的时间间隔内，导热物体与流体间所交换的热量可由瞬时热流量对时间做积分而得。导热物体的瞬时热流量为
+<span class="math display">\[
+\Phi = -\rho C_p V \frac{\mathrm{d}T}{\mathrm{d}t} =
+(T_0-T_\infty)hA\exp\left(- \frac{hA}{\rho C_p V}t\right)
+\]</span> 从<span class="math inline">\(~t=0~\)</span>时刻到<span
+class="math inline">\(~t~\)</span>时刻之间所交换的总热量为 <span
+class="math display">\[
+Q_t = \int_0^t \Phi \mathrm{d}t = (T_0-T_\infty)\rho C_p
+V\left[1-\exp\left(- \frac{hA}{\rho C_p V}t\right)\right].
+\]</span></p>
+<ol start="2" type="1">
+<li>时间常数</li>
+</ol>
+<p>当采用集总参数法分析时，物体中的过余温度随时间成指数曲线关系变化。在过程的开始阶段温度变化很快，随后逐渐减慢，如下图所示</p>
+<figure>
+<img
+src="https://raw.githubusercontent.com/NChilton/Picture/main/img/202206280947138.png"
+alt="过余温度变化" />
+<figcaption aria-hidden="true">过余温度变化</figcaption>
+</figure>
+<p>如果<span class="math inline">\(~t=\rho C_p V/(hA)\)</span>，则有
+<span class="math display">\[
+\frac{\theta}{\theta_0} = \frac{T - T_\infty}{T_0 - T_\infty} = \exp(-1)
+= 36.8\%.
+\]</span> <span class="math inline">\(\rho C_p
+V/(hA)~\)</span>称为时间常数（time constant），记为<span
+class="math inline">\(~t_\text{c}\)</span>。当时间<span
+class="math inline">\(~t=t_\text{c}~\)</span>时，物体的过余温度已经降低到了初始过余温度值的
+36.8%。在用热电偶测定流体温度的场合，热电偶的时间常数是说明热电偶对流体温度变动响应快慢的指标。显然，时间常数越小，热电偶越能迅速反映出流体温度的变动。时间常数不仅取决于热电偶的几何参数<span
+class="math inline">\(~V/A\)</span>、物理性质<span
+class="math inline">\(~\rho\)</span>、<span
+class="math inline">\(C_p\)</span>，还同换热条件（<span
+class="math inline">\(h\)</span>）有关。从物理意义上来说，热电偶对流体温度变化反应的快慢取决于其自身的热容量<span
+class="math inline">\(~\rho C_p V~\)</span>及表面换热条件（<span
+class="math inline">\(hA\)</span>）。热容量越大，温度变化得越慢；表面换热条件越好（<span
+class="math inline">\(hA~\)</span>越大），单位时间内传递的热量越多，则越能使热电偶的温度迅速接近被测流体的温度。<span
+class="math inline">\(\rho C_p V~\)</span>与<span
+class="math inline">\(~hA~\)</span>的比值反映了这两种影响的综合结果。</p>
+<ol start="3" type="1">
+<li>傅里叶数的物理意义</li>
+</ol>
+<p><span
+class="math inline">\(Bi~\)</span>数具有固体内部单位导热面积上的导热热阻与单位表面积上的换热热阻（即外部热阻）之比的意义<span
+class="math inline">\(~Bi=(l/\lambda)/(1/h)\)</span>。<span
+class="math inline">\(Bi~\)</span>数越小，意味着内热阻越小或外热阻越大，这时采用集中参数法分析的结果就越接近实际情况。例如，对于用热电偶测定流体温度的场合，<span
+class="math inline">\(Bi~\)</span>数的值大概只有
+0.001（或更小）这样一个数量级。试验证实，这时式<span
+class="math inline">\(\eqref{eq2}~\)</span>同实测结果符合得很好。</p>
+<p>傅里叶数的物理意义可以理解为两个时间间隔相除所得的无量纲时间，即<span
+class="math inline">\(~Fo=t/(l_\text{c}^2/a)\)</span>，分子<span
+class="math inline">\(~t~\)</span>是从边界上开始发生热扰动的时刻起到所计算时刻为止的时间间隔，分母<span
+class="math inline">\(~l_\text{c}^2/a~\)</span>可以视为使边界上发生的有限大小的热扰动穿过一定厚度的固体层扩散到的面积上所需的时间。因此，<span
+class="math inline">\(Fo~\)</span>数可以看成是表征非稳态过程进行深度的无量纲时间。在非稳态导热过程中，这一无量纲时间越大，热扰动就越深人地传播到物体内部，因而物体内各点的温度越接近周围介质的温度。</p>
+<h3
+id="集总参数法的适用范围及应用举例">集总参数法的适用范围及应用举例</h3>
+<p>对于平板、圆柱与球中的一维非稳态第三类边界条件下的导热问题，当按特征长度
+<span class="math display">\[
+\left .
+\begin{aligned}
+l &amp;= \delta,\text{厚度为}~2\delta~的平板 \\
+l &amp;= R,\text{圆柱} \\
+l &amp;= R, 球
+\end{aligned}
+\right \}.
+\]</span> <span class="math inline">\(Bi~\)</span>满足 <span
+class="math display">\[
+Bi = \frac{hl}{\lambda} \leq 0.1
+\]</span> 时，物体中最大与最小过余温度之差小于
+5%，对于工程计算，此时已经足够精确地可以认为整个物体温度均匀。对于平板、圆柱与球，<span
+class="math inline">\(Bi~\)</span>应该分别小于 0.1、0.05 和 0.033。</p>
 <h2
 id="典型一维物体非稳态导热的分析解">典型一维物体非稳态导热的分析解</h2>
+<h3
+id="三种几何形状物体的温度场分析解">三种几何形状物体的温度场分析解</h3>
+<ol type="1">
+<li>平板</li>
+</ol>
+<figure>
+<img
+src="https://raw.githubusercontent.com/NChilton/Picture/main/img/202206281035677.png"
+alt="平板第三类边界条件" />
+<figcaption aria-hidden="true">平板第三类边界条件</figcaption>
+</figure>
+<p>设有一块厚为<span
+class="math inline">\(~2\delta~\)</span>的无限大平板，初始温度为<span
+class="math inline">\(~T_0\)</span>。在初始瞬间将它放置于温度为<span
+class="math inline">\(~T_\infty~\)</span>的流体中，设平板两边对称受热，板内温度分布必以其中心截面为对称面。因此，只要研究厚为<span
+class="math inline">\(~δ~\)</span>的半块平板的情况即可。将<span
+class="math inline">\(~x~\)</span>轴的原点置于板的中心截面上，对于<span
+class="math inline">\(~x\geq
+0~\)</span>地半平板，可以导出如下微分方程和边界条件 <span
+class="math display">\[
+\begin{aligned}
+\frac{\partial T}{\partial t} = a \frac{\partial^2 T}{\partial x^2},\
+(0&lt;x&lt;\delta,t&gt;0) \\
+h[T(\delta,t)-T_\infty] = \left .\lambda\frac{\partial T(x,t)}{\partial
+x}\right|_{x=\delta}.
+\end{aligned}
+\]</span> 引入过余温度<span class="math inline">\(~\theta = T -
+T_\infty\)</span>，采用分离变量法求解得 <span class="math display">\[
+\frac{\theta(\eta,t)}{\theta_0} = \sum_{n=1}^\infty C_n\exp(-\mu_n^2
+Fo)\cos(\mu_n \eta),
+\]</span> 其中<span class="math inline">\(~Fo = at/\delta^2,~\eta =
+x/\delta\)</span>。系数<span class="math inline">\(~C_n~\)</span>满足
+<span class="math display">\[
+C_n = \frac{2\sin \mu_n}{\mu_n + \cos\mu_n\sin\mu_n}.
+\]</span> <span
+class="math inline">\(\mu_n~\)</span>是下列超越方程得根，称为特征值（eigenvalue）：
+<span class="math display">\[
+\tan \mu_n = \frac{Bi}{\mu_n},\ n = 1,2,\cdots
+\]</span> 其中<span
+class="math inline">\(~Bi=h\delta/\lambda\)</span>。</p>
+<ol start="2" type="1">
+<li>圆柱</li>
+</ol>
+<p>设半径为<span
+class="math inline">\(~R~\)</span>的一实心圆柱，初始温度为<span
+class="math inline">\(~T_0\)</span>，在初始瞬间将它置于温度为<span
+class="math inline">\(~T_\infty~\)</span>的流体中，流体与圆柱表面间的表面传热系数<span
+class="math inline">\(~h~\)</span>为常数。圆柱中无量纲温度的分析解如下：
+<span class="math display">\[
+\frac{\theta(\eta,t)}{\theta_0} = \sum_{n=1}^\infty C_n\exp(-\mu_n^2 Fo)
+J_0(\mu_n \eta),
+\]</span> 其中<span class="math inline">\(~Fo = at/\delta^2,~\eta =
+r/R\)</span>。系数<span class="math inline">\(~C_n~\)</span>满足 <span
+class="math display">\[
+C_n = \frac{2}{\mu_n}\frac{J_1 (\mu_n)}{J_0^2(\mu_n)+J_1^2(\mu_n)}.
+\]</span> <span
+class="math inline">\(\mu_n~\)</span>是下列超越方程得根： <span
+class="math display">\[
+\mu_n \frac{J_1(\mu_n)}{J_0(\mu_n)} = Bi,\ n=1,2,\cdots
+\]</span> 其中<span class="math inline">\(~Bi=hR/\lambda\)</span>。</p>
+<ol start="3" type="1">
+<li>球</li>
+</ol>
+<p>设半径为<span
+class="math inline">\(~R~\)</span>的一实心球，初始温度为<span
+class="math inline">\(~T_0\)</span> ，在初始瞬间将它置于温度为<span
+class="math inline">\(~T_\infty~\)</span>的流体中，流体与球表面间的表面传热系数<span
+class="math inline">\(~h~\)</span>为常数。球中无量纲温度的分析解如下：
+<span class="math display">\[
+\frac{\theta(\eta,t)}{\theta_0} = \sum_{n=1}^\infty C_n\exp(-\mu_n^2 Fo)
+\frac{\sin(\mu_n \eta)}{\mu_n\eta},
+\]</span> 其中<span class="math inline">\(~Fo = at/\delta^2,~\eta =
+r/R\)</span>。系数<span class="math inline">\(~C_n~\)</span>满足 <span
+class="math display">\[
+C_n =
+2\frac{\sin(\mu_n)-\mu_n\cos(\mu_n)}{\mu_n-\sin(\mu_n)\cos(\mu_n)}.
+\]</span> <span
+class="math inline">\(\mu_n~\)</span>是下列超越方程得根： <span
+class="math display">\[
+1-\mu_n\cos(\mu_n) = Bi,\ n=1,2,\cdots
+\]</span> 可见，平板、圆柱和球中无量纲过余温度<span
+class="math inline">\(~\theta/\theta_0~\)</span>与<span
+class="math inline">\(~Fo~\)</span>数、<span
+class="math inline">\(Bi~\)</span>数及无量纲距离<span
+class="math inline">\(~\eta~\)</span>有关，即： <span
+class="math display">\[
+\frac{\theta(\eta,t)}{\theta_0} =
+\frac{T(\eta,t)-T_\infty}{T_0-T_\infty} = f(Fo,Bi,\eta).
+\]</span></p>
+<h3
+id="非稳态导热正规状况阶段分析解的简化">非稳态导热正规状况阶段分析解的简化</h3>
+<ol type="1">
+<li>非稳态导热正规状况阶段的物理概念与数学含义</li>
+</ol>
+<p>非周期性的非稳态导热过程在进行到一定深度后，初始条件对物体中无量纲温度分布的影响基本消失,温度分布主要取决于边界条件的影响。非稳态导热的这一阶段称为正规状况阶段。</p>
+<p>现在从分析解的数学表达式来揭示正规状况阶段的数学含义。三个解的特征值都是<span
+class="math inline">\(~Bi~\)</span>数的函数，在一定的<span
+class="math inline">\(~Bi~\)</span>数下<span
+class="math inline">\(~\mu_n~\)</span>之值随<span
+class="math inline">\(~n~\)</span>的增加而迅速增加。例如，对于平板，在<span
+class="math inline">\(~Bi=1.0~\)</span>时前 4 个根分别为
+0.8603、3.4256、6. 4373 和 9.5293。由三个分析解中反映时间影响的部分<span
+class="math inline">\(~\exp(-\mu_n^2
+Fo)~\)</span>可见，无穷级数第一项以后的各项，会随着<span
+class="math inline">\(~Fo~\)</span>数的增加而迅速衰减。数值计算表明，当<span
+class="math inline">\(~Fo~\)</span>数大于 0.2
+以后，略去无穷级数中第二项及以后各项所得的计算结果与按完整级数计算结果的偏差小于
+1%。这相当于将无穷级数解中的系数<span class="math inline">\(~C_n\ (n\geq
+2)~\)</span>取为零。因为<span
+class="math inline">\(~C_n~\)</span>的无穷系列值是为了使分析解满足初始条件而引人的，这样的处理就意味着初始条件的影响已经消失，所以三个分析解无穷级数的第一项就是正规状况阶段温度场的解。对于非周期性的非稳态导热过程，从过程的开始到温度分布趋近于稳态分布的时间间隔中，初始条件影响基本消失的阶段占了极大部分的比例，故称这一阶段为“正规状况”。</p>
+<ol start="2" type="1">
+<li>正规状况阶段三个分析解的简化表达式</li>
+</ol>
+<p><span class="math display">\[
+\begin{align}
+&amp;\text{平板}\quad
+\frac{\theta(\eta,t)}{\theta_0} = \frac{2\sin \mu_1}{\mu_1 +
+\cos\mu_1\sin\mu_1}\exp(-\mu_1^2 Fo)\cos(\mu_1 \eta), \label{eq3} \\
+&amp;\text{圆柱}\quad
+\frac{\theta(\eta,t)}{\theta_0} = \frac{2}{\mu_1}\frac{J_1
+(\mu_1)}{J_0^2(\mu_1)+J_1^2(\mu_1)}\exp(-\mu_1^2 Fo) J_0(\mu_1 \eta),\\
+&amp;\text{球}\quad
+\frac{\theta(\eta,t)}{\theta_0} =
+2\frac{\sin(\mu_1)-\mu_1\cos(\mu_1)}{\mu_1-\sin(\mu_1)\cos(\mu_1)}\exp(-\mu_1^2
+Fo) \frac{\sin(\mu_1 \eta)}{\mu_1\eta}.
+\end{align}
+\]</span></p>
+<p>以平板的解为例，正规状况阶段的任何时刻，平板中任意处（<span
+class="math inline">\(\eta\)</span>）与平板中心（<span
+class="math inline">\(\eta=0\)</span>）处的过余温度之比为 <span
+class="math display">\[
+\begin{align}
+\frac{\theta(\eta,t)}{\theta(0,t)} = \cos(\mu_1\eta),\label{eq4}
+\end{align}
+\]</span> 可见这一比值与时间无关，只取决于特征值<span
+class="math inline">\(~\mu_1\)</span>，即取决于边界条件，这是与“正规状况”4
+个字的含义相一致的。</p>
+<ol start="3" type="1">
+<li>一段时间间隔内所传导的热量计算式</li>
+</ol>
+<p>从初始时刻到平板与周围介质处于热平衡这一过程中所传递的热量为 <span
+class="math display">\[
+Q_0 = \rho C_p V(T_0-T_\infty).
+\]</span>
+这是非稳态导热过程中所能传递的最大热量，从初始时刻到某一时刻<span
+class="math inline">\(~t~\)</span>这一阶段中所传递的热量<span
+class="math inline">\(~Q~\)</span>与<span
+class="math inline">\(~Q_0~\)</span>之比为 <span class="math display">\[
+\begin{aligned}
+\frac{Q}{Q_0} &amp;= \frac{\rho C_p\int_V [T_0-T(x,t)]\mathrm{d} V}{\rho
+C_p V(T_0 - T_\infty)} \\
+&amp;=
+\frac{1}{V}\int_V\frac{(T_0-T_\infty)-(T-T_\infty)}{T_0-T_\infty}\mathrm{d}V
+\\
+&amp;= 1-\frac{1}{V}\int_V\frac{T-T_\infty}{T_0-T_\infty}\mathrm{d}V =
+1-\frac{\bar{\theta}}{\theta_0}.
+\end{aligned}
+\]</span>
+平板、圆柱和球的正规状况阶段温度场与导热量的计算式可以统一表示为： <span
+class="math display">\[
+\begin{aligned}
+\frac{\theta(\eta,t)}{\theta_0} = A\exp(-\mu_1^2 Fo)f(\mu_1 \eta), \\
+\frac{Q}{Q_0} = 1 - A\exp(-\mu_1^2 Fo)B.
+\end{aligned}
+\]</span> 三种形状物体的<span class="math inline">\(~A\)</span>、<span
+class="math inline">\(B\)</span> 、<span class="math inline">\(f(\mu_1
+η)~\)</span>的表达式如下表</p>
+<figure>
+<img
+src="https://raw.githubusercontent.com/NChilton/Picture/main/img/202206290036068.png"
+alt="~A、B 、f(\mu_1 η)~的表达式" />
+<figcaption aria-hidden="true"><span
+class="math inline">\(~A\)</span>、<span
+class="math inline">\(B\)</span> 、<span class="math inline">\(f(\mu_1
+η)~\)</span>的表达式</figcaption>
+</figure>
+<h3
+id="非稳态导热正规状况阶段的工程计算方法">非稳态导热正规状况阶段的工程计算方法</h3>
+<p>利用上述公式计算时，需要根据不同的<span
+class="math inline">\(~Bi~\)</span>数查出相应的特征值，并且要涉及贝塞尔（Bessel）函数等的计算，不甚方便。在传热学的发展史上先后提出了两种简化计算手续的方法，即由海斯勒（Heisler）等提出的诺谟图（nomogram）
+方法；及由 Campo 提出的近似拟合公式方法，现分别介绍如下。</p>
+<ol type="1">
+<li>图线法</li>
+</ol>
+<p>历史上曾广泛采用按分析解的级数第一项而绘制的用以确定温度分布的曲线,称为海斯勒图。以无限大平板为例，它首先根据式<span
+class="math inline">\(~\eqref{eq3}~\)</span>给出<span
+class="math inline">\(~\theta_\text{m}/\theta_0~\)</span>随<span
+class="math inline">\(~Fo~\)</span>及<span
+class="math inline">\(~Bi~\)</span>变化的曲线（此时<span
+class="math inline">\(~x/\delta=0\)</span>），随后再根据式<span
+class="math inline">\(~\eqref{eq4}~\)</span>确定<span
+class="math inline">\(~\theta/\theta_\text{m}~\)</span>的值。于是平板中任意一点值为
+<span class="math display">\[
+\frac{\theta}{\theta_0} =
+\frac{\theta_\text{m}}{\theta_0}\frac{\theta}{\theta_\text{m}}.
+\]</span></p>
+<ol start="2" type="1">
+<li>近似拟合公式法</li>
+</ol>
+<p>三种几何形状的第一特征值<span
+class="math inline">\(~μ_1\)</span>，以及<span
+class="math inline">\(~A\)</span>、<span
+class="math inline">\(B~\)</span>和零阶贝塞尔函数<span
+class="math inline">\(~J_0(x)~\)</span>通过以下拟合公式：</p>
+<p><span class="math display">\[
+\begin{aligned}
+\mu_1^2 &amp;= \left ( a + \frac{b}{Bi} \right)^{-1}, \\
+A &amp;= a + b(1-d^{-eBi}), \\
+B &amp;= \frac{a + cBi}{1 + bBi}, \\
+J_0 &amp;= a + bx + cx^2 + dx^3.
+\end{aligned}
+\]</span></p>
+<figure>
+<img
+src="https://raw.githubusercontent.com/NChilton/Picture/main/img/202206291204823.png"
+alt="上式中常数" />
+<figcaption aria-hidden="true">上式中常数</figcaption>
+</figure>
+<figure>
+<img
+src="https://raw.githubusercontent.com/NChilton/Picture/main/img/202206291204791.png"
+alt="计算~J_0(x)~的常数" />
+<figcaption aria-hidden="true">计算<span
+class="math inline">\(~J_0(x)~\)</span>的常数</figcaption>
+</figure>
+<p>上述分析解无论对物体被加热或冷却都是适用的。对于一维平板，在热边界条件方面还可以应用于以下两种情形：(1)
+平板一侧绝热，另一侧为第三类边界条件；(2)
+平板两侧面均为第一类边界条件且维持在相同的温度。</p>
 <h2 id="半无限大物体的非稳态导热">半无限大物体的非稳态导热</h2>
+<p>半无限大物体（semi-infinite
+body）可以看成是一维平板的一种特殊情况。所谓半无限大物体，是指几何上如下图所示
+的那样的物体，其特点是从<span class="math inline">\(~x =
+0~\)</span>的界面开始可以向正向以及，上、下方向上无限延伸，而在每一个与<span
+class="math inline">\(~x~\)</span>坐标垂直的截面，上物体的温度都相等。现实世界中不存在这样的半无限大物体，但是在研究物体中非稳态导热的初始阶段时，则有可能把实际物体当作半无限大的物体来处理。例如，假设有一块几何上为有限厚度的平板，起初具有均匀的温度，然后其一侧表面突然受到热扰动，如壁温突然升高到一定值并保持不变，或者突然受到恒定的热流密度加热，或者受到温度恒定的流体的加热或冷却。当扰动的影响还局限在表面附近而尚未深入到平板内部中去时，就可有条件地把该平板视为一“半无限大物体”。工程导热问题中有不少情形可按半无限大物体处理。</p>
+<figure>
+<img
+src="https://raw.githubusercontent.com/NChilton/Picture/main/img/202206291222764.png"
+alt="半无限大物体" />
+<figcaption aria-hidden="true">半无限大物体</figcaption>
+</figure>
+<h3
+id="三种边界条件下半无限大物体温度场的分析解">三种边界条件下半无限大物体温度场的分析解</h3>
+<p>有一半无限大物体，初始温度均匀为<span
+class="math inline">\(~T_0\)</span>。在<span class="math inline">\(~t =
+0~\)</span>时刻，<span
+class="math inline">\(x=0~\)</span>的侧面突然受到热扰动，这种情况可以归纳为以下三种边界条件：(1)
+表面温度突然变化到<span
+class="math inline">\(~T_\text{w}\)</span>，并保持恒定（第一类）；(2)
+受到恒定的热流密度加热（第二类）；(3) 与温度为<span
+class="math inline">\(~T_\infty~\)</span>的流体进行热交换（第三类）。这三类边界条件如下图所示。假定物体的热物性为常数，没有内热源。</p>
+<figure>
+<img
+src="https://raw.githubusercontent.com/NChilton/Picture/main/img/202206291333575.png"
+alt="三种边界条件" />
+<figcaption aria-hidden="true">三种边界条件</figcaption>
+</figure>
+<p>上述条件下物体中温度的控制方程和定解条件为 <span
+class="math display">\[
+\begin{aligned}
+\frac{\partial T}{\partial t} &amp;= a \frac{\partial^2T}{\partial x^2},
+\ 0&lt;x&lt;\infty; \\
+t &amp;= 0,\ T(x,t) = T_0; \\
+x &amp;= 0.
+\end{aligned}
+\]</span> 温度场的分析解为</p>
+<p>第一类边界条件 <span class="math display">\[
+\frac{T(x,t)-T_\text{w}}{T_0-T_\text{w}}=\mathrm{erf}\left(\frac{x}{2\sqrt{at}}\right),
+\]</span> 第二类边界条件 <span class="math display">\[
+T(x,t)-T_0 =
+\frac{2q_0\sqrt{at/\pi}}{\lambda}\exp\left(-\frac{x^2}{4at}\right)-\frac{q_0
+x}{\lambda}\mathrm{erfc}\left(\frac{x}{2\sqrt{at}}\right),
+\]</span> 第三类边界条件 <span class="math display">\[
+\begin{align}\label{eq5}
+\frac{T(x,t)-T_0}{T_\infty-T_0}=\mathrm{erf}\left(\frac{x}{2\sqrt{at}}\right)-\exp\left(\frac{hx}{\lambda}+\frac{h^2at}{\lambda^2}\right)\mathrm{erfc}\left(\frac{x}{2\sqrt{at}}+\frac{h\sqrt{at}}{\lambda}\right)
+\end{align}
+\]</span> 其中<span
+class="math inline">\(~\mathrm{erf}(x)~\)</span>称为误差函数，<span
+class="math inline">\(\mathrm{erfc}(x)=1-\mathrm{erf}(x)~\)</span>称为余误差函数。</p>
+<h3 id="导热量计算式">导热量计算式</h3>
+<p>下面以上述第一种边界条件为例，来导出从初始时刻到某一指定时刻<span
+class="math inline">\(~t~\)</span>之间，即在时间间隔<span
+class="math inline">\(~[0,t]~\)</span>内半无限大物体表面与外界的换热量（亦即半无限大物体内的导热量）。</p>
+<p>通过任意截面<span class="math inline">\(~x~\)</span>处的热流密度
+<span class="math display">\[
+\begin{aligned}
+q_x &amp;= -\lambda\frac{\partial T}{\partial x} \\
+&amp;=
+-\lambda(T_0-T_\text{w})\frac{\partial\mathrm{erf}(\eta)}{\partial x} \\
+&amp;= \lambda\frac{T_\text{w}-T_0}{\sqrt{\pi
+at}}\exp\left(\frac{x^2}{4at}\right),
+\end{aligned}
+\]</span> 在表面上的导热量为 <span class="math display">\[
+\begin{aligned}
+Q &amp;= A\int_0^t q_\text{w}\mathrm{d}t \\
+&amp;= A\int_0^t\frac{\lambda(T_\text{w}-T_0)}{\sqrt{\pi at}}\mathrm{d}t
+\\
+&amp;= 2A\sqrt{t/\pi}\sqrt{\rho C_p \lambda}(T_\text{w}-T_0).
+\end{aligned}
+\]</span>
+由以上两式可见，表面上的瞬时热流密度与时间的平方根成反比，而总的导热量则与时间的平方根成正比。此外，<span
+class="math inline">\(Q~\)</span>还与物体的<span
+class="math inline">\(~\sqrt{\rho C_p
+\lambda}~\)</span>成正比（注意：在稳态导热中，导热量与<span
+class="math inline">\(~\rho C_p~\)</span>无关，而只与<span
+class="math inline">\(~\lambda~\)</span>成正比）。在材料成形工业中称<span
+class="math inline">\(~\sqrt{\rho C_p
+\lambda}~\)</span>为吸热系数，它的大小代表了物体向与其接触的高温物体吸热的能力。在选择造型材料与冷铁时，吸热系数是一个重要指标，它关系到物体（如铸件）的冷却速度。</p>
 <h2
 id="简单几何形状物体多维非稳态导热的热分解">简单几何形状物体多维非稳态导热的热分解</h2>
+<p>在多维导热问题中，几种简单儿何形状物体的非稳态导热问题的分析解，可以用几个相应的一维非稳态导热分析解相乘得出，称为乘积解法（production
+solution
+method）。方形截面的二维柱体、短圆柱体以及立方体是这类几何形状物体的典型例子。本节中先介绍获得无量纲温度场的乘积解法的基本思想，并对二维问题给出数学证明，以加深对乘积解法应用条件的理解。然后介绍确定导热量的方法。通过计算例题还可以进一步体会到采用拟合公式方法计算的优点。</p>
+<h3 id="获得无量纲温度场的乘积解法">获得无量纲温度场的乘积解法</h3>
+<p>如下图所示的三种固体。其中：图 (a)
+所示为方形截面的二维导热物体，沿着<span
+class="math inline">\(~z~\)</span>方向物体温度没有变化；图 (b)
+所示为短圆柱体，物体温度在半径及轴向发生变化；图 (e)
+所示是立方体，温度在三个坐标方向均改变。这三种固体在几何上可以分别看成是由两块平板、一块平板与一个圆柱以及三块平板相贯而成,如图
+(d)、(e) 和 (f) 所示。假设三个物体的初始温度都是均匀的，记为<span
+class="math inline">\(~T_0\)</span>，然后与周围介质之间发生对流传热，流体温度为<span
+class="math inline">\(~T_\infty\)</span>，表面传热系数为<span
+class="math inline">\(~h\)</span>。在这样的条件下，三个固体中的无量纲温度场可以由其几何上的相贯体的一维分析解相乘而得：</p>
+<p><img
+src="https://raw.githubusercontent.com/NChilton/Picture/main/img/202206292330784.png"
+alt="乘积解法" /> <span class="math display">\[
+\begin{aligned}
+&amp;\text{二维柱体}\quad
+\Theta = \frac{\theta(x,y,t)}{\theta_0} = \Theta_{\rho 1}(x,t)\cdot
+\Theta_{\rho 2}(y,t), \\
+&amp;\text{短圆柱}\quad
+\Theta = \frac{\theta(x,r,t)}{\theta_0} = \Theta_{\rho 1}(x,t)\cdot
+\Theta_{o}(r,t), \\
+&amp;\text{立方体}\quad
+\Theta = \frac{\theta(x,y,z,t)}{\theta_0} = \Theta_{\rho 1}(x,t)\cdot
+\Theta_{\rho 2}(y,t)\cdot \Theta_{\rho 3}(z,t).
+\end{aligned}
+\]</span> 其中<span class="math inline">\(~\Theta_\rho~\)</span>、<span
+class="math inline">\(\Theta_o~\)</span>分别表示一维平板及圆柱在第三类边界体条件下无量纲温度的分析解。</p>
+<h3 id="二维问题的证明">二维问题的证明</h3>
+<p>下面以无限长方柱体（即其截面为长方形的柱体）的非稳态导热问题为例来作分析。这是一个二维问题。截面尺寸为<span
+class="math inline">\(~2\delta_1\times
+2\delta_2~\)</span>的方柱体可以看成是两块厚度分别为<span
+class="math inline">\(~2\delta_1~\)</span>及<span
+class="math inline">\(~2\delta_2~\)</span>的无限大平板垂直相交所截出的物体。</p>
+<figure>
+<img
+src="https://raw.githubusercontent.com/NChilton/Picture/main/img/202206300016350.png"
+alt="方柱体" />
+<figcaption aria-hidden="true">方柱体</figcaption>
+</figure>
+<p>如上图所示，设方柱体初始温度为<span
+class="math inline">\(~T_0\)</span>，开始时被置于温度为<span
+class="math inline">\(~T_\infty~\)</span>的流体中，表面与流体间的表面传热系数为<span
+class="math inline">\(~h\)</span>。上图阴影截面上的无量纲温度分布<span
+class="math inline">\(~\Theta(x,y,t)~\)</span>由下列微分方程和定解条件决定：
+<span class="math display">\[
+\begin{aligned}
+&amp;\frac{\partial \Theta}{\partial t} = a\left(
+\frac{\partial^2\Theta}{\partial x^2} + \frac{\partial^2\Theta}{\partial
+y^2} \right), \\
+&amp;\Theta(x,y,0) = 1, \\
+&amp;\Theta(\delta_1,y,t) + \frac{\lambda}{h}\left.\frac{\partial
+\Theta(x,y,t)}{\partial x}\right|_{x=\delta_1} = 0, \\
+&amp;\Theta(x,\delta_2,t) + \frac{\lambda}{h}\left.\frac{\partial
+\Theta(x,y,t)}{\partial y}\right|_{y=\delta_2} = 0, \\
+&amp;\left.\frac{\partial \Theta(x,y,t)}{\partial x}\right|_{x=0} = 0,
+\\
+&amp;\left.\frac{\partial \Theta(x,y,t)}{\partial y}\right|_{y=0} = 0.
+\end{aligned}
+\]</span> 其中 <span class="math display">\[
+\Theta = \frac{T(x,y,t)-T_\infty}{T_0-T_\infty} =
+\frac{\theta}{\theta_0}
+\]</span> 为无量纲过余温度。</p>
+<p>这两块无限大平板分析解的乘积就是上述无限长方柱体的解，即 <span
+class="math display">\[
+\Theta(x,y,t) = \Theta_x(x,t)\Theta_y(y,t).
+\]</span> 乘积解法只适用于：(1) 物体初始温度均匀；(2)
+周围介质温度均匀；(3) 表面传热系数均匀；(4)
+常物性、没有内热源。对于表面传热系数为无限大的情形，即第一类边界条件，当然也是适用的。</p>
+<h3 id="导热量的计算">导热量的计算</h3>
+<p>为了获得非稳态导热过程从初始时刻到时刻<span
+class="math inline">\(~t~\)</span>的导热量，可以首先计算该热量占非稳态导热过程总导热量的百分数，然后与从热平衡角度得出的总导热量相乘即可。所以,计算导热量的关键是要得出这个导热量的百分数。朗司顿（Langston）已证明，对于多维非稳态导热，导热量百分数也可以通过类似乘积解法的模式得出。假设<span
+class="math inline">\(~(Q/Q_0)_1\)</span>、<span
+class="math inline">\((Q/Q_0)_2\)</span>、<span
+class="math inline">\((Q/Q_0)_3~\)</span>分别是构成一个二维与三维非稳态导热物体的一维几何体的导热量百分数，则可有：</p>
+<p>二维问题 <span class="math display">\[
+\frac{Q}{Q_0}=\left(\frac{Q}{Q_0}\right)_1+\left(\frac{Q}{Q_0}\right)_2\left[1-\left(\frac{Q}{Q_0}\right)_1\right],
+\]</span> 三维问题 <span class="math display">\[
+\begin{aligned}
+\frac{Q}{Q_0} &amp;=
+\left(\frac{Q}{Q_0}\right)_1+\left(\frac{Q}{Q_0}\right)_2\left[1-\left(\frac{Q}{Q_0}\right)_1\right]
+\\
+&amp;+
+\left(\frac{Q}{Q_0}\right)_3\left[1-\left(\frac{Q}{Q_0}\right)_1-\left(\frac{Q}{Q_0}\right)_2\right].
+\end{aligned}
+\]</span></p>
 <h2 id="小结">小结</h2>
+<p>当遇到一个工.程非稳态导热问题时，建议按照以下步骤进行求解：</p>
+<ol type="1">
+<li>如果物体的形状复杂而且需要获得物体中的温度随时间变化的详细的信息，例如要确定发动机转子和气缸壁中的温度在启动过程中的分布及变化，以计算金属中由于温度不均匀而引起的热应力，则应求助于数值计算的方法。</li>
+<li>如果物体的形状相对比较简单，或者允许作一定的近似处理，则可考虑采用分析解的方法。对此类问题，首先要尽可能确切地决定非稳态导热物体的热边界条件。在许多情形下，导热物体的边界热作用可以由第三类边界条件近似描述，这时获取比较准确的表面传热系数的数值对于解的准确性具有重要意义。</li>
+<li>对于在整个非稳态导热过程中表面传热系数有相当大变化的情形，作为计算的第一步可以取其平均值来计算。进一步的方法是将非稳态过程分为几个时段，每一个时段中表面传热系数取为常数。这样的处理往往带有迭代的性质。</li>
+<li>对第三类边界条件的问题,可以采用以下解题策略：
+<ol type="1">
+<li>首先尝试集中参数法，计算<span
+class="math inline">\(~Bi~\)</span>数（其中可以用<span
+class="math inline">\(~V/F~\)</span>作为特征尺度）。如果<span
+class="math inline">\(~Bi&lt;0.1\)</span>，则就采用集中参数法。</li>
+<li>如果<span class="math inline">\(~Bi&gt;0.1\)</span>，则计算<span
+class="math inline">\(~Fo~\)</span>数。如果<span
+class="math inline">\(~Fo&lt;0.05\sim0.06\)</span>，则可将导热物体看成是半无限大的物体，采用式<span
+class="math inline">\(~\eqref{eq5}~\)</span>计算物体中的温度。</li>
+<li>如果<span
+class="math inline">\(~Bi&gt;0.1,0.06&lt;Fo&lt;0.2\)</span>，则对可以作为一维问题处理的导热物体，需采用完全的级数解。注意，求解多维问题的乘积解法对于非稳态导热的初始阶段也是适用的。</li>
+<li>如果<span
+class="math inline">\(~Bi&gt;0.1,Fo&gt;0.2\)</span>，则可采用正规状况阶段的简化解法。</li>
+</ol></li>
+</ol>
 
     </div>
 
@@ -255,6 +890,11 @@ id="简单几何形状物体多维非稳态导热的热分解">简单几何形�
     
 
     <footer class="post-footer">
+          <div class="post-tags">
+              <a href="/tags/%E5%AF%BC%E7%83%AD/" rel="tag"># 导热</a>
+              <a href="/tags/%E5%82%85%E9%87%8C%E5%8F%B6%E5%AE%9A%E5%BE%8B/" rel="tag"># 傅里叶定律</a>
+              <a href="/tags/%E7%9E%AC%E6%80%81/" rel="tag"># 瞬态</a>
+          </div>
 
         
 
@@ -319,7 +959,7 @@ id="简单几何形状物体多维非稳态导热的热分解">简单几何形�
 
   
 
-  <script class="next-config" data-name="enableMath" type="application/json">false</script><script class="next-config" data-name="mathjax" type="application/json">{"enable":true,"tags":"all","js":{"url":"https://cdnjs.cloudflare.com/ajax/libs/mathjax/3.2.1/es5/tex-mml-chtml.js","integrity":"sha256-hlC2uSQYTmPsrzGZTEQEg9PZ1a/+SV6VBCTclohf2og="}}</script>
+  <script class="next-config" data-name="enableMath" type="application/json">true</script><script class="next-config" data-name="mathjax" type="application/json">{"enable":true,"tags":"all","js":{"url":"https://cdnjs.cloudflare.com/ajax/libs/mathjax/3.2.1/es5/tex-mml-chtml.js","integrity":"sha256-hlC2uSQYTmPsrzGZTEQEg9PZ1a/+SV6VBCTclohf2og="}}</script>
 <script src="/js/third-party/math/mathjax.js"></script>
 
 
