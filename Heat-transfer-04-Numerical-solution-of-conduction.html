@@ -19,12 +19,12 @@
 
 <script class="next-config" data-name="main" type="application/json">{"hostname":"example.com","root":"/","images":"/images","scheme":"Gemini","darkmode":false,"version":"8.12.1","exturl":false,"sidebar":{"position":"left","display":"post","padding":18,"offset":12},"copycode":{"enable":true,"style":null},"bookmark":{"enable":false,"color":"#222","save":"auto"},"mediumzoom":false,"lazyload":false,"pangu":false,"comments":{"style":"tabs","active":null,"storage":true,"lazyload":false,"nav":null},"stickytabs":false,"motion":{"enable":false,"async":false,"transition":{"post_block":"fadeIn","post_header":"fadeInDown","post_body":"fadeInDown","coll_header":"fadeInLeft","sidebar":"fadeInUp"}},"prism":false,"i18n":{"placeholder":"搜索...","empty":"没有找到任何搜索结果：${query}","hits_time":"找到 ${hits} 个搜索结果（用时 ${time} 毫秒）","hits":"找到 ${hits} 个搜索结果"}}</script><script src="/js/config.js"></script>
 
-    <meta name="description" content="本文参考杨世铭、陶文铨所著《传热学》第四版第四章">
+    <meta name="description" content="本文参考杨世铭、陶文铨所著《传热学》第四版第四章。传热问题基本思想是将原来在时间、空间坐标系中连续的物理量场，用有限个离散点上的值的集合来代替，通过求解按一定方法建立起来的关于这些值的代数方程，来获得离散点上被求物理量的值。这些离散点上被求物理量值集合称为该物理量的数值解。">
 <meta property="og:type" content="article">
 <meta property="og:title" content="热传导问题的数值解法">
 <meta property="og:url" content="http://example.com/Heat-transfer-04-Numerical-solution-of-conduction.html">
 <meta property="og:site_name" content="Day day up!">
-<meta property="og:description" content="本文参考杨世铭、陶文铨所著《传热学》第四版第四章">
+<meta property="og:description" content="本文参考杨世铭、陶文铨所著《传热学》第四版第四章。传热问题基本思想是将原来在时间、空间坐标系中连续的物理量场，用有限个离散点上的值的集合来代替，通过求解按一定方法建立起来的关于这些值的代数方程，来获得离散点上被求物理量的值。这些离散点上被求物理量值集合称为该物理量的数值解。">
 <meta property="og:locale" content="zh_CN">
 <meta property="og:image" content="https://raw.githubusercontent.com/NChilton/Picture/main/img/202205292330812.png">
 <meta property="og:image" content="https://raw.githubusercontent.com/NChilton/Picture/main/img/202205300018850.png">
@@ -32,7 +32,7 @@
 <meta property="article:published_time" content="2021-05-14T16:00:00.000Z">
 <meta property="article:modified_time" content="2022-05-28T16:00:00.000Z">
 <meta property="article:author" content="Chilton Nieh">
-<meta property="article:tag" content="传热学">
+<meta property="article:tag" content="传热">
 <meta property="article:tag" content="数值计算">
 <meta property="article:tag" content="有限差分">
 <meta name="twitter:card" content="summary">
@@ -91,7 +91,7 @@
 
 
 <nav class="site-nav">
-  <ul class="main-menu menu"><li class="menu-item menu-item-home"><a href="/" rel="section"><i class="fa fa-home fa-fw"></i>首页</a></li><li class="menu-item menu-item-archives"><a href="/archives/" rel="section"><i class="fa fa-archive fa-fw"></i>归档<span class="badge">38</span></a></li><li class="menu-item menu-item-tags"><a href="/tags/" rel="section"><i class="fa fa-tags fa-fw"></i>标签<span class="badge">41</span></a></li><li class="menu-item menu-item-categories"><a href="/categories/" rel="section"><i class="fa fa-th fa-fw"></i>分类<span class="badge">6</span></a></li><li class="menu-item menu-item-about"><a href="/about/" rel="section"><i class="fa fa-user fa-fw"></i>关于</a></li>
+  <ul class="main-menu menu"><li class="menu-item menu-item-home"><a href="/" rel="section"><i class="fa fa-home fa-fw"></i>首页</a></li><li class="menu-item menu-item-archives"><a href="/archives/" rel="section"><i class="fa fa-archive fa-fw"></i>归档<span class="badge">38</span></a></li><li class="menu-item menu-item-tags"><a href="/tags/" rel="section"><i class="fa fa-tags fa-fw"></i>标签<span class="badge">41</span></a></li><li class="menu-item menu-item-categories"><a href="/categories/" rel="section"><i class="fa fa-th fa-fw"></i>分类<span class="badge">6</span></a></li><li class="menu-item menu-item-favorites"><a href="/favorites/" rel="section"><i class="fa fa-heart fa-fw"></i>收藏</a></li><li class="menu-item menu-item-about"><a href="/about/" rel="section"><i class="fa fa-user fa-fw"></i>关于</a></li>
   </ul>
 </nav>
 
@@ -122,7 +122,7 @@
       <div class="sidebar-panel-container">
         <!--noindex-->
         <div class="post-toc-wrap sidebar-panel">
-            <div class="post-toc animated"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%AF%BC%E7%83%AD%E9%97%AE%E9%A2%98%E6%95%B0%E5%80%BC%E6%B1%82%E8%A7%A3%E7%9A%84%E5%9F%BA%E6%9C%AC%E6%80%9D%E6%83%B3"><span class="nav-number">1.</span> <span class="nav-text">导热问题数值求解的基本思想</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#%E5%9F%BA%E6%9C%AC%E6%80%9D%E6%83%B3"><span class="nav-number">1.1.</span> <span class="nav-text">基本思想</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E5%AF%BC%E7%83%AD%E9%97%AE%E9%A2%98%E6%95%B0%E5%80%BC%E6%B1%82%E8%A7%A3%E5%9F%BA%E6%9C%AC%E6%AD%A5%E9%AA%A4"><span class="nav-number">1.2.</span> <span class="nav-text">导热问题数值求解基本步骤</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%86%85%E8%8A%82%E7%82%B9%E7%A6%BB%E6%95%A3%E6%96%B9%E7%A8%8B%E7%9A%84%E5%BB%BA%E7%AB%8B%E6%96%B9%E6%B3%95"><span class="nav-number">2.</span> <span class="nav-text">内节点离散方程的建立方法</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#%E6%B3%B0%E5%8B%92%E7%BA%A7%E6%95%B0%E5%B1%95%E5%BC%80%E6%B3%95"><span class="nav-number">2.1.</span> <span class="nav-text">泰勒级数展开法</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E7%83%AD%E5%B9%B3%E8%A1%A1%E6%B3%95"><span class="nav-number">2.2.</span> <span class="nav-text">热平衡法</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E8%BE%B9%E7%95%8C%E8%8A%82%E7%82%B9%E7%A6%BB%E6%95%A3%E6%96%B9%E7%A8%8B%E7%9A%84%E5%BB%BA%E7%AB%8B%E5%8F%8A%E4%BB%A3%E6%95%B0%E6%96%B9%E7%A8%8B%E7%9A%84%E6%B1%82%E8%A7%A3"><span class="nav-number">3.</span> <span class="nav-text">边界节点离散方程的建立及代数方程的求解</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#%E8%BE%B9%E7%95%8C%E8%8A%82%E7%82%B9%E7%A6%BB%E6%95%A3%E6%96%B9%E7%A8%8B%E7%9A%84%E5%BB%BA%E7%AB%8B"><span class="nav-number">3.1.</span> <span class="nav-text">边界节点离散方程的建立</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E9%9D%9E%E7%A8%B3%E6%80%81%E5%AF%BC%E7%83%AD%E9%97%AE%E9%A2%98%E7%9A%84%E6%95%B0%E5%80%BC%E6%B1%82%E8%A7%A3"><span class="nav-number">4.</span> <span class="nav-text">非稳态导热问题的数值求解</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%B0%8F%E7%BB%93"><span class="nav-number">5.</span> <span class="nav-text">小结</span></a></li></ol></div>
+            <div class="post-toc animated"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%AF%BC%E7%83%AD%E9%97%AE%E9%A2%98%E6%95%B0%E5%80%BC%E6%B1%82%E8%A7%A3%E7%9A%84%E5%9F%BA%E6%9C%AC%E6%80%9D%E6%83%B3"><span class="nav-number">1.</span> <span class="nav-text">导热问题数值求解的基本思想</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#%E5%AF%BC%E7%83%AD%E9%97%AE%E9%A2%98%E6%95%B0%E5%80%BC%E6%B1%82%E8%A7%A3%E5%9F%BA%E6%9C%AC%E6%AD%A5%E9%AA%A4"><span class="nav-number">1.1.</span> <span class="nav-text">导热问题数值求解基本步骤</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%86%85%E8%8A%82%E7%82%B9%E7%A6%BB%E6%95%A3%E6%96%B9%E7%A8%8B%E7%9A%84%E5%BB%BA%E7%AB%8B%E6%96%B9%E6%B3%95"><span class="nav-number">2.</span> <span class="nav-text">内节点离散方程的建立方法</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#%E6%B3%B0%E5%8B%92%E7%BA%A7%E6%95%B0%E5%B1%95%E5%BC%80%E6%B3%95"><span class="nav-number">2.1.</span> <span class="nav-text">泰勒级数展开法</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E7%83%AD%E5%B9%B3%E8%A1%A1%E6%B3%95"><span class="nav-number">2.2.</span> <span class="nav-text">热平衡法</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E8%BE%B9%E7%95%8C%E8%8A%82%E7%82%B9%E7%A6%BB%E6%95%A3%E6%96%B9%E7%A8%8B%E7%9A%84%E5%BB%BA%E7%AB%8B%E5%8F%8A%E4%BB%A3%E6%95%B0%E6%96%B9%E7%A8%8B%E7%9A%84%E6%B1%82%E8%A7%A3"><span class="nav-number">3.</span> <span class="nav-text">边界节点离散方程的建立及代数方程的求解</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#%E8%BE%B9%E7%95%8C%E8%8A%82%E7%82%B9%E7%A6%BB%E6%95%A3%E6%96%B9%E7%A8%8B%E7%9A%84%E5%BB%BA%E7%AB%8B"><span class="nav-number">3.1.</span> <span class="nav-text">边界节点离散方程的建立</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E5%A4%84%E7%90%86%E4%B8%8D%E8%A7%84%E5%88%99%E5%8C%BA%E5%9F%9F%E7%9A%84%E9%98%B6%E6%A2%AF%E5%9E%8B%E9%80%BC%E8%BF%91%E6%B3%95"><span class="nav-number">3.2.</span> <span class="nav-text">处理不规则区域的阶梯型逼近法</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E6%B1%82%E8%A7%A3%E4%BB%A3%E6%95%B0%E6%96%B9%E7%A8%8B%E7%9A%84%E8%BF%AD%E4%BB%A3%E6%B3%95"><span class="nav-number">3.3.</span> <span class="nav-text">求解代数方程的迭代法</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E9%9D%9E%E7%A8%B3%E6%80%81%E5%AF%BC%E7%83%AD%E9%97%AE%E9%A2%98%E7%9A%84%E6%95%B0%E5%80%BC%E6%B1%82%E8%A7%A3"><span class="nav-number">4.</span> <span class="nav-text">非稳态导热问题的数值求解</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#%E6%97%B6%E9%97%B4%E7%A9%BA%E9%97%B4%E5%8C%BA%E5%9F%9F%E7%9A%84%E7%A6%BB%E6%95%A3%E5%8C%96"><span class="nav-number">4.1.</span> <span class="nav-text">时间—空间区域的离散化</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%B0%8F%E7%BB%93"><span class="nav-number">5.</span> <span class="nav-text">小结</span></a></li></ol></div>
         </div>
         <!--/noindex-->
 
@@ -251,14 +251,12 @@
     
     <div class="post-body" itemprop="articleBody">
         <blockquote>
-<p>本文参考杨世铭、陶文铨所著《传热学》第四版第四章</p>
+<p>本文参考杨世铭、陶文铨所著《传热学》第四版第四章。传热问题基本思想是将原来在时间、空间坐标系中连续的物理量场，用有限个离散点上的值的集合来代替，通过求解按一定方法建立起来的关于这些值的代数方程，来获得离散点上被求物理量的值。这些离散点上被求物理量值集合称为该物理量的数值解。</p>
 </blockquote>
 <span id="more"></span>
 <h2 id="导热问题数值求解的基本思想">导热问题数值求解的基本思想</h2>
-<h3 id="基本思想">基本思想</h3>
-<p>将原来在时间、空间坐标系中连续的物理量场，用有限个离散点上的值的集合来代替，通过求解按一定方法建立起来的关于这些值的代数方程，来获得离散点上被求物理量的值。这些离散点上被求物理量值集合称为该物理量的数值解。如下左图所示</p>
-<p><img src="https://raw.githubusercontent.com/NChilton/Picture/main/img/202205292330812.png" alt="数值求解" style="zoom:50%;" /></p>
 <h3 id="导热问题数值求解基本步骤">导热问题数值求解基本步骤</h3>
+<p><img src="https://raw.githubusercontent.com/NChilton/Picture/main/img/202205292330812.png" alt="数值求解" style="zoom:50%;" /></p>
 <p>右上图所示的二维矩形域内稳态、无内热源、常物性的导热问题为例</p>
 <ol type="1">
 <li>建立控制方程及定解条件</li>
@@ -389,7 +387,127 @@ class="math inline">\(~\eqref{eq7}\)</span>。</p>
 id="边界节点离散方程的建立及代数方程的求解">边界节点离散方程的建立及代数方程的求解</h2>
 <h3 id="边界节点离散方程的建立">边界节点离散方程的建立</h3>
 <p>对于第一类边界条件的导热问题，所有内节点的离散方程组成了一个封闭的代数方程组，可以立即进行求解。对于含有第二类或第三类边界条件的导热问题，由内节点的离散方程组成的方程组不封闭，因为包含了未知的边界温度，因此需要补充这类边界节点上的代数方程。这也是数值计算中边界处理问题。</p>
+<p>在下面的讨论中，先把第二类边界条件及第三类边界条件合并起来考虑，并以<span
+class="math inline">\(~q_\text{w}~\)</span>代表边界上已知的热流密度值或热流密度表达式（以热量进人计算区域为正），用热平衡方法导出三类典型边界节点的离散方程，然后针对<span
+class="math inline">\(~q_\text{w}~\)</span>的一种不同情况使导得的离散方程进一步具体化。为使结果更具一般性，假设物体具有内热源<span
+class="math inline">\(~\dot{\Phi}\)</span>（不必均布）。</p>
+<ol type="1">
+<li>位于平直边界上的节点</li>
+</ol>
+<p>边界节点<span
+class="math inline">\(~(m,n)~\)</span>代表半个元体，如下图所示。设边界上有向该元体传递的热流密度<span
+class="math inline">\(~q_\text{w}\)</span>，于是该元体的能量守恒定律可表示为</p>
+<p><img
+src="https://raw.githubusercontent.com/NChilton/Picture/main/img/202206301037050.png"
+alt="平直边界上的节点" /> <span class="math display">\[
+\begin{aligned}
+&amp;\lambda \frac{T_{m-1,n}-T_{m,n}}{\Delta x}\Delta y +
+\lambda \frac{T_{m,n+1}-T_{m,n}}{\Delta y}\frac{\Delta x}{2} + \\
+&amp;\lambda \frac{T_{m,n-1}-T_{m,n}}{\Delta y}\frac{\Delta x}{2} +
+\frac{\Delta x \Delta y}{2}\dot{\Phi}_{m,n}+\Delta y q_\text{w} = 0.
+\end{aligned}
+\]</span> 当<span class="math inline">\(~\Delta x = \Delta
+y~\)</span>时有 <span class="math display">\[
+T_{m,n} = \frac{1}{4}\left(2T_{m-1,n}+T_{m+1,n}+T_{m,n-1}+\frac{\Delta
+x^2}{\lambda}\dot{\Phi}_{m,n}+\frac{2\Delta x}{\lambda}q_\text{w}
+\right).
+\]</span></p>
+<ol start="2" type="1">
+<li>外部角点</li>
+</ol>
+<p>在如下图所示的二维墙角计算区域中，节点 <em>A</em> ~ <em>E</em>
+均为外部角点，其特点是每个节点仅代表四分之一个以<span
+class="math inline">\(~\Delta x\)</span>、<span
+class="math inline">\(\Delta y~\)</span>为边长的元体。今以外部角点
+<em>D</em> 为例，假设其边界上有向该元体传递的热流密度<span
+class="math inline">\(~q_\text{w}\)</span>，则其热平衡式为</p>
+<p><img
+src="https://raw.githubusercontent.com/NChilton/Picture/main/img/202206301045642.png"
+alt="外部角点与内部角点" /> <span class="math display">\[
+\begin{aligned}
+&amp;\lambda \frac{T_{m-1,n}-T_{m,n}}{\Delta x}\frac{\Delta y}{2} +
+\lambda \frac{T_{m,n-1}-T_{m,n}}{\Delta y}\frac{\Delta x}{2} + \\
+&amp;
+\frac{\Delta x \Delta y}{4}\dot{\Phi}_{m,n}+\frac{\Delta x+\Delta y}{2}
+q_\text{w} = 0.
+\end{aligned}
+\]</span> 当<span class="math inline">\(~\Delta x = \Delta
+y~\)</span>时有 <span class="math display">\[
+T_{m,n} = \frac{1}{2}\left(T_{m-1,n}+T_{m,n-1}+\frac{\Delta
+x^2}{2\lambda}\dot{\Phi}_{m,n}+\frac{2\Delta x}{\lambda}q_\text{w}
+\right).
+\]</span></p>
+<ol start="3" type="1">
+<li>内部角点</li>
+</ol>
+<p>如上图的 <em>F</em>
+为内部角点，代表四分之三个元体。在同样的假设条件下有 <span
+class="math display">\[
+\begin{aligned}
+&amp;\lambda \frac{T_{m-1,n}-T_{m,n}}{\Delta x}\Delta y +
+\lambda \frac{T_{m,n+1}-T_{m,n}}{\Delta y}\Delta x + \lambda
+\frac{T_{m,n-1}-T_{m,n}}{\Delta y}\frac{\Delta x}{2}+ \\
+&amp;\lambda \frac{T_{m+1,n}-T_{m,n}}{\Delta x}\frac{\Delta
+y}{2}+\frac{3\Delta x \Delta y}{4}\dot{\Phi}_{m,n}+\frac{\Delta x+\Delta
+y}{2} q_\text{w} = 0.
+\end{aligned}
+\]</span> 当<span class="math inline">\(~\Delta x = \Delta
+y~\)</span>时有 <span class="math display">\[
+T_{m,n} =
+\frac{1}{6}\left(2T_{m-1,n}+2T_{m,n+1}+T_{m,n-1}+T_{m+1,n}+\frac{3\Delta
+x^2}{2\lambda}\dot{\Phi}_{m,n}+\frac{2\Delta x}{\lambda}q_\text{w}
+\right).
+\]</span> 边界热流密度的三种情况</p>
+<ol type="1">
+<li>绝热边界</li>
+</ol>
+<p>令<span class="math inline">\(~q_\text{w}=0~\)</span>即可。</p>
+<ol start="2" type="1">
+<li><span class="math inline">\(q_\text{w}~\)</span>值不为零</li>
+</ol>
+<p>以给定<span
+class="math inline">\(~q_\text{w}~\)</span>值代入上述方程，但要注意上述三式中以传入计算区域的热量为正。</p>
+<ol start="3" type="1">
+<li>对流边界</li>
+</ol>
+<p>此时<span
+class="math inline">\(~q_\text{w}=h(T_\text{f}-T_{m,n})\)</span>，将此式代入上式中。</p>
+<h3 id="处理不规则区域的阶梯型逼近法">处理不规则区域的阶梯型逼近法</h3>
+<p>当计算区域中出现曲线边界或倾斜的边界时，常常用阶梯型的折线来模拟真实边界，然后再用上述方法建立起边界节点的离散方程。例如，要用数值方法确定如下左图所示二维区域的形状因子。显然，根据对称性只要考虑四分之一的计算区域即可。下左图中的内圆边界可以采用下右图所示的阶梯形的折线边界来近似。只要网格取得足够密,这种近似处理方法仍能获得相当准确的结果。</p>
+<figure>
+<img
+src="https://raw.githubusercontent.com/NChilton/Picture/main/img/202206301119904.png"
+alt="不规则区域的的处理" />
+<figcaption aria-hidden="true">不规则区域的的处理</figcaption>
+</figure>
+<h3 id="求解代数方程的迭代法">求解代数方程的迭代法</h3>
+<p>前已指出，代数方程组的求解方法分为直接解法及迭代法两大类。直接解法（direct
+method）是指通过有限次运算获得代数方程精确解的方法，像矩阵求
+逆、高斯消元法等均属于此种方法。这一方法的缺点是计算所需的计算机内存
+较大，当代数方程的数月较多时使用不便。另一类方法称迭代法（iteration
+method）。在迭代法中先对要计算的场作出假设（设定初场），在迭代计算过程中不断予以改进，直到计算前的假定值与计算后的结果相差小于允许值为止，称为迭代计算已经收敛。</p>
+<ol type="1">
+<li>高斯-赛德尔迭代法</li>
+<li>迭代过程是否已经收敛的判据</li>
+</ol>
+<p>迭代是否收敛的常用判据 <span class="math display">\[
+\max\left| T_i^{(k)}- T_i^{(k+1)} \right|\leq\varepsilon, \\
+\max\left| \frac{T_i^{(k)}- T_i^{(k+1)}}{T_i^{(k)}}
+\right|\leq\varepsilon, \\
+\max\left| \frac{T_i^{(k)}- T_i^{(k+1)}}{T_\text{max}^{(k)}}
+\right|\leq\varepsilon.
+\]</span> 其中，上角标<span class="math inline">\(~k~\)</span>及<span
+class="math inline">\(~(k+1)~\)</span>表示迭代次数，<span
+class="math inline">\(T_\text{max}^{(k)}~\)</span>为第<span
+class="math inline">\(~k~\)</span>次迭代计算所得的计算区域中的最大值。一般允许的相对偏差为<span
+class="math inline">\(~\varepsilon=10^{-3}\sim10^{-6}\)</span>。</p>
+<ol start="3" type="1">
+<li>迭代过程能否收敢的判据</li>
+</ol>
+<p>迭代公式的选择应使每一个迭代变量的系数总是大于或等于该式中其他变量系数绝对值之和，此时用迭代法求解代数方程一定收敛。这一条件在数学上称为主对角线占优，简称对角占优（diagonal
+predominant）。</p>
 <h2 id="非稳态导热问题的数值求解">非稳态导热问题的数值求解</h2>
+<h3 id="时间空间区域的离散化">时间—空间区域的离散化</h3>
 <h2 id="小结">小结</h2>
 
     </div>
@@ -400,7 +518,7 @@ id="边界节点离散方程的建立及代数方程的求解">边界节点离�
 
     <footer class="post-footer">
           <div class="post-tags">
-              <a href="/tags/%E4%BC%A0%E7%83%AD%E5%AD%A6/" rel="tag"># 传热学</a>
+              <a href="/tags/%E4%BC%A0%E7%83%AD/" rel="tag"># 传热</a>
               <a href="/tags/%E6%95%B0%E5%80%BC%E8%AE%A1%E7%AE%97/" rel="tag"># 数值计算</a>
               <a href="/tags/%E6%9C%89%E9%99%90%E5%B7%AE%E5%88%86/" rel="tag"># 有限差分</a>
           </div>
@@ -468,7 +586,7 @@ id="边界节点离散方程的建立及代数方程的求解">边界节点离�
 
   
 
-  <script class="next-config" data-name="enableMath" type="application/json">true</script><script class="next-config" data-name="mathjax" type="application/json">{"enable":true,"tags":"all","js":{"url":"https://cdnjs.cloudflare.com/ajax/libs/mathjax/3.2.1/es5/tex-mml-chtml.js","integrity":"sha256-hlC2uSQYTmPsrzGZTEQEg9PZ1a/+SV6VBCTclohf2og="}}</script>
+  <script class="next-config" data-name="enableMath" type="application/json">true</script><script class="next-config" data-name="mathjax" type="application/json">{"enable":true,"tags":"none","js":{"url":"https://cdnjs.cloudflare.com/ajax/libs/mathjax/3.2.1/es5/tex-mml-chtml.js","integrity":"sha256-hlC2uSQYTmPsrzGZTEQEg9PZ1a/+SV6VBCTclohf2og="}}</script>
 <script src="/js/third-party/math/mathjax.js"></script>
 
 
